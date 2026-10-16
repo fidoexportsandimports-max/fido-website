@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { ViewTransition } from "react";
 import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import EnquiryTray from "@/components/EnquiryTray";
 import Footer from "@/components/Footer";
 import NavProgress from "@/components/NavProgress";
 import Preloader from "@/components/Preloader";
@@ -26,6 +27,12 @@ const mono = JetBrains_Mono({
 
 const description =
   "FIDO Exports and Imports LLP is an India-based merchant exporter supplying rice, spices, eggs, fruits, onions, garlic, polymers and electrical panels to international buyers. Trust in every shipment.";
+
+export const viewport: Viewport = {
+  themeColor: "#0a1d37",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -111,6 +118,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer />
         <WhatsAppButton />
+        <EnquiryTray />
       </body>
     </html>
   );

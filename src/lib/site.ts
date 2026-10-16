@@ -41,8 +41,16 @@ export const audience = [
   "Manufacturers requiring sourcing support",
 ];
 
+export type Category = "Agriculture & Food" | "Industrial";
+
+export const categories: { id: string; name: Category; blurb: string }[] = [
+  { id: "agriculture", name: "Agriculture & Food", blurb: "Rice, spices, eggs, fruits, banana leaf, onions and garlic" },
+  { id: "industrial", name: "Industrial", blurb: "Polymer products and electrical panels" },
+];
+
 export type Product = {
   slug: string;
+  category: Category;
   name: string;
   short: string;
   image: PhotoKey;
@@ -56,6 +64,7 @@ export type Product = {
 export const products: Product[] = [
   {
     slug: "rice",
+    category: "Agriculture & Food",
     name: "Rice",
     short: "Basmati and non-basmati rice for importers and distributors.",
     image: "rice",
@@ -66,6 +75,7 @@ export const products: Product[] = [
   },
   {
     slug: "indian-spices",
+    category: "Agriculture & Food",
     name: "Indian Spices",
     short: "Red chilli powder, cumin, coriander seed and turmeric.",
     image: "spices",
@@ -76,6 +86,7 @@ export const products: Product[] = [
   },
   {
     slug: "eggs",
+    category: "Agriculture & Food",
     name: "Eggs",
     short: "Eggs for markets where import is permitted.",
     image: "eggs",
@@ -86,6 +97,7 @@ export const products: Product[] = [
   },
   {
     slug: "fruits",
+    category: "Agriculture & Food",
     name: "Fruits",
     short: "Fresh guava, mango and banana.",
     image: "mango",
@@ -97,6 +109,7 @@ export const products: Product[] = [
   },
   {
     slug: "banana-leaf",
+    category: "Agriculture & Food",
     name: "Banana Leaf",
     short: "Banana leaf sourced from Indian growers.",
     image: "banana-leaf",
@@ -107,6 +120,7 @@ export const products: Product[] = [
   },
   {
     slug: "onions",
+    category: "Agriculture & Food",
     name: "Onions",
     short: "Raw onions and onion powder.",
     image: "onions",
@@ -117,6 +131,7 @@ export const products: Product[] = [
   },
   {
     slug: "garlic",
+    category: "Agriculture & Food",
     name: "Garlic",
     short: "Garlic sourced from Indian suppliers.",
     image: "garlic",
@@ -127,6 +142,7 @@ export const products: Product[] = [
   },
   {
     slug: "polymers",
+    category: "Industrial",
     name: "Polymers",
     short: "Pipes, fittings, buckets, dustbins and other utility plastics.",
     image: "polymers",
@@ -145,6 +161,7 @@ export const products: Product[] = [
   },
   {
     slug: "electrical-panels",
+    category: "Industrial",
     name: "Electrical Panels",
     short: "LT and distribution panels from Indian manufacturers.",
     image: "electrical",
@@ -237,4 +254,26 @@ export const faqs: { q: string; a: string }[] = [
   { q: "What is FIDO's business philosophy?", a: "FIDO stands for trust. We believe that transparent communication, responsible business practices and reliable relationships are essential to creating sustainable opportunities in international trade." },
   { q: "How can I discuss a long-term supply arrangement with FIDO?", a: "Importers and distributors interested in recurring orders can submit their product requirements, estimated monthly or annual volumes, specifications and target markets. We can then assess sourcing availability and the feasibility of a longer-term arrangement." },
   { q: "Where is FIDO Exports and Imports LLP based?", a: "FIDO Exports and Imports LLP is an India-based merchant export and international trading company, located in Rajamahendravaram, East Godavari, Andhra Pradesh. Please refer to our Contact Us page for our registered office and official business contact details." },
+];
+
+export function tradeSpecs(p: Product): [string, string][] {
+  const food = p.category === "Agriculture & Food";
+  return [
+    ["Product", p.name],
+    ["Category", p.category],
+    ["Origin", "India"],
+    ["Minimum order", "Confirmed per enquiry"],
+    ["Price", "On quotation"],
+    ["Packaging", food ? "Bulk, food-grade and custom labelling where permitted" : "Per your specification"],
+    ["Samples", "Subject to supplier and destination rules"],
+    ["Payment terms", "Agreed before the order is finalised"],
+    ["Shipping", "Freight and Incoterms agreed per order"],
+  ];
+}
+
+export const trust = [
+  ["Verified suppliers", "Suppliers are checked before we recommend them."],
+  ["Batch-wise quality checks", "Products are checked against agreed specifications."],
+  ["Export documentation", "Paperwork coordinated with brokers and forwarders."],
+  ["Flexible payment terms", "Structured, negotiable terms for repeat trade."],
 ];

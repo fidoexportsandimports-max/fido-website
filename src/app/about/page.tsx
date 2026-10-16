@@ -44,7 +44,7 @@ export default function About() {
             <div className="relative aspect-[5/4] overflow-hidden rounded-2xl">
               <Image src={photos.cranes} alt="Quayside cranes at a container port" fill placeholder="blur" sizes="(min-width: 1024px) 560px, 100vw" className="object-cover object-bottom" />
               <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-lg bg-white px-3.5 py-2 text-sm font-semibold text-ink">
-                <span className="h-1.5 w-1.5 rounded-full bg-gold" /> Merchant exporter · India
+                <span className="h-1.5 w-1.5 rounded-full bg-brand" /> Merchant exporter · India
               </span>
             </div>
           </Reveal>
@@ -61,7 +61,7 @@ export default function About() {
           </Reveal>
           <Reveal delay={120} className="h-full">
             <div className="h-full rounded-2xl bg-deep p-8 text-white md:p-10">
-              <p className="eyebrow !text-goldbright">Our mission</p>
+              <p className="eyebrow !text-brandlight">Our mission</p>
               <ul className="mt-5 space-y-4 text-lg">
                 {mission.map((m) => <li key={m}><Check>{m}</Check></li>)}
               </ul>
@@ -76,8 +76,8 @@ export default function About() {
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {values.map((v, i) => (
               <Reveal key={v.title} delay={(i % 3) * 90} className="h-full">
-                <div className="h-full rounded-2xl border border-line p-7 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-20px_rgba(10,31,24,0.35)]">
-                  <span className="num flex h-10 w-10 items-center justify-center rounded-[10px] bg-cream text-sm text-gold">{String(i + 1).padStart(2, "0")}</span>
+                <div className="h-full rounded-2xl border border-line p-7 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-20px_rgba(10,29,55,0.35)]">
+                  <span className="num flex h-10 w-10 items-center justify-center rounded-[10px] bg-tint text-sm text-brand">{String(i + 1).padStart(2, "0")}</span>
                   <h3 className="mt-5 text-2xl tracking-tight">{v.title}</h3>
                   <p className="mt-2 leading-relaxed text-muted">{v.text}</p>
                 </div>
@@ -87,14 +87,14 @@ export default function About() {
         </div>
       </section>
 
-      <section id="why-choose-us" className="bg-cream py-20 md:py-28">
+      <section id="why-choose-us" className="bg-tint py-20 md:py-28">
         <div className={wrap}>
           <SectionHead eyebrow="Why choose us" title="What you can expect from us." />
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {strengths.map((s, i) => (
               <Reveal key={s.title} delay={(i % 3) * 90} className="h-full">
                 <div className="h-full rounded-2xl border border-line bg-white p-7">
-                  <span className="num flex h-10 w-10 items-center justify-center rounded-[10px] bg-gold text-sm text-white">{i + 1}</span>
+                  <span className="num flex h-10 w-10 items-center justify-center rounded-[10px] bg-brand text-sm text-white">{i + 1}</span>
                   <h3 className="mt-5 text-2xl tracking-tight">{s.title}</h3>
                   <p className="mt-2 leading-relaxed text-muted">{s.text}</p>
                 </div>
@@ -123,14 +123,14 @@ export default function About() {
       <section id="directors-message" className="py-20 md:py-28">
         <div className={wrap}>
           <SectionHead eyebrow="Director's message" title="A message from the Director." />
-          <Reveal className="mt-12 rounded-2xl border border-line bg-white p-7 shadow-[0_24px_60px_-34px_rgba(10,31,24,0.35)] md:p-12">
+          <Reveal className="mt-12 rounded-2xl border border-line bg-white p-7 shadow-[0_24px_60px_-34px_rgba(10,29,55,0.35)] md:p-12">
             <div className="max-w-3xl space-y-5 text-lg leading-[1.8] text-muted">
               <p className="text-2xl font-bold leading-snug tracking-tight text-ink md:text-3xl">At FIDO Exports and Imports LLP, we believe that trust is the foundation of every successful business relationship. Our name, FIDO, reflects the values that guide us: trust, transparency, commitment and long-term partnership.</p>
               {letter.map((t) => <p key={t.slice(0, 24)}>{t}</p>)}
               <p className="font-bold text-ink">Together, let us connect markets, build trust and create opportunities across borders.</p>
             </div>
             <div className="mt-10 flex items-center gap-4 border-t border-line pt-8">
-              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-cream text-base font-bold text-gold">KP</span>
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-tint text-base font-bold text-brand">KP</span>
               <span>
                 <span className="block text-sm text-muted">Warm regards,</span>
                 <span className="block text-lg font-bold">Kireet Pendyala</span>

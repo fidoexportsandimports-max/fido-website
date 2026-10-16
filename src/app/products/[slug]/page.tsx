@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AddToEnquiry from "@/components/AddToEnquiry";
 import Check from "@/components/Check";
 import PageHero from "@/components/PageHero";
 import ProductCard from "@/components/ProductCard";
@@ -10,7 +11,7 @@ import SectionHead from "@/components/SectionHead";
 import Steps from "@/components/Steps";
 import { pageMeta } from "@/lib/meta";
 import { photos } from "@/lib/photos";
-import { arrangeList, products } from "@/lib/site";
+import { arrangeList, products, tradeSpecs } from "@/lib/site";
 
 type Params = Promise<{ slug: string }>;
 
@@ -51,7 +52,7 @@ export default async function ProductPage({ params }: { params: Params }) {
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
                 <Image src={photos[p.image]} alt={p.name} fill placeholder="blur" sizes="(min-width: 1024px) 700px, 100vw" className="object-cover" />
                 <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-lg bg-white px-3.5 py-2 text-sm font-semibold text-ink">
-                  <span className="h-1.5 w-1.5 rounded-full bg-gold" /> {p.name}
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand" /> {p.name}
                 </span>
               </div>
             </Reveal>
@@ -82,16 +83,32 @@ export default async function ProductPage({ params }: { params: Params }) {
                   </ul>
                 </Reveal>
               )}
-              <Reveal className="mt-8 rounded-2xl bg-cream p-5 text-[15px] leading-relaxed text-muted">
+              <Reveal className="mt-8 rounded-2xl bg-tint p-5 text-[15px] leading-relaxed text-muted">
                 <strong className="block text-ink">Good to know</strong>
                 {p.note}
               </Reveal>
               <Reveal className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href="/contact" className="btn btn-gold">Request a quotation <span className="arrow">→</span></Link>
-                <Link href="/products" className="btn btn-dark">All products</Link>
+                <Link href="/contact" className="btn btn-brand">Request a quotation <span className="arrow">→</span></Link>
+                <AddToEnquiry slug={p.slug} className="!h-[52px] !px-6 !text-[15px]" />
               </Reveal>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="bg-white pb-20 md:pb-28">
+        <div className={wrap}>
+          <SectionHead eyebrow="Trade details" title="Product specifications at a glance." />
+          <Reveal className="mt-10 overflow-hidden rounded-2xl border border-line">
+            <dl className="divide-y divide-line">
+              {tradeSpecs(p).map(([k, v], i) => (
+                <div key={k} className={`grid gap-1 px-5 py-4 sm:grid-cols-3 sm:gap-6 md:px-7 ${i % 2 ? "bg-mint/60" : "bg-white"}`}>
+                  <dt className="font-semibold text-muted">{k}</dt>
+                  <dd className="font-semibold sm:col-span-2">{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
         </div>
       </section>
 
@@ -117,7 +134,7 @@ export default async function ProductPage({ params }: { params: Params }) {
         </div>
       </section>
 
-      <section className="bg-cream py-20 md:py-28">
+      <section className="bg-tint py-20 md:py-28">
         <div className={wrap}>
           <SectionHead eyebrow="More products" title="You may also need." />
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

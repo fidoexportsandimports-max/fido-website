@@ -46,7 +46,7 @@ export default function NavProgress() {
 
   return (
     <div className="pointer-events-none fixed inset-x-0 top-0 z-[90] h-[3px]" aria-hidden="true">
-      <div ref={bar} className="h-full w-0 bg-gold opacity-0" />
+      <div ref={bar} className="h-full w-0 bg-brand opacity-0" />
     </div>
   );
 }

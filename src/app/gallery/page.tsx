@@ -41,7 +41,7 @@ export default function Gallery() {
               <figure className="group relative overflow-hidden rounded-2xl">
                 <Image src={photos[s.key]} alt={s.caption} placeholder="blur" sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" className="h-auto w-full transition duration-700 group-hover:scale-105" />
                 <figcaption className="absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-lg bg-white px-3 py-1.5 text-sm font-semibold text-ink">
-                  <span className="h-1.5 w-1.5 rounded-full bg-gold" /> {s.caption}
+                  <span className="h-1.5 w-1.5 rounded-full bg-brand" /> {s.caption}
                 </figcaption>
               </figure>
             </Reveal>

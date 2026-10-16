@@ -2,23 +2,23 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #0a1f18;
+  --foreground: #0a1d37;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-ink: #0a1f18;
-  --color-inksoft: #1c3d2e;
-  --color-deep: #05140f;
-  --color-mint: #f3f8f5;
-  --color-cream: #fef9ec;
-  --color-line: #d6e8dd;
-  --color-gold: #c78b18;
-  --color-goldhover: #b27a12;
-  --color-goldbright: #f2c94c;
-  --color-goldink: #a47014;
-  --color-muted: #5c7a6a;
+  --color-ink: #0a1d37;
+  --color-inksoft: #17304f;
+  --color-deep: #061326;
+  --color-mint: #f2f7f4;
+  --color-tint: #e9f4e4;
+  --color-line: #d9e5e0;
+  --color-brand: #3f8a34;
+  --color-brandhover: #347429;
+  --color-brandlight: #8fd16f;
+  --color-brandink: #2f6b27;
+  --color-muted: #5b6b7f;
   --font-sans: var(--font-jakarta);
   --font-mono: var(--font-mono-num);
 }
@@ -40,12 +40,12 @@ h1, h2, h3 {
   text-wrap: balance;
 }
 
-::selection { background: #c78b18; color: #fff; }
+::selection { background: #3f8a34; color: #fff; }
 
-/* Eyebrow: gold dot + bold gold label */
+/* Eyebrow: brand dot + bold brand label */
 .eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
-  font-size: 13px; font-weight: 700; color: #c78b18;
+  font-size: 13px; font-weight: 700; color: #3f8a34;
 }
 .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 9999px; background: currentColor; }
 
@@ -59,29 +59,29 @@ h1, h2, h3 {
 .btn:hover { transform: translateY(-1px); }
 .btn .arrow { transition: transform .25s; }
 .btn:hover .arrow { transform: translateX(4px); }
-.btn-gold { background: #c78b18; color: #fff; }
-.btn-gold:hover { background: #b27a12; box-shadow: 0 8px 24px -8px rgba(199,139,24,.6); }
-.btn-white { background: #fff; color: #0a1f18; }
-.btn-white:hover { background: #f3f8f5; }
+.btn-brand { background: #3f8a34; color: #fff; }
+.btn-brand:hover { background: #347429; box-shadow: 0 8px 24px -8px rgba(63,138,52,.6); }
+.btn-white { background: #fff; color: #0a1d37; }
+.btn-white:hover { background: #f2f7f4; }
 .btn-outline { border-color: rgba(255,255,255,.45); color: #fff; }
 .btn-outline:hover { background: rgba(255,255,255,.12); }
-.btn-dark { background: #0a1f18; color: #fff; }
-.btn-dark:hover { background: #1c3d2e; }
+.btn-dark { background: #0a1d37; color: #fff; }
+.btn-dark:hover { background: #17304f; }
 
-.tlink { font-size: 15px; font-weight: 700; color: #c78b18; }
+.tlink { font-size: 15px; font-weight: 700; color: #3f8a34; }
 .tlink .arrow { display: inline-block; transition: transform .25s; }
 .tlink:hover .arrow { transform: translateX(4px); }
 
 .pill {
-  display: inline-flex; align-items: center; gap: 10px; border: 1px solid #d6e8dd; background: #fff;
-  border-radius: 9999px; padding: 10px 18px; font-size: 15px; font-weight: 500; color: #0a1f18;
+  display: inline-flex; align-items: center; gap: 10px; border: 1px solid #d9e5e0; background: #fff;
+  border-radius: 9999px; padding: 10px 18px; font-size: 15px; font-weight: 500; color: #0a1d37;
   transition: border-color .25s, transform .25s;
 }
-.pill::before { content: ""; width: 6px; height: 6px; border-radius: 9999px; background: #c78b18; }
-.pill:hover { border-color: #c78b18; transform: translateY(-2px); }
+.pill::before { content: ""; width: 6px; height: 6px; border-radius: 9999px; background: #3f8a34; }
+.pill:hover { border-color: #3f8a34; transform: translateY(-2px); }
 
 .tag {
-  display: inline-block; border: 1px solid #d6e8dd; background: #eef6f1; color: #1c3d2e;
+  display: inline-block; border: 1px solid #d9e5e0; background: #edf5f0; color: #17304f;
   border-radius: 9999px; padding: 4px 12px; font-size: 12.5px; font-weight: 500;
 }
 
@@ -117,7 +117,7 @@ html:not([data-seen]) .rise { animation-delay: calc(var(--d, 0ms) + 1200ms); }
 /* Loaders */
 .preloader {
   position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 28px; background: #0a1f18;
+  align-items: center; justify-content: center; gap: 28px; background: #0a1d37;
   transition: opacity 600ms ease, visibility 600ms;
 }
 .preloader.done { opacity: 0; visibility: hidden; }
@@ -126,13 +126,13 @@ html[data-seen] .preloader { display: none; }
 @keyframes pulse-logo { 50% { transform: scale(1.05); } }
 .preloader-bar { width: 140px; height: 3px; border-radius: 9999px; background: rgba(255,255,255,.15); overflow: hidden; }
 .preloader-bar::after {
-  content: ""; display: block; height: 100%; background: #c78b18; border-radius: 9999px;
+  content: ""; display: block; height: 100%; background: #3f8a34; border-radius: 9999px;
   transform: translateX(-100%); animation: load 1200ms cubic-bezier(.5,0,.2,1) forwards;
 }
 @keyframes load { to { transform: none; } }
 
 .skeleton {
-  background: linear-gradient(90deg, #e6f0ea 25%, #f3f8f5 50%, #e6f0ea 75%);
+  background: linear-gradient(90deg, #e4ece8 25%, #f2f7f4 50%, #e4ece8 75%);
   background-size: 200% 100%; animation: shimmer 1.4s infinite linear;
 }
 @keyframes shimmer { to { background-position: -200% 0; } }
