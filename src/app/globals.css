@@ -24,3 +24,38 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
+
+/* Page transitions (React <ViewTransition>) */
+::view-transition-old(.page-fade) {
+  animation: page-out 180ms ease-in both;
+}
+::view-transition-new(.page-fade) {
+  animation: page-in 320ms ease-out 80ms both;
+}
+@keyframes page-out {
+  to { opacity: 0; transform: translateY(-6px); }
+}
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(10px); }
+}
+
+/* Fallback entrance for browsers without view transitions */
+main > * {
+  animation: page-in 400ms ease-out both;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e6eee3 25%, #f4f8f2 50%, #e6eee3 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+@keyframes shimmer {
+  to { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::view-transition-old(*), ::view-transition-new(*) {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+  }
+}
