@@ -10,7 +10,7 @@ export default function Certifications() {
       <PageHero title="Membership & Certifications" subtitle="Government registrations and trade body memberships." />
       <div className="mx-auto grid max-w-6xl gap-4 px-4 pt-14 sm:grid-cols-2 lg:grid-cols-3">
         {certifications.map((c) => (
-          <div key={c.name} className="rounded-xl border border-navy/10 p-6">
+          <div key={c.name} className="rounded-2xl border border-navy/10 p-6">
             <h2 className="text-lg font-bold text-leaf">{c.name}</h2>
             <p className="mt-1 text-sm text-foreground/70">{c.full}</p>
           </div>

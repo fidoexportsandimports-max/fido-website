@@ -11,8 +11,8 @@
   --color-navy: #0f1f3d;
   --color-leaf: #3f7d32;
   --color-mist: #f1f6ef;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: #f26b3a;
+  --font-sans: var(--font-jakarta);
 }
 
 html {
@@ -22,7 +22,8 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-jakarta), Arial, Helvetica, sans-serif;
+  letter-spacing: -0.005em;
 }
 
 /* Page transitions (React <ViewTransition>) */
@@ -59,3 +60,10 @@ main > * {
     animation-delay: 0ms !important;
   }
 }
+
+h1, h2, h3 { letter-spacing: -0.025em; }
+
+@keyframes float {
+  50% { transform: translateY(-10px); }
+}
+.float { animation: float 5s ease-in-out infinite; }

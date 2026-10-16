@@ -21,7 +21,7 @@ export default function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-5 text-sm font-medium text-navy lg:flex">
+        <nav className="hidden items-center gap-5 text-sm font-semibold text-navy lg:flex">
           {nav.slice(0, -1).map((n) => (
             <Link key={n.href} href={n.href} className="hover:text-leaf">
               {n.label}
@@ -29,7 +29,7 @@ export default function Header() {
           ))}
           <Link
             href="/contact"
-            className="rounded-md bg-navy px-4 py-2 text-white hover:bg-leaf"
+            className="rounded-full bg-accent px-5 py-2.5 font-semibold text-white shadow-sm transition hover:brightness-110"
           >
             Send Enquiry
           </Link>

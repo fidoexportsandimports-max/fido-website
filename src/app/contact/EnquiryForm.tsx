@@ -30,7 +30,7 @@ export default function EnquiryForm() {
       <label className="block text-sm font-medium text-navy">Message *
         <textarea name="message" rows={5} required className={input} placeholder="Product, specifications, quantity, destination country, packaging, delivery terms…" />
       </label>
-      <button disabled={pending} className="rounded-md bg-navy px-6 py-3 font-semibold text-white hover:bg-leaf disabled:opacity-60">
+      <button disabled={pending} className="rounded-full bg-accent px-7 py-3 font-semibold text-white hover:brightness-110 disabled:opacity-60">
         {pending ? "Sending…" : "Send Enquiry"}
       </button>
       {state.message && (

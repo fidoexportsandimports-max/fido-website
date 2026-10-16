@@ -17,11 +17,11 @@ export default function About() {
         </section>
 
         <section className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-xl bg-mist p-6">
+          <div className="rounded-2xl bg-mist p-6">
             <h2 className="text-xl font-bold text-navy">Our Vision</h2>
             <p className="mt-3 text-foreground/80">To establish FIDO Exports and Imports LLP as a trusted Indian trading partner in international markets by building long-term relationships with buyers, suppliers and business associates.</p>
           </div>
-          <div className="rounded-xl bg-mist p-6">
+          <div className="rounded-2xl bg-mist p-6">
             <h2 className="text-xl font-bold text-navy">Our Mission</h2>
             <ul className="mt-3 list-disc space-y-1 pl-5 text-foreground/80">
               {mission.map((m) => <li key={m}>{m}</li>)}

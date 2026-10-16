@@ -15,7 +15,7 @@ export default function Products() {
       <div className="mx-auto max-w-6xl px-4 pt-14">
         <div className="grid gap-6 md:grid-cols-2">
           {products.map((p) => (
-            <article key={p.name} className="rounded-xl border border-navy/10 p-6">
+            <article key={p.name} className="rounded-2xl border border-navy/10 p-6">
               <h2 className="text-xl font-bold text-navy">{p.name}</h2>
               {p.items.length > 0 ? (
                 <ul className="mt-4 grid gap-2 text-sm text-foreground/80 sm:grid-cols-2">
