@@ -1,128 +1,198 @@
 import Image from "next/image";
 import Link from "next/link";
-import { audience, products, steps } from "@/lib/site";
+import CountUp from "@/components/CountUp";
+import ImageReveal from "@/components/ImageReveal";
+import Parallax from "@/components/Parallax";
+import ProductCard from "@/components/ProductCard";
+import Reveal from "@/components/Reveal";
+import SectionHead from "@/components/SectionHead";
+import Steps from "@/components/Steps";
+import { photos } from "@/lib/photos";
+import { audience, products, strengths } from "@/lib/site";
+
+const supplierPoints = [
+  "Company profile and product catalogue",
+  "Supply capacity and commercial terms",
+  "Applicable registrations and valid certifications",
+  "Verification before onboarding",
+];
+
+const d = (n: number) => ({ "--d": `${n}ms` }) as React.CSSProperties;
+const wrap = "mx-auto max-w-7xl px-6 md:px-10";
 
 export default function Home() {
+  const marquee = [...products, ...products];
   return (
     <>
-      <section className="mx-auto max-w-6xl px-4 pt-6">
-        <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-navy via-[#14304a] to-[#1d5a37] px-8 py-14 text-white md:px-14 md:py-20">
-          <div className="pointer-events-none absolute -right-20 top-10 h-96 w-96 rounded-full bg-leaf/40 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-32 left-1/4 h-80 w-80 rounded-full bg-accent/25 blur-3xl" />
-          <div className="relative grid items-center gap-12 md:grid-cols-2">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest">Merchant Exporter · B2B Trading</p>
-              <span className="mt-2 block h-0.5 w-10 bg-accent" />
-              <h1 className="mt-6 text-4xl font-extrabold leading-[1.1] md:text-6xl">
-                Trust in Every <span className="text-accent">Shipment</span>
-              </h1>
-              <p className="mt-5 max-w-xl text-lg text-white/75">
-                FIDO stands for trust. We connect Indian manufacturers, producers and
-                suppliers with international buyers through transparent communication
-                and dependable export coordination.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link href="/contact" className="rounded-full bg-accent px-7 py-3.5 font-semibold text-white shadow-lg transition hover:brightness-110">
-                  Request a Quotation
-                </Link>
-                <Link href="/products" className="rounded-full bg-white px-7 py-3.5 font-semibold text-navy transition hover:bg-mist">
-                  View Products →
-                </Link>
-              </div>
-              <dl className="mt-12 grid grid-cols-3 divide-x divide-white/20">
-                {[
-                  ["9", "Product categories"],
-                  ["6", "Step export process"],
-                  ["3", "Target regions"],
-                ].map(([n, l]) => (
-                  <div key={l} className="px-4 first:pl-0">
-                    <dt className="text-3xl font-extrabold md:text-4xl">{n}<span className="text-accent">+</span></dt>
-                    <dd className="mt-1 text-xs text-white/65 md:text-sm">{l}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-            <div className="relative flex justify-center">
-              <Image
-                src="/images/logo.jpg"
-                alt="FIDO Exports and Imports – Trust in Every Shipment"
-                width={380}
-                height={380}
-                priority
-                className="float rounded-full bg-white p-3 shadow-2xl"
-              />
-              <div className="absolute -bottom-6 left-0 rounded-2xl border border-white/25 bg-white/10 px-5 py-4 backdrop-blur-md md:-left-6">
-                <p className="text-sm font-bold">Destinations</p>
-                <p className="mt-1 text-xs text-white/75">South Asia · Southeast Asia · Middle East</p>
-              </div>
-              <span className="float absolute right-0 top-4 rounded-xl bg-white/15 px-3 py-2 text-xs font-semibold backdrop-blur-md">Rice &amp; Spices</span>
-              <span className="float absolute right-6 top-1/2 rounded-xl bg-white/15 px-3 py-2 text-xs font-semibold backdrop-blur-md [animation-delay:1.5s]">Electrical Panels</span>
+      {/* Hero */}
+      <section className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-ink text-ivory">
+        <Image src={photos["hero-port"]} alt="Container ship alongside a terminal, seen from above" fill priority placeholder="blur" sizes="100vw" className="kenburns -z-10 object-cover" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/45 to-ink/40" />
+        <div className={`${wrap} w-full pt-40`}>
+          <p className="eyebrow rise text-gold" style={d(0)}>Merchant exporter · India</p>
+          <h1 className="mt-7 max-w-5xl text-[3.4rem] sm:text-7xl md:text-[8.5rem]">
+            <span className="mask"><span style={d(100)}>Trust in every</span></span>
+            <span className="mask"><span style={d(260)}><em className="text-gold">shipment.</em></span></span>
+          </h1>
+          <div className="mt-10 flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+            <p className="rise max-w-md text-base leading-relaxed text-ivory/75 md:text-lg" style={d(600)}>
+              We connect Indian manufacturers, producers and suppliers with buyers around the world, and look after the sourcing, paperwork and shipping in between.
+            </p>
+            <div className="rise flex flex-col gap-3 sm:flex-row" style={d(750)}>
+              <Link href="/contact" className="btn btn-gold">Request a quotation <span className="arrow">→</span></Link>
+              <Link href="/products" className="btn btn-line">Our products</Link>
             </div>
           </div>
         </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pt-16">
-        <h2 className="text-3xl font-extrabold text-navy md:text-4xl">What we <span className="text-leaf">export</span></h2>
-        <p className="mt-2 text-foreground/70">
-          Agricultural commodities, food products, polymers and electrical equipment
-          sourced from vetted Indian suppliers.
-        </p>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((p) => (
-            <Link
-              key={p.name}
-              href="/products"
-              className="rounded-2xl border border-navy/10 bg-mist p-6 transition hover:-translate-y-1 hover:border-leaf hover:shadow-lg"
-            >
-              <h3 className="font-semibold text-navy">{p.name}</h3>
-              <p className="mt-1 text-sm text-foreground/65">
-                {p.items.length ? p.items.slice(0, 3).join(", ") + (p.items.length > 3 ? "…" : "") : "Available on request"}
-              </p>
-            </Link>
-          ))}
+        <div className={`${wrap} mt-14 w-full`}>
+          <dl className="rise grid grid-cols-3 border-t border-ivory/20 py-7" style={d(900)}>
+            {[
+              [9, "Product categories"],
+              [6, "Steps to delivery"],
+              [3, "Target regions"],
+            ].map(([n, l]) => (
+              <div key={String(l)} className="pr-4">
+                <dt className="serif text-4xl text-ivory md:text-6xl"><CountUp to={n as number} /></dt>
+                <dd className="mt-1 text-[10px] font-medium uppercase tracking-[0.22em] text-ivory/60 md:text-[11px]">{l}</dd>
+              </div>
+            ))}
+            <div className="hidden items-end justify-end md:flex" aria-hidden="true">
+              <span className="relative block h-14 w-px overflow-hidden bg-ivory/20"><span className="scrollcue absolute inset-0 bg-gold" /></span>
+            </div>
+          </dl>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pt-20">
-        <h2 className="text-3xl font-extrabold text-navy md:text-4xl">How it <span className="text-leaf">works</span></h2>
-        <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {steps.map((s, i) => (
-            <li key={s} className="flex items-start gap-4 rounded-2xl border border-navy/10 p-5">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-navy font-bold text-white">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="pt-2 font-medium text-navy">{s}</span>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pt-20">
-        <h2 className="text-3xl font-extrabold text-navy md:text-4xl">Who we <span className="text-leaf">serve</span></h2>
-        <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-          {audience.map((a) => (
-            <li key={a} className="flex items-center gap-3 text-foreground/80">
-              <span className="h-2 w-2 rounded-full bg-leaf" />
-              {a}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mx-auto mt-20 max-w-6xl px-4">
-        <div className="rounded-[2rem] bg-gradient-to-br from-navy to-[#1d5a37] px-8 py-14 text-center text-white">
-          <h2 className="text-2xl font-bold md:text-3xl">Looking for a reliable Indian sourcing partner?</h2>
-          <p className="mx-auto mt-3 max-w-xl text-white/75">
-            Share your product, quantity and destination and we will come back with the next steps.
+      {/* Statement */}
+      <section className={`${wrap} pt-28 md:pt-44`}>
+        <Reveal className="mx-auto max-w-5xl text-center">
+          <p className="eyebrow justify-center text-golddeep">About FIDO</p>
+          <p className="serif mt-8 text-3xl leading-[1.25] md:text-6xl md:leading-[1.15]">
+            An Indian trading house built on one idea: that honest communication and dependable delivery are the whole business.
           </p>
-          <Link
-            href="/contact"
-            className="mt-6 inline-block rounded-full bg-accent px-7 py-3.5 font-semibold shadow-lg transition hover:brightness-110"
-          >
-            Send Us Your Requirement
-          </Link>
+          <Link href="/about" className="tlink mt-10 text-ink">Our story</Link>
+        </Reveal>
+      </section>
+
+      {/* Marquee */}
+      <div className="marquee mt-24 overflow-hidden border-y border-line py-7 md:mt-36">
+        <div className="marquee-track serif flex gap-14 whitespace-nowrap text-4xl text-ink/80 md:text-6xl">
+          {marquee.map((p, i) => (
+            <span key={i} className="flex items-center gap-14">
+              {p.name}
+              <span className="text-2xl text-gold">◆</span>
+            </span>
+          ))}
         </div>
+      </div>
+
+      {/* Collection */}
+      <section className={`${wrap} pt-28 md:pt-44`}>
+        <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <SectionHead eyebrow="The collection" title="What we export" />
+          <Reveal><Link href="/products" className="tlink text-ink">Full catalogue</Link></Reveal>
+        </div>
+        <div className="mt-16 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3 lg:[&>*:nth-child(3n+2)]:mt-20">
+          {products.map((p, i) => (
+            <Reveal key={p.slug} delay={(i % 3) * 120}>
+              <ProductCard p={p} n={i + 1} />
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* Parallax band */}
+      <section className="mt-28 md:mt-44">
+        <Parallax className="h-[70svh] min-h-[420px] bg-ink">
+          <Image src={photos["hero-ship"]} alt="Container ship loaded and lit at dusk" fill placeholder="blur" sizes="100vw" className="object-cover" />
+        </Parallax>
+      </section>
+
+      {/* Why us */}
+      <section className={`${wrap} pt-28 md:pt-44`}>
+        <div className="grid gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <div className="lg:sticky lg:top-32">
+              <SectionHead eyebrow="Why FIDO" title="Considered, from first enquiry to final delivery" />
+              <Reveal className="mt-8"><Link href="/about#why-choose-us" className="tlink text-ink">More about us</Link></Reveal>
+            </div>
+          </div>
+          <ul className="lg:col-span-8">
+            {strengths.map((s, i) => (
+              <li key={s.title}>
+                <Reveal delay={60}>
+                  <div className="grid gap-3 border-t border-ink/20 py-9 md:grid-cols-12 md:gap-8">
+                    <span className="serif text-5xl text-gold md:col-span-2">{String(i + 1).padStart(2, "0")}</span>
+                    <h3 className="serif text-3xl md:col-span-4 md:text-4xl">{s.title}</h3>
+                    <p className="text-muted md:col-span-6">{s.text}</p>
+                  </div>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Process */}
+      <section className="mt-28 bg-ink py-24 text-ivory md:mt-44 md:py-36">
+        <div className={wrap}>
+          <SectionHead dark eyebrow="The process" title="Six steps, one point of contact" />
+          <div className="mt-16"><Steps dark /></div>
+        </div>
+      </section>
+
+      {/* Suppliers */}
+      <section className={`${wrap} grid items-center gap-14 pt-28 md:pt-44 lg:grid-cols-2 lg:gap-24`}>
+        <ImageReveal>
+          <div className="relative aspect-[4/5] overflow-hidden">
+            <Image src={photos["spice-market"]} alt="A spice market stall in India" fill placeholder="blur" sizes="(min-width: 1024px) 560px, 100vw" className="object-cover" />
+          </div>
+        </ImageReveal>
+        <div>
+          <SectionHead eyebrow="For suppliers" title="Make in India. Reach the world." intro="We welcome manufacturers, producers and suppliers who want to meet international buyers. To get started, send us:" />
+          <ul className="mt-8">
+            {supplierPoints.map((t, i) => (
+              <li key={t}>
+                <Reveal delay={i * 80}><p className="border-t border-line py-4 text-ink">{t}</p></Reveal>
+              </li>
+            ))}
+          </ul>
+          <Reveal className="mt-10"><Link href="/contact" className="btn btn-ink">Become a supplier <span className="arrow">→</span></Link></Reveal>
+        </div>
+      </section>
+
+      {/* Markets */}
+      <section className={`${wrap} pt-28 text-center md:pt-44`}>
+        <SectionHead center eyebrow="Markets" title="Where we want to work" />
+        <Reveal className="serif mt-12 text-4xl leading-tight text-ink md:text-7xl">
+          South Asia <span className="text-gold">◆</span> Southeast Asia <span className="text-gold">◆</span> Middle East
+        </Reveal>
+        <Reveal className="mx-auto mt-10 max-w-3xl text-sm leading-loose text-muted">
+          Serving {audience.map((a) => a.toLowerCase()).join(", ")}.
+        </Reveal>
+      </section>
+
+      {/* Quote */}
+      <section className="relative isolate mt-28 overflow-hidden bg-ink text-ivory md:mt-44">
+        <Image src={photos.sunset} alt="" fill placeholder="blur" sizes="100vw" className="-z-10 object-cover opacity-40" />
+        <div className="absolute inset-0 -z-10 bg-ink/60" />
+        <Reveal className="mx-auto max-w-5xl px-6 py-28 text-center md:py-44">
+          <p className="serif text-4xl leading-[1.15] md:text-7xl">
+            &ldquo;Trust is the foundation of every <em className="text-gold">successful</em> business relationship.&rdquo;
+          </p>
+          <p className="eyebrow mt-10 justify-center text-gold">Kireet Pendyala · Founder &amp; Director</p>
+          <div className="mt-8"><Link href="/about#directors-message" className="tlink text-ivory">Read the Director&apos;s message</Link></div>
+        </Reveal>
+      </section>
+
+      {/* CTA */}
+      <section className={`${wrap} pt-28 md:pt-44`}>
+        <Reveal className="grid items-end gap-10 border-y border-ink py-16 md:grid-cols-12 md:py-24">
+          <h2 className="text-4xl md:col-span-8 md:text-7xl">Looking for a reliable Indian sourcing partner?</h2>
+          <div className="md:col-span-4 md:text-right">
+            <Link href="/contact" className="btn btn-ink">Send your requirement <span className="arrow">→</span></Link>
+          </div>
+        </Reveal>
       </section>
     </>
   );

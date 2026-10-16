@@ -1,32 +1,109 @@
 import type { Metadata } from "next";
 import { ViewTransition } from "react";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import NavProgress from "@/components/NavProgress";
+import Preloader from "@/components/Preloader";
+import { OG_IMAGE, SITE_URL } from "@/lib/meta";
 import { site } from "@/lib/site";
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const description =
+  "FIDO Exports and Imports LLP is an India-based merchant exporter supplying rice, spices, eggs, fruits, onions, garlic, polymers and electrical panels to international buyers. Trust in every shipment.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: `${site.name} | ${site.tagline}`,
     template: `%s | ${site.short}`,
   },
-  description: site.description,
+  description,
+  applicationName: site.name,
+  keywords: [
+    "Indian exporter",
+    "merchant exporter India",
+    "basmati rice exporter",
+    "Indian spices export",
+    "electrical panels export",
+    "B2B international trading",
+    "FIDO Exim",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: `${site.name} | ${site.tagline}`,
+    description,
+    url: "/",
+    siteName: site.name,
+    type: "website",
+    locale: "en_IN",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: site.name }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} | ${site.tagline}`,
+    description,
+    images: [OG_IMAGE],
+  },
+  robots: { index: true, follow: true },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: site.name,
+  url: SITE_URL,
+  logo: `${SITE_URL}/images/logo.jpg`,
+  slogan: site.tagline,
+  description,
+  email: site.email,
+  telephone: `+91${site.phone}`,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "D.NO.11-9-6, Gopi Delux Apartment, Sheshayymetta",
+    addressLocality: "Rajamahendravaram",
+    addressRegion: "Andhra Pradesh",
+    postalCode: "533101",
+    addressCountry: "IN",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${jakarta.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${inter.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem("fido-seen"))document.documentElement.dataset.seen="1"}catch(e){}`,
+          }}
+        />
+        <noscript>
+          <style>{`.preloader{display:none!important}.reveal,.rise{opacity:1!important;transform:none!important}.mask>span{transform:none!important}.img-reveal-inner{clip-path:none!important}`}</style>
+        </noscript>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+        />
+        <Preloader />
+        <NavProgress />
         <Header />
         <main className="flex-1">
           <ViewTransition default="page-fade">{children}</ViewTransition>

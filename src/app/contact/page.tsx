@@ -1,25 +1,36 @@
-import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
+import Reveal from "@/components/Reveal";
+import { pageMeta } from "@/lib/meta";
 import { site } from "@/lib/site";
 import EnquiryForm from "./EnquiryForm";
 
-export const metadata: Metadata = { title: "Contact" };
+export const metadata = pageMeta({
+  title: "Contact",
+  description:
+    "Send a buyer enquiry or request a quotation from FIDO Exports and Imports LLP, Rajamahendravaram, Andhra Pradesh, India. Call +91 7382076614 or email info@fidoexim.com.",
+  path: "/contact",
+});
 
 export default function Contact() {
   return (
     <>
-      <PageHero title="Contact" subtitle="Buyer enquiries and quotation requests." />
-      <div className="mx-auto grid max-w-6xl gap-12 px-4 pt-14 md:grid-cols-5">
-        <div className="space-y-4 text-sm text-foreground/80 md:col-span-2">
-          <p><span className="block font-semibold text-navy">Phone</span><a href={`tel:+91${site.phone}`}>+91 {site.phone}</a></p>
-          <p><span className="block font-semibold text-navy">Email</span><a href={`mailto:${site.email}`}>{site.email}</a></p>
-          <p><span className="block font-semibold text-navy">Address</span>{site.address}</p>
-        </div>
-        <div className="md:col-span-3">
-          <h2 className="mb-6 text-2xl font-bold text-navy">Send Us Your Requirement</h2>
+      <PageHero eyebrow="Contact" title="Begin a conversation." subtitle="Buyer enquiries and quotation requests. We review every enquiry and reply with the next steps." image="sunset" />
+      <section className="mx-auto grid max-w-7xl gap-16 px-6 pt-24 md:px-10 md:pt-36 lg:grid-cols-12 lg:gap-24">
+        <Reveal className="lg:col-span-5">
+          <div className="bg-ink p-9 text-ivory md:p-12">
+            <p className="eyebrow text-gold">Phone</p>
+            <a href={`tel:+91${site.phone}`} className="serif mt-3 block text-4xl">+91 {site.phone}</a>
+            <p className="eyebrow mt-10 text-gold">Email</p>
+            <a href={`mailto:${site.email}`} className="serif mt-3 block break-all text-3xl md:text-4xl">{site.email}</a>
+            <p className="eyebrow mt-10 text-gold">Office</p>
+            <p className="mt-3 text-sm leading-relaxed text-ivory/70">{site.address}</p>
+          </div>
+        </Reveal>
+        <Reveal delay={120} className="lg:col-span-7">
+          <h2 className="mb-10 text-4xl md:text-5xl">Send us your requirement</h2>
           <EnquiryForm />
-        </div>
-      </div>
+        </Reveal>
+      </section>
     </>
   );
 }

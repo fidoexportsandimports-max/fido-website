@@ -3,39 +3,39 @@
 import { useActionState } from "react";
 import { sendEnquiry, type EnquiryState } from "./actions";
 
-const input = "mt-1 w-full rounded-md border border-navy/20 px-3 py-2 text-sm focus:border-leaf focus:outline-none";
+const label = "block text-[11px] font-medium uppercase tracking-[0.24em] text-muted";
+const input =
+  "mt-2 block w-full rounded-none border-0 border-b border-ink/30 bg-transparent px-0 py-3 text-base font-normal text-ink placeholder:text-muted/50 focus:border-golddeep focus:outline-none focus:ring-0";
 
 export default function EnquiryForm() {
   const [state, action, pending] = useActionState<EnquiryState, FormData>(sendEnquiry, { ok: false, message: "" });
 
   return (
-    <form action={action} className="space-y-4">
-      <label className="block text-sm font-medium text-navy">Name *
-        <input name="name" required className={input} />
+    <form action={action} className="space-y-8">
+      <label className={label}>Name *
+        <input name="name" required autoComplete="name" className={input} />
       </label>
-      <label className="block text-sm font-medium text-navy">Company Name *
-        <input name="company" required className={input} />
+      <label className={label}>Company name *
+        <input name="company" required autoComplete="organization" className={input} />
       </label>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block text-sm font-medium text-navy">Email *
-          <input name="email" type="email" required className={input} />
+      <div className="grid gap-8 sm:grid-cols-2">
+        <label className={label}>Email *
+          <input name="email" type="email" required autoComplete="email" className={input} />
         </label>
-        <label className="block text-sm font-medium text-navy">Contact number *
-          <input name="phone" type="tel" required className={input} />
+        <label className={label}>Contact number *
+          <input name="phone" type="tel" required autoComplete="tel" className={input} />
         </label>
       </div>
-      <label className="block text-sm font-medium text-navy">Address *
-        <input name="address" required className={input} />
+      <label className={label}>Address *
+        <input name="address" required autoComplete="street-address" className={input} />
       </label>
-      <label className="block text-sm font-medium text-navy">Message *
-        <textarea name="message" rows={5} required className={input} placeholder="Product, specifications, quantity, destination country, packaging, delivery terms…" />
+      <label className={label}>Message *
+        <textarea name="message" rows={4} required className={input} placeholder="Product, specifications, quantity, destination, packaging, delivery terms" />
       </label>
-      <button disabled={pending} className="rounded-full bg-accent px-7 py-3 font-semibold text-white hover:brightness-110 disabled:opacity-60">
-        {pending ? "Sending…" : "Send Enquiry"}
+      <button disabled={pending} className="btn btn-ink w-full disabled:opacity-60 sm:w-auto">
+        {pending ? "Sending…" : "Send enquiry"} <span className="arrow">→</span>
       </button>
-      {state.message && (
-        <p role="status" className={state.ok ? "text-leaf" : "text-red-600"}>{state.message}</p>
-      )}
+      {state.message && <p role="status" className={state.ok ? "text-leaf" : "text-red-700"}>{state.message}</p>}
     </form>
   );
 }

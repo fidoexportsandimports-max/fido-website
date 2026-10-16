@@ -1,3 +1,5 @@
+import type { PhotoKey } from "@/lib/photos";
+
 export const site = {
   name: "FIDO Exports and Imports LLP",
   short: "FIDO Exim",
@@ -12,10 +14,8 @@ export const site = {
 
 export const nav = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About Us" },
+  { href: "/about", label: "About" },
   { href: "/products", label: "Products" },
-  { href: "/why-choose-us", label: "Why Choose Us" },
-  { href: "/directors-message", label: "Director's Message" },
   { href: "/gallery", label: "Gallery" },
   { href: "/certifications", label: "Certifications" },
   { href: "/faqs", label: "FAQs" },
@@ -41,19 +41,96 @@ export const audience = [
   "Manufacturers requiring sourcing support",
 ];
 
-export const products = [
-  { name: "Rice", items: ["Basmati rice", "Non-basmati rice"] },
+export type Product = {
+  slug: string;
+  name: string;
+  short: string;
+  image: PhotoKey;
+  tags: string[];
+  items: string[];
+  about: string;
+  note: string;
+  gallery?: PhotoKey[];
+};
+
+export const products: Product[] = [
   {
-    name: "Indian Spices",
-    items: ["Red Chilli Powder", "Cumin Seeds", "Coriander Seed", "Turmeric"],
+    slug: "rice",
+    name: "Rice",
+    short: "Basmati and non-basmati rice for importers and distributors.",
+    image: "rice",
+    tags: ["Basmati", "Non-basmati"],
+    items: ["Basmati rice", "Non-basmati rice"],
+    about: "We source basmati and non-basmati rice from Indian suppliers for importers, wholesalers and distributors. Variety, grade and packaging are agreed for each order.",
+    note: "Food products are checked against destination-country import and food safety requirements before we confirm an order.",
   },
-  { name: "Eggs", items: [] },
-  { name: "Fruits", items: ["Guava", "Mango", "Banana"] },
-  { name: "Banana Leaf", items: [] },
-  { name: "Onions", items: ["Raw onions", "Onion powder"] },
-  { name: "Garlic", items: [] },
   {
+    slug: "indian-spices",
+    name: "Indian Spices",
+    short: "Red chilli powder, cumin, coriander seed and turmeric.",
+    image: "spices",
+    tags: ["Chilli", "Cumin", "Coriander", "Turmeric"],
+    items: ["Red Chilli Powder", "Cumin Seeds", "Coriander Seed", "Turmeric"],
+    about: "A core range of Indian spices from established suppliers, offered whole or ground depending on the product. Tell us your specification and packing preference and we will come back with availability and a quotation.",
+    note: "Food products are checked against destination-country import and food safety requirements before we confirm an order.",
+  },
+  {
+    slug: "eggs",
+    name: "Eggs",
+    short: "Eggs for markets where import is permitted.",
+    image: "eggs",
+    tags: ["Table eggs"],
+    items: [],
+    about: "We can coordinate egg supply for buyers in eligible markets. Quantity, packing and delivery terms are discussed once we know your destination.",
+    note: "Egg exports depend on product-specific eligibility, import permissions and sanitary or veterinary rules. We assess these first, so not every destination is possible.",
+  },
+  {
+    slug: "fruits",
+    name: "Fruits",
+    short: "Fresh guava, mango and banana.",
+    image: "mango",
+    tags: ["Guava", "Mango", "Banana"],
+    items: ["Guava", "Mango", "Banana"],
+    gallery: ["guava", "mango", "banana"],
+    about: "Fresh fruit sourced from Indian growers and packers. Varieties, seasons and packing depend on the fruit and the destination, so share your requirement early.",
+    note: "Fresh produce is time sensitive. We plan packing, documentation and shipping together to keep transit short.",
+  },
+  {
+    slug: "banana-leaf",
+    name: "Banana Leaf",
+    short: "Banana leaf sourced from Indian growers.",
+    image: "banana-leaf",
+    tags: ["Fresh leaf"],
+    items: [],
+    about: "Banana leaf for buyers who need it for food service, retail or traditional use. Size, quantity and packing are confirmed per enquiry.",
+    note: "Plant products are checked against the importing country's plant health requirements before we confirm an order.",
+  },
+  {
+    slug: "onions",
+    name: "Onions",
+    short: "Raw onions and onion powder.",
+    image: "onions",
+    tags: ["Raw onions", "Onion powder"],
+    items: ["Raw onions", "Onion powder"],
+    about: "Raw onions and onion powder from Indian suppliers. Grade, size and packing are agreed with you, and we can quote for regular supply.",
+    note: "Food products are checked against destination-country import and food safety requirements before we confirm an order.",
+  },
+  {
+    slug: "garlic",
+    name: "Garlic",
+    short: "Garlic sourced from Indian suppliers.",
+    image: "garlic",
+    tags: ["Garlic"],
+    items: [],
+    about: "Garlic for importers and distributors. Tell us the size, quantity and packing you need and we will check availability with our suppliers.",
+    note: "Food products are checked against destination-country import and food safety requirements before we confirm an order.",
+  },
+  {
+    slug: "polymers",
     name: "Polymers",
+    short: "Pipes, fittings, buckets, dustbins and other utility plastics.",
+    image: "polymers",
+    tags: ["Pipes", "Fittings", "Household"],
     items: [
       "Pipes",
       "PVC Pipe Fittings / Joints",
@@ -63,9 +140,15 @@ export const products = [
       "Construction trays",
       "Other utility and household plastic items",
     ],
+    about: "Plastic pipes, fittings and everyday utility products from Indian manufacturers. Send us the sizes, standards and quantities you need and we will approach suitable factories.",
+    note: "Applicable product standards and any destination-market requirements are confirmed for each enquiry.",
   },
   {
+    slug: "electrical-panels",
     name: "Electrical Panels",
+    short: "LT and distribution panels from Indian manufacturers.",
+    image: "electrical",
+    tags: ["VCB", "MCC", "APFC", "Solar"],
     items: [
       "VCB Panels",
       "PCC Panels",
@@ -79,7 +162,16 @@ export const products = [
       "Automation Panel",
       "Fire Panel",
     ],
+    about: "We source electrical panels and related equipment through suitable Indian manufacturers. Send drawings or a specification and we will take it from there.",
+    note: "Technical specifications, applicable standards, testing documents and destination-market certification are verified for every enquiry.",
   },
+];
+
+export const arrangeList = [
+  "Specifications and quantity confirmed with you before we quote",
+  "Packaging and private labelling where the supplier and regulations allow",
+  "Samples, with cost and dispatch agreed up front",
+  "Export documentation and freight coordination with our partners",
 ];
 
 export const values = [
