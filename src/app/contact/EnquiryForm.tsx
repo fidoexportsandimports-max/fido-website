@@ -3,22 +3,22 @@
 import { useActionState } from "react";
 import { sendEnquiry, type EnquiryState } from "./actions";
 
-const label = "block text-[11px] font-medium uppercase tracking-[0.24em] text-muted";
+const label = "block text-sm font-semibold text-ink";
 const input =
-  "mt-2 block w-full rounded-none border-0 border-b border-ink/30 bg-transparent px-0 py-3 text-base font-normal text-ink placeholder:text-muted/50 focus:border-golddeep focus:outline-none focus:ring-0";
+  "mt-2 block w-full rounded-[10px] border border-line bg-white px-4 py-3.5 text-base text-ink placeholder:text-muted/60 focus:border-gold focus:outline-none focus:ring-4 focus:ring-gold/15";
 
 export default function EnquiryForm() {
   const [state, action, pending] = useActionState<EnquiryState, FormData>(sendEnquiry, { ok: false, message: "" });
 
   return (
-    <form action={action} className="space-y-8">
+    <form action={action} className="space-y-5">
       <label className={label}>Name *
         <input name="name" required autoComplete="name" className={input} />
       </label>
       <label className={label}>Company name *
         <input name="company" required autoComplete="organization" className={input} />
       </label>
-      <div className="grid gap-8 sm:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2">
         <label className={label}>Email *
           <input name="email" type="email" required autoComplete="email" className={input} />
         </label>
@@ -30,12 +30,12 @@ export default function EnquiryForm() {
         <input name="address" required autoComplete="street-address" className={input} />
       </label>
       <label className={label}>Message *
-        <textarea name="message" rows={4} required className={input} placeholder="Product, specifications, quantity, destination, packaging, delivery terms" />
+        <textarea name="message" rows={5} required className={input} placeholder="Product, specifications, quantity, destination country, packaging and delivery terms" />
       </label>
-      <button disabled={pending} className="btn btn-ink w-full disabled:opacity-60 sm:w-auto">
+      <button disabled={pending} className="btn btn-gold w-full disabled:opacity-60 sm:w-auto">
         {pending ? "Sending…" : "Send enquiry"} <span className="arrow">→</span>
       </button>
-      {state.message && <p role="status" className={state.ok ? "text-leaf" : "text-red-700"}>{state.message}</p>}
+      {state.message && <p role="status" className={state.ok ? "font-semibold text-inksoft" : "font-semibold text-red-700"}>{state.message}</p>}
     </form>
   );
 }

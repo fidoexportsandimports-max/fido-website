@@ -15,23 +15,21 @@ export const metadata = pageMeta({
 export default function Products() {
   return (
     <>
-      <PageHero eyebrow="Product catalogue" title="The collection." subtitle="Agricultural commodities, food products, polymers and electrical panels sourced from Indian suppliers. Open any product for details." image="rice" />
-      <section className="mx-auto max-w-7xl px-6 pt-24 md:px-10 md:pt-36">
-        <div className="grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3 lg:[&>*:nth-child(3n+2)]:mt-20">
+      <PageHero eyebrow="Product catalogue" title="What we export." subtitle="Agricultural commodities, food products, polymers and electrical panels sourced from Indian suppliers. Open any product for details." image="rice" />
+      <section className="mx-auto max-w-[1200px] px-5 py-20 md:px-6 md:py-28">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((p, i) => (
-            <Reveal key={p.slug} delay={(i % 3) * 120}>
-              <ProductCard p={p} n={i + 1} />
+            <Reveal key={p.slug} delay={(i % 3) * 90} className="h-full">
+              <ProductCard p={p} />
             </Reveal>
           ))}
         </div>
-        <Reveal className="mt-28 grid items-end gap-8 border-y border-ink py-14 md:grid-cols-12 md:py-20">
-          <div className="md:col-span-8">
-            <h2 className="text-4xl md:text-6xl">Something that isn&apos;t listed?</h2>
-            <p className="mt-5 max-w-xl text-muted">We assess sourcing requests for other Indian products case by case, based on supplier availability, specifications and export feasibility.</p>
+        <Reveal className="mt-16 flex flex-col gap-6 rounded-2xl bg-cream p-8 md:flex-row md:items-center md:justify-between md:p-12">
+          <div>
+            <h2 className="text-3xl md:text-4xl">Something that isn&apos;t listed?</h2>
+            <p className="mt-3 max-w-xl text-lg text-muted">We assess sourcing requests for other Indian products case by case, based on supplier availability, specifications and export feasibility.</p>
           </div>
-          <div className="md:col-span-4 md:text-right">
-            <Link href="/contact" className="btn btn-ink">Tell us what you need <span className="arrow">→</span></Link>
-          </div>
+          <Link href="/contact" className="btn btn-gold shrink-0">Tell us what you need <span className="arrow">→</span></Link>
         </Reveal>
       </section>
     </>

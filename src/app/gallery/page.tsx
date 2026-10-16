@@ -33,19 +33,21 @@ const shots: { key: PhotoKey; caption: string }[] = [
 export default function Gallery() {
   return (
     <>
-      <PageHero eyebrow="Company gallery" title="Our world, up close." subtitle="The products we export and the routes they travel." image="spice-bowls" />
-      <section className="mx-auto max-w-7xl px-6 pt-24 md:px-10 md:pt-36">
+      <PageHero eyebrow="Company gallery" title="Our products, up close." subtitle="The products we export and the routes they travel." image="spice-bowls" />
+      <section className="mx-auto max-w-[1200px] px-5 py-20 md:px-6 md:py-28">
         <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
           {shots.map((s, i) => (
-            <Reveal key={s.key} delay={(i % 3) * 100} from="zoom" className="break-inside-avoid">
-              <figure className="group relative overflow-hidden">
-                <Image src={photos[s.key]} alt={s.caption} placeholder="blur" sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw" className="h-auto w-full transition duration-[1400ms] ease-[cubic-bezier(.16,.8,.2,1)] group-hover:scale-105" />
-                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/80 to-transparent p-5 pt-14 text-[11px] font-medium uppercase tracking-[0.26em] text-ivory opacity-0 transition duration-700 group-hover:opacity-100">{s.caption}</figcaption>
+            <Reveal key={s.key} delay={(i % 3) * 90} from="zoom" className="break-inside-avoid">
+              <figure className="group relative overflow-hidden rounded-2xl">
+                <Image src={photos[s.key]} alt={s.caption} placeholder="blur" sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" className="h-auto w-full transition duration-700 group-hover:scale-105" />
+                <figcaption className="absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-lg bg-white px-3 py-1.5 text-sm font-semibold text-ink">
+                  <span className="h-1.5 w-1.5 rounded-full bg-gold" /> {s.caption}
+                </figcaption>
               </figure>
             </Reveal>
           ))}
         </div>
-        <p className="mt-12 text-xs text-muted">Photographs are sourced from Pexels under its free licence and will be replaced with FIDO&apos;s own photography.</p>
+        <p className="mt-10 text-sm text-muted">Photographs are sourced from Pexels under its free licence and will be replaced with FIDO&apos;s own photography.</p>
       </section>
     </>
   );

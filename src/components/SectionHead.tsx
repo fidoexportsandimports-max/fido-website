@@ -15,9 +15,9 @@ export default function SectionHead({
 }) {
   return (
     <Reveal className={center ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
-      <p className={`eyebrow ${dark ? "text-gold" : "text-golddeep"}`}>{eyebrow}</p>
-      <h2 className="mt-5 text-4xl md:text-6xl">{title}</h2>
-      {intro && <p className={`mt-6 leading-relaxed md:text-lg ${dark ? "text-ivory/70" : "text-muted"}`}>{intro}</p>}
+      <p className="eyebrow">{eyebrow}</p>
+      <h2 className={`mt-4 text-4xl md:text-5xl ${dark ? "text-white" : "text-ink"}`}>{title}</h2>
+      {intro && <p className={`mt-5 text-lg leading-relaxed md:text-xl ${dark ? "text-white/70" : "text-muted"}`}>{intro}</p>}
     </Reveal>
   );
 }

@@ -1,196 +1,198 @@
 import Image from "next/image";
 import Link from "next/link";
+import Check from "@/components/Check";
 import CountUp from "@/components/CountUp";
-import ImageReveal from "@/components/ImageReveal";
-import Parallax from "@/components/Parallax";
-import ProductCard from "@/components/ProductCard";
+import ProductRow from "@/components/ProductRow";
 import Reveal from "@/components/Reveal";
 import SectionHead from "@/components/SectionHead";
 import Steps from "@/components/Steps";
 import { photos } from "@/lib/photos";
 import { audience, products, strengths } from "@/lib/site";
 
+const regions = ["South Asia", "Southeast Asia", "Middle East", "Other eligible markets"];
 const supplierPoints = [
-  "Company profile and product catalogue",
-  "Supply capacity and commercial terms",
-  "Applicable registrations and valid certifications",
-  "Verification before onboarding",
+  ["Company profile and catalogue", "so we understand what you make and at what scale."],
+  ["Supply capacity and terms", "so we can match you to the right buyer requirements."],
+  ["Registrations and certifications", "valid, applicable and ready to verify."],
+  ["Fair onboarding", "every supplier is verified before we recommend them."],
 ];
 
 const d = (n: number) => ({ "--d": `${n}ms` }) as React.CSSProperties;
-const wrap = "mx-auto max-w-7xl px-6 md:px-10";
+const wrap = "mx-auto max-w-[1200px] px-5 md:px-6";
 
 export default function Home() {
-  const marquee = [...products, ...products];
   return (
     <>
       {/* Hero */}
-      <section className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-ink text-ivory">
+      <section className="relative isolate overflow-hidden bg-ink text-white">
         <Image src={photos["hero-port"]} alt="Container ship alongside a terminal, seen from above" fill priority placeholder="blur" sizes="100vw" className="kenburns -z-10 object-cover" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/45 to-ink/40" />
-        <div className={`${wrap} w-full pt-40`}>
-          <p className="eyebrow rise text-gold" style={d(0)}>Merchant exporter · India</p>
-          <h1 className="mt-7 max-w-5xl text-[3.4rem] sm:text-7xl md:text-[8.5rem]">
-            <span className="mask"><span style={d(100)}>Trust in every</span></span>
-            <span className="mask"><span style={d(260)}><em className="text-gold">shipment.</em></span></span>
+        <div className="absolute inset-0 -z-10 bg-ink/60" />
+        <div className={`${wrap} pb-14 pt-36 md:pb-20 md:pt-44`}>
+          <p className="eyebrow rise !text-goldbright" style={d(0)}>Merchant exporter · India</p>
+          <h1 className="rise mt-5 max-w-4xl text-[2.9rem] sm:text-6xl md:text-[5.4rem]" style={d(100)}>
+            Trust in every <span className="text-goldbright">shipment.</span>
           </h1>
-          <div className="mt-10 flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
-            <p className="rise max-w-md text-base leading-relaxed text-ivory/75 md:text-lg" style={d(600)}>
-              We connect Indian manufacturers, producers and suppliers with buyers around the world, and look after the sourcing, paperwork and shipping in between.
-            </p>
-            <div className="rise flex flex-col gap-3 sm:flex-row" style={d(750)}>
-              <Link href="/contact" className="btn btn-gold">Request a quotation <span className="arrow">→</span></Link>
-              <Link href="/products" className="btn btn-line">Our products</Link>
-            </div>
+          <p className="rise mt-6 max-w-2xl text-lg leading-relaxed text-white/85 md:text-xl" style={d(220)}>
+            We connect Indian manufacturers, producers and suppliers with international buyers, and handle the sourcing, paperwork and shipping in between.
+          </p>
+          <div className="rise mt-9 flex flex-col gap-3 sm:flex-row" style={d(340)}>
+            <Link href="/contact" className="btn btn-gold">Request a quotation <span className="arrow">→</span></Link>
+            <Link href="/products" className="btn btn-white">See our products</Link>
           </div>
-        </div>
-        <div className={`${wrap} mt-14 w-full`}>
-          <dl className="rise grid grid-cols-3 border-t border-ivory/20 py-7" style={d(900)}>
+          <dl className="rise mt-14 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-white/20 pt-8 md:grid-cols-4" style={d(480)}>
             {[
-              [9, "Product categories"],
-              [6, "Steps to delivery"],
-              [3, "Target regions"],
-            ].map(([n, l]) => (
-              <div key={String(l)} className="pr-4">
-                <dt className="serif text-4xl text-ivory md:text-6xl"><CountUp to={n as number} /></dt>
-                <dd className="mt-1 text-[10px] font-medium uppercase tracking-[0.22em] text-ivory/60 md:text-[11px]">{l}</dd>
+              [9, "", "Product categories"],
+              [6, "", "Steps, enquiry to delivery"],
+              [3, "", "Target regions"],
+              [25, "", "Questions answered"],
+            ].map(([n, suf, l]) => (
+              <div key={String(l)}>
+                <dt className="text-4xl font-extrabold tracking-tight md:text-5xl"><CountUp to={n as number} suffix={String(suf)} /></dt>
+                <dd className="mt-1 text-sm text-white/65">{l}</dd>
               </div>
             ))}
-            <div className="hidden items-end justify-end md:flex" aria-hidden="true">
-              <span className="relative block h-14 w-px overflow-hidden bg-ivory/20"><span className="scrollcue absolute inset-0 bg-gold" /></span>
-            </div>
           </dl>
         </div>
       </section>
 
-      {/* Statement */}
-      <section className={`${wrap} pt-28 md:pt-44`}>
-        <Reveal className="mx-auto max-w-5xl text-center">
-          <p className="eyebrow justify-center text-golddeep">About FIDO</p>
-          <p className="serif mt-8 text-3xl leading-[1.25] md:text-6xl md:leading-[1.15]">
-            An Indian trading house built on one idea: that honest communication and dependable delivery are the whole business.
-          </p>
-          <Link href="/about" className="tlink mt-10 text-ink">Our story</Link>
-        </Reveal>
+      {/* What we export */}
+      <section className="bg-white py-20 md:py-28">
+        <div className={wrap}>
+          <SectionHead eyebrow="What we export" title="Nine product lines, one dependable partner." intro="Agricultural commodities, food products, polymers and electrical panels, sourced from Indian suppliers." />
+          <Reveal className="mt-12 overflow-hidden rounded-2xl border border-line bg-white">
+            <ul className="divide-y divide-line">
+              {products.map((p, i) => (
+                <li key={p.slug}><ProductRow p={p} n={i + 1} /></li>
+              ))}
+            </ul>
+          </Reveal>
+          <Reveal className="mt-8"><Link href="/products" className="tlink">See the full catalogue <span className="arrow">→</span></Link></Reveal>
+        </div>
       </section>
 
-      {/* Marquee */}
-      <div className="marquee mt-24 overflow-hidden border-y border-line py-7 md:mt-36">
-        <div className="marquee-track serif flex gap-14 whitespace-nowrap text-4xl text-ink/80 md:text-6xl">
-          {marquee.map((p, i) => (
-            <span key={i} className="flex items-center gap-14">
-              {p.name}
-              <span className="text-2xl text-gold">◆</span>
-            </span>
-          ))}
+      {/* Why choose us */}
+      <section className="pb-20 md:pb-28">
+        <div className={`${wrap} grid items-center gap-12 lg:grid-cols-2 lg:gap-20`}>
+          <Reveal from="left">
+            <div className="relative aspect-[5/4] overflow-hidden rounded-2xl">
+              <Image src={photos["hero-ship"]} alt="Container ship loaded and lit at dusk" fill placeholder="blur" sizes="(min-width: 1024px) 560px, 100vw" className="object-cover" />
+              <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-lg bg-white px-3.5 py-2 text-sm font-semibold text-ink">
+                <span className="h-1.5 w-1.5 rounded-full bg-gold" /> Merchant exporter · Pan-India sourcing
+              </span>
+            </div>
+          </Reveal>
+          <div>
+            <SectionHead eyebrow="Why choose us" title="An export partner that owns the outcome, not just the paperwork." intro="A shipment can stall on one missed detail. Our job is to make sure that doesn't happen." />
+            <ul className="mt-8 space-y-4 text-lg">
+              {strengths.slice(0, 4).map((s, i) => (
+                <li key={s.title}>
+                  <Reveal delay={i * 80}>
+                    <Check><strong className="font-bold">{s.title}</strong> <span className="text-muted">— {s.text}</span></Check>
+                  </Reveal>
+                </li>
+              ))}
+            </ul>
+            <Reveal className="mt-8"><Link href="/about#why-choose-us" className="tlink">More about FIDO <span className="arrow">→</span></Link></Reveal>
+          </div>
         </div>
-      </div>
+      </section>
 
-      {/* Collection */}
-      <section className={`${wrap} pt-28 md:pt-44`}>
-        <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <SectionHead eyebrow="The collection" title="What we export" />
-          <Reveal><Link href="/products" className="tlink text-ink">Full catalogue</Link></Reveal>
+      {/* Partner with us */}
+      <section className="bg-cream py-20 md:py-28">
+        <div className={`${wrap} grid items-center gap-12 lg:grid-cols-2 lg:gap-20`}>
+          <div>
+            <SectionHead eyebrow="For suppliers" title="Make in India. Partner with us and reach the world." intro="We welcome manufacturers, producers and suppliers who want to meet international buyers. Here is what we ask for:" />
+            <ul className="mt-8 space-y-4 text-lg">
+              {supplierPoints.map(([b, t], i) => (
+                <li key={b}>
+                  <Reveal delay={i * 80}><Check><strong className="font-bold">{b}</strong> <span className="text-muted">— {t}</span></Check></Reveal>
+                </li>
+              ))}
+            </ul>
+            <Reveal className="mt-8 flex items-center gap-4 rounded-2xl border border-line bg-white p-5">
+              <span className="text-4xl font-extrabold tracking-tight text-gold md:text-5xl">9</span>
+              <span className="text-sm leading-snug text-muted">product categories already in our catalogue, with more added as buyers ask.</span>
+            </Reveal>
+            <Reveal className="mt-6"><Link href="/contact" className="btn btn-gold">Partner with us <span className="arrow">→</span></Link></Reveal>
+          </div>
+          <Reveal from="right">
+            <div className="relative aspect-[5/4] overflow-hidden rounded-2xl">
+              <Image src={photos["spice-market"]} alt="A spice market stall in India" fill placeholder="blur" sizes="(min-width: 1024px) 560px, 100vw" className="object-cover" />
+              <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-lg bg-white px-3.5 py-2 text-sm font-semibold text-ink">
+                <span className="h-1.5 w-1.5 rounded-full bg-gold" /> Sourced from Indian suppliers
+              </span>
+            </div>
+          </Reveal>
         </div>
-        <div className="mt-16 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3 lg:[&>*:nth-child(3n+2)]:mt-20">
-          {products.map((p, i) => (
-            <Reveal key={p.slug} delay={(i % 3) * 120}>
-              <ProductCard p={p} n={i + 1} />
+      </section>
+
+      {/* How it works */}
+      <section className="py-20 md:py-28">
+        <div className={wrap}>
+          <SectionHead eyebrow="How it works" title="A clear six-step process." intro="You always know what is happening, what is next and what we need from you." />
+          <div className="mt-12"><Steps /></div>
+        </div>
+      </section>
+
+      {/* Markets & buyers */}
+      <section className="bg-mint py-20 md:py-28">
+        <div className={wrap}>
+          <SectionHead eyebrow="Markets we serve" title="Built for importers, distributors and procurement teams." intro="We are interested in opportunities across South Asia, Southeast Asia, the Middle East and other eligible markets." />
+          <Reveal className="mt-10 flex flex-wrap gap-3">
+            {regions.map((r) => <span key={r} className="pill">{r}</span>)}
+          </Reveal>
+          <Reveal className="mt-4 flex flex-wrap gap-3">
+            {audience.map((a) => <span key={a} className="pill">{a}</span>)}
+          </Reveal>
+          <Reveal className="mt-8"><Link href="/about" className="tlink">About FIDO <span className="arrow">→</span></Link></Reveal>
+        </div>
+      </section>
+
+      {/* Stats band */}
+      <section className="bg-deep text-white">
+        <dl className={`${wrap} grid grid-cols-2 gap-8 py-14 md:grid-cols-4 md:py-16`}>
+          {[
+            ["9", "+", "Product categories"],
+            ["6", "", "Steps, enquiry to delivery"],
+            ["25", "", "Questions answered in our FAQs"],
+            ["3", "", "Regions we are targeting"],
+          ].map(([n, s, l]) => (
+            <Reveal key={l}>
+              <dt className="text-5xl font-extrabold tracking-tight md:text-6xl">{n}<span className="text-goldbright">{s}</span></dt>
+              <dd className="mt-2 text-[15px] text-white/65">{l}</dd>
             </Reveal>
           ))}
-        </div>
+        </dl>
       </section>
 
-      {/* Parallax band */}
-      <section className="mt-28 md:mt-44">
-        <Parallax className="h-[70svh] min-h-[420px] bg-ink">
-          <Image src={photos["hero-ship"]} alt="Container ship loaded and lit at dusk" fill placeholder="blur" sizes="100vw" className="object-cover" />
-        </Parallax>
-      </section>
-
-      {/* Why us */}
-      <section className={`${wrap} pt-28 md:pt-44`}>
-        <div className="grid gap-14 lg:grid-cols-12">
-          <div className="lg:col-span-4">
-            <div className="lg:sticky lg:top-32">
-              <SectionHead eyebrow="Why FIDO" title="Considered, from first enquiry to final delivery" />
-              <Reveal className="mt-8"><Link href="/about#why-choose-us" className="tlink text-ink">More about us</Link></Reveal>
-            </div>
-          </div>
-          <ul className="lg:col-span-8">
-            {strengths.map((s, i) => (
-              <li key={s.title}>
-                <Reveal delay={60}>
-                  <div className="grid gap-3 border-t border-ink/20 py-9 md:grid-cols-12 md:gap-8">
-                    <span className="serif text-5xl text-gold md:col-span-2">{String(i + 1).padStart(2, "0")}</span>
-                    <h3 className="serif text-3xl md:col-span-4 md:text-4xl">{s.title}</h3>
-                    <p className="text-muted md:col-span-6">{s.text}</p>
-                  </div>
-                </Reveal>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Process */}
-      <section className="mt-28 bg-ink py-24 text-ivory md:mt-44 md:py-36">
+      {/* Director */}
+      <section className="bg-mint py-20 md:py-28">
         <div className={wrap}>
-          <SectionHead dark eyebrow="The process" title="Six steps, one point of contact" />
-          <div className="mt-16"><Steps dark /></div>
+          <SectionHead center eyebrow="From the Director" title="Trust is how we do business." />
+          <Reveal className="mx-auto mt-12 max-w-3xl rounded-2xl border border-line bg-white p-8 md:p-12">
+            <p className="text-xl font-medium leading-relaxed tracking-tight md:text-2xl">
+              &ldquo;We believe that trust is the foundation of every successful business relationship. Our name, FIDO, reflects the values that guide us: trust, transparency, commitment and long-term partnership.&rdquo;
+            </p>
+            <div className="mt-8 flex items-center gap-4">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-cream text-sm font-bold text-gold">KP</span>
+              <span>
+                <span className="block font-bold">Kireet Pendyala</span>
+                <span className="block text-sm text-muted">Founder &amp; Director</span>
+              </span>
+            </div>
+            <Link href="/about#directors-message" className="tlink mt-6 inline-block">Read the full message <span className="arrow">→</span></Link>
+          </Reveal>
         </div>
-      </section>
-
-      {/* Suppliers */}
-      <section className={`${wrap} grid items-center gap-14 pt-28 md:pt-44 lg:grid-cols-2 lg:gap-24`}>
-        <ImageReveal>
-          <div className="relative aspect-[4/5] overflow-hidden">
-            <Image src={photos["spice-market"]} alt="A spice market stall in India" fill placeholder="blur" sizes="(min-width: 1024px) 560px, 100vw" className="object-cover" />
-          </div>
-        </ImageReveal>
-        <div>
-          <SectionHead eyebrow="For suppliers" title="Make in India. Reach the world." intro="We welcome manufacturers, producers and suppliers who want to meet international buyers. To get started, send us:" />
-          <ul className="mt-8">
-            {supplierPoints.map((t, i) => (
-              <li key={t}>
-                <Reveal delay={i * 80}><p className="border-t border-line py-4 text-ink">{t}</p></Reveal>
-              </li>
-            ))}
-          </ul>
-          <Reveal className="mt-10"><Link href="/contact" className="btn btn-ink">Become a supplier <span className="arrow">→</span></Link></Reveal>
-        </div>
-      </section>
-
-      {/* Markets */}
-      <section className={`${wrap} pt-28 text-center md:pt-44`}>
-        <SectionHead center eyebrow="Markets" title="Where we want to work" />
-        <Reveal className="serif mt-12 text-4xl leading-tight text-ink md:text-7xl">
-          South Asia <span className="text-gold">◆</span> Southeast Asia <span className="text-gold">◆</span> Middle East
-        </Reveal>
-        <Reveal className="mx-auto mt-10 max-w-3xl text-sm leading-loose text-muted">
-          Serving {audience.map((a) => a.toLowerCase()).join(", ")}.
-        </Reveal>
-      </section>
-
-      {/* Quote */}
-      <section className="relative isolate mt-28 overflow-hidden bg-ink text-ivory md:mt-44">
-        <Image src={photos.sunset} alt="" fill placeholder="blur" sizes="100vw" className="-z-10 object-cover opacity-40" />
-        <div className="absolute inset-0 -z-10 bg-ink/60" />
-        <Reveal className="mx-auto max-w-5xl px-6 py-28 text-center md:py-44">
-          <p className="serif text-4xl leading-[1.15] md:text-7xl">
-            &ldquo;Trust is the foundation of every <em className="text-gold">successful</em> business relationship.&rdquo;
-          </p>
-          <p className="eyebrow mt-10 justify-center text-gold">Kireet Pendyala · Founder &amp; Director</p>
-          <div className="mt-8"><Link href="/about#directors-message" className="tlink text-ivory">Read the Director&apos;s message</Link></div>
-        </Reveal>
       </section>
 
       {/* CTA */}
-      <section className={`${wrap} pt-28 md:pt-44`}>
-        <Reveal className="grid items-end gap-10 border-y border-ink py-16 md:grid-cols-12 md:py-24">
-          <h2 className="text-4xl md:col-span-8 md:text-7xl">Looking for a reliable Indian sourcing partner?</h2>
-          <div className="md:col-span-4 md:text-right">
-            <Link href="/contact" className="btn btn-ink">Send your requirement <span className="arrow">→</span></Link>
+      <section className="bg-gold text-white">
+        <Reveal className={`${wrap} py-20 md:py-24`}>
+          <h2 className="max-w-3xl text-4xl md:text-6xl">Ready to start sourcing from India? Let&apos;s talk.</h2>
+          <p className="mt-5 max-w-2xl text-lg text-white/90 md:text-xl">Share the product, quantity and destination. We will review your requirement and reply with the next steps.</p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link href="/contact" className="btn btn-white">Send your requirement <span className="arrow">→</span></Link>
+            <Link href="/products" className="btn btn-outline">Browse all products</Link>
           </div>
         </Reveal>
       </section>

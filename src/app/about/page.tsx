@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ImageReveal from "@/components/ImageReveal";
+import Check from "@/components/Check";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import SectionHead from "@/components/SectionHead";
@@ -23,113 +23,121 @@ const letter = [
   "I sincerely thank our suppliers, business associates, customers and well-wishers for their trust and support. We look forward to building lasting partnerships and creating new opportunities in global trade.",
 ];
 
-const wrap = "mx-auto max-w-7xl px-6 md:px-10";
+const wrap = "mx-auto max-w-[1200px] px-5 md:px-6";
 
 export default function About() {
   return (
     <>
-      <PageHero eyebrow="About us" title="Trust, by name and by nature." subtitle="Who we are, what we believe and how we work with buyers and suppliers." image="hero-port" />
+      <PageHero eyebrow="About us" title="An Indian trading company built on trust." subtitle="Who we are, what we believe and how we work with buyers and suppliers." />
 
-      <section className={`${wrap} grid items-center gap-14 pt-28 md:pt-40 lg:grid-cols-2 lg:gap-24`}>
-        <div>
-          <SectionHead eyebrow="Who we are" title="Connecting Indian suppliers with global buyers" />
-          <Reveal className="mt-8 space-y-5 leading-relaxed text-muted">
-            <p>FIDO Exports and Imports LLP is an India-based merchant export and international trading company focused on connecting Indian suppliers with global business opportunities.</p>
-            <p>We work to facilitate trade between Indian manufacturers, producers and suppliers and international buyers seeking suitable products from India.</p>
-            <p>The name FIDO represents trust, which is central to our business philosophy. We believe that transparent communication, responsible sourcing and dependable business relationships are essential to sustainable international trade.</p>
-          </Reveal>
-        </div>
-        <ImageReveal>
-          <div className="relative aspect-[4/5] overflow-hidden">
-            <Image src={photos.cranes} alt="Quayside cranes at a container port" fill placeholder="blur" sizes="(min-width: 1024px) 560px, 100vw" className="object-cover object-bottom" />
+      <section className="py-20 md:py-28">
+        <div className={`${wrap} grid items-center gap-12 lg:grid-cols-2 lg:gap-20`}>
+          <div>
+            <SectionHead eyebrow="Who we are" title="Connecting Indian suppliers with global buyers." />
+            <Reveal className="mt-6 space-y-4 text-lg leading-relaxed text-muted">
+              <p>FIDO Exports and Imports LLP is an India-based merchant export and international trading company focused on connecting Indian suppliers with global business opportunities.</p>
+              <p>We work to facilitate trade between Indian manufacturers, producers and suppliers and international buyers seeking suitable products from India.</p>
+              <p>The name FIDO represents trust, which is central to our business philosophy. We believe that transparent communication, responsible sourcing and dependable business relationships are essential to sustainable international trade.</p>
+            </Reveal>
           </div>
-        </ImageReveal>
-      </section>
-
-      <section className="mt-28 bg-ink py-24 text-ivory md:mt-40 md:py-36">
-        <div className={`${wrap} grid gap-16 lg:grid-cols-2 lg:gap-24`}>
-          <Reveal>
-            <p className="eyebrow text-gold">Our vision</p>
-            <p className="serif mt-6 text-3xl leading-snug md:text-5xl">To establish FIDO Exports and Imports LLP as a trusted Indian trading partner in international markets by building long-term relationships with buyers, suppliers and business associates.</p>
-          </Reveal>
-          <Reveal delay={150}>
-            <p className="eyebrow text-gold">Our mission</p>
-            <ul className="mt-6">
-              {mission.map((m) => (
-                <li key={m} className="border-t border-ivory/20 py-4 text-ivory/80">{m}</li>
-              ))}
-            </ul>
+          <Reveal from="right">
+            <div className="relative aspect-[5/4] overflow-hidden rounded-2xl">
+              <Image src={photos.cranes} alt="Quayside cranes at a container port" fill placeholder="blur" sizes="(min-width: 1024px) 560px, 100vw" className="object-cover object-bottom" />
+              <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-lg bg-white px-3.5 py-2 text-sm font-semibold text-ink">
+                <span className="h-1.5 w-1.5 rounded-full bg-gold" /> Merchant exporter · India
+              </span>
+            </div>
           </Reveal>
         </div>
       </section>
 
-      <section className={`${wrap} pt-28 md:pt-40`}>
-        <SectionHead eyebrow="Our values" title="How we work" />
-        <ul className="mt-14">
-          {values.map((v, i) => (
-            <li key={v.title}>
-              <Reveal>
-                <div className="grid gap-3 border-t border-ink/20 py-8 md:grid-cols-12 md:gap-8">
-                  <span className="serif text-4xl text-gold md:col-span-2">{String(i + 1).padStart(2, "0")}</span>
-                  <h3 className="serif text-3xl md:col-span-4 md:text-4xl">{v.title}</h3>
-                  <p className="text-muted md:col-span-6">{v.text}</p>
+      <section className="bg-mint py-20 md:py-28">
+        <div className={`${wrap} grid gap-6 lg:grid-cols-2`}>
+          <Reveal className="h-full">
+            <div className="h-full rounded-2xl border border-line bg-white p-8 md:p-10">
+              <p className="eyebrow">Our vision</p>
+              <p className="mt-5 text-2xl font-bold leading-snug tracking-tight md:text-3xl">To establish FIDO Exports and Imports LLP as a trusted Indian trading partner in international markets by building long-term relationships with buyers, suppliers and business associates.</p>
+            </div>
+          </Reveal>
+          <Reveal delay={120} className="h-full">
+            <div className="h-full rounded-2xl bg-deep p-8 text-white md:p-10">
+              <p className="eyebrow !text-goldbright">Our mission</p>
+              <ul className="mt-5 space-y-4 text-lg">
+                {mission.map((m) => <li key={m}><Check>{m}</Check></li>)}
+              </ul>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="py-20 md:py-28">
+        <div className={wrap}>
+          <SectionHead eyebrow="Our core values" title="How we work, every day." />
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {values.map((v, i) => (
+              <Reveal key={v.title} delay={(i % 3) * 90} className="h-full">
+                <div className="h-full rounded-2xl border border-line p-7 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-20px_rgba(10,31,24,0.35)]">
+                  <span className="num flex h-10 w-10 items-center justify-center rounded-[10px] bg-cream text-sm text-gold">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 className="mt-5 text-2xl tracking-tight">{v.title}</h3>
+                  <p className="mt-2 leading-relaxed text-muted">{v.text}</p>
                 </div>
               </Reveal>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section id="why-choose-us" className={`${wrap} pt-28 md:pt-40`}>
-        <SectionHead eyebrow="Why choose us" title="What you can expect from us" />
-        <div className="mt-14 grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-3">
-          {strengths.map((s, i) => (
-            <Reveal key={s.title} delay={(i % 3) * 100} className="bg-ivory">
-              <div className="h-full p-8 md:p-10">
-                <span className="serif text-5xl text-gold">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="serif mt-6 text-3xl">{s.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">{s.text}</p>
-              </div>
-            </Reveal>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="mt-28 bg-ink py-24 text-ivory md:mt-40 md:py-36">
+      <section id="why-choose-us" className="bg-cream py-20 md:py-28">
         <div className={wrap}>
-          <SectionHead dark eyebrow="How it works" title="From enquiry to delivery" />
-          <div className="mt-16"><Steps dark /></div>
+          <SectionHead eyebrow="Why choose us" title="What you can expect from us." />
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {strengths.map((s, i) => (
+              <Reveal key={s.title} delay={(i % 3) * 90} className="h-full">
+                <div className="h-full rounded-2xl border border-line bg-white p-7">
+                  <span className="num flex h-10 w-10 items-center justify-center rounded-[10px] bg-gold text-sm text-white">{i + 1}</span>
+                  <h3 className="mt-5 text-2xl tracking-tight">{s.title}</h3>
+                  <p className="mt-2 leading-relaxed text-muted">{s.text}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className={`${wrap} pt-28 md:pt-40`}>
-        <SectionHead eyebrow="Who we serve" title="Our buyers" />
-        <ul className="mt-12 grid gap-x-12 sm:grid-cols-2">
-          {audience.map((a) => (
-            <li key={a}><Reveal><p className="border-t border-line py-4 text-ink">{a}</p></Reveal></li>
-          ))}
-        </ul>
+      <section className="py-20 md:py-28">
+        <div className={wrap}>
+          <SectionHead eyebrow="How it works" title="From enquiry to delivery." />
+          <div className="mt-12"><Steps /></div>
+        </div>
       </section>
 
-      <section id="directors-message" className={`${wrap} pt-28 md:pt-40`}>
-        <div className="grid gap-14 lg:grid-cols-12">
-          <div className="lg:col-span-4">
-            <div className="lg:sticky lg:top-32">
-              <SectionHead eyebrow="Director's message" title="A message from the Director" />
+      <section className="bg-mint py-20 md:py-28">
+        <div className={wrap}>
+          <SectionHead eyebrow="Who we serve" title="Our buyers." />
+          <Reveal className="mt-10 flex flex-wrap gap-3">
+            {audience.map((a) => <span key={a} className="pill">{a}</span>)}
+          </Reveal>
+        </div>
+      </section>
+
+      <section id="directors-message" className="py-20 md:py-28">
+        <div className={wrap}>
+          <SectionHead eyebrow="Director's message" title="A message from the Director." />
+          <Reveal className="mt-12 rounded-2xl border border-line bg-white p-7 shadow-[0_24px_60px_-34px_rgba(10,31,24,0.35)] md:p-12">
+            <div className="max-w-3xl space-y-5 text-lg leading-[1.8] text-muted">
+              <p className="text-2xl font-bold leading-snug tracking-tight text-ink md:text-3xl">At FIDO Exports and Imports LLP, we believe that trust is the foundation of every successful business relationship. Our name, FIDO, reflects the values that guide us: trust, transparency, commitment and long-term partnership.</p>
+              {letter.map((t) => <p key={t.slice(0, 24)}>{t}</p>)}
+              <p className="font-bold text-ink">Together, let us connect markets, build trust and create opportunities across borders.</p>
             </div>
-          </div>
-          <div className="space-y-6 text-lg leading-[1.85] text-muted lg:col-span-8">
-            <Reveal><p className="serif text-3xl leading-snug text-ink md:text-4xl">At FIDO Exports and Imports LLP, we believe that <em className="text-golddeep">trust is the foundation of every successful business relationship</em>. Our name, FIDO, reflects the values that guide us: trust, transparency, commitment and long-term partnership.</p></Reveal>
-            {letter.map((t) => <Reveal key={t.slice(0, 24)}><p>{t}</p></Reveal>)}
-            <Reveal><p className="serif border-l border-gold pl-6 text-3xl italic leading-snug text-ink">Together, let us connect markets, build trust and create opportunities across borders.</p></Reveal>
-            <Reveal>
-              <div className="border-t border-line pt-8">
-                <p className="text-base">Warm regards,</p>
-                <p className="serif mt-3 text-4xl italic text-ink">Kireet Pendyala</p>
-                <p className="mt-1 text-sm">Founder &amp; Director, FIDO Exports and Imports LLP</p>
-              </div>
-            </Reveal>
-          </div>
+            <div className="mt-10 flex items-center gap-4 border-t border-line pt-8">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-cream text-base font-bold text-gold">KP</span>
+              <span>
+                <span className="block text-sm text-muted">Warm regards,</span>
+                <span className="block text-lg font-bold">Kireet Pendyala</span>
+                <span className="block text-sm text-muted">Founder &amp; Director, FIDO Exports and Imports LLP</span>
+              </span>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>

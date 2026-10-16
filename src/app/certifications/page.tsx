@@ -14,14 +14,14 @@ export default function Certifications() {
   return (
     <>
       <PageHero eyebrow="Membership & certifications" title="Registered and recognised." subtitle="Government registrations and trade body memberships." image="colombo" />
-      <section className="mx-auto max-w-7xl px-6 pt-24 md:px-10 md:pt-36">
-        <div className="grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-3">
+      <section className="mx-auto max-w-[1200px] px-5 py-20 md:px-6 md:py-28">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {certifications.map((c, i) => (
-            <Reveal key={c.name} delay={(i % 3) * 100} className="bg-ivory">
-              <div className="h-full p-9 md:p-12">
-                <span className="serif text-lg italic text-golddeep">{String(i + 1).padStart(2, "0")}</span>
-                <h2 className="serif mt-6 text-4xl">{c.name}</h2>
-                <p className="mt-3 text-sm leading-relaxed text-muted">{c.full}</p>
+            <Reveal key={c.name} delay={(i % 3) * 90} className="h-full">
+              <div className="h-full rounded-2xl border border-line bg-white p-7 transition duration-300 hover:-translate-y-1 hover:border-gold/60 hover:shadow-[0_18px_40px_-20px_rgba(10,31,24,0.35)]">
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-cream text-sm font-extrabold text-gold">{c.name.replace(/[^A-Za-z]/g, "").slice(0, 3).toUpperCase()}</span>
+                <h2 className="mt-5 text-2xl tracking-tight">{c.name}</h2>
+                <p className="mt-2 leading-relaxed text-muted">{c.full}</p>
               </div>
             </Reveal>
           ))}

@@ -13,8 +13,8 @@ export default function Preloader() {
       el.classList.add("done");
       try { sessionStorage.setItem("fido-seen", "1"); } catch {}
     };
-    // Brand screen for at least ~1.3s, never longer than 3.5s.
-    const min = new Promise((r) => setTimeout(r, 1300));
+    // Brand screen for at least ~1.2s, never longer than 3.5s.
+    const min = new Promise((r) => setTimeout(r, 1200));
     const loaded = new Promise<void>((r) =>
       document.readyState === "complete" ? r() : window.addEventListener("load", () => r(), { once: true }),
     );
@@ -25,7 +25,7 @@ export default function Preloader() {
 
   return (
     <div ref={ref} className="preloader" aria-hidden="true">
-      <Image src="/images/logo.jpg" alt="" width={104} height={104} priority className="preloader-mark object-contain" />
+      <Image src="/images/logo.jpg" alt="" width={96} height={96} priority className="preloader-mark object-contain" />
       <div className="preloader-bar" />
     </div>
   );

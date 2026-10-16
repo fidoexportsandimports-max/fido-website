@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import ImageReveal from "@/components/ImageReveal";
+import Check from "@/components/Check";
 import PageHero from "@/components/PageHero";
 import ProductCard from "@/components/ProductCard";
 import Reveal from "@/components/Reveal";
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   });
 }
 
-const wrap = "mx-auto max-w-7xl px-6 md:px-10";
+const wrap = "mx-auto max-w-[1200px] px-5 md:px-6";
 
 export default async function ProductPage({ params }: { params: Params }) {
   const { slug } = await params;
@@ -44,80 +44,87 @@ export default async function ProductPage({ params }: { params: Params }) {
     <>
       <PageHero eyebrow={`Product ${String(idx + 1).padStart(2, "0")}`} title={p.name} subtitle={p.short} image={p.image} />
 
-      <section className={`${wrap} grid gap-14 pt-24 md:pt-36 lg:grid-cols-12 lg:gap-20`}>
-        <div className="lg:col-span-7">
-          <ImageReveal>
-            <div className="relative aspect-[4/3] overflow-hidden">
-              <Image src={photos[p.image]} alt={p.name} fill placeholder="blur" sizes="(min-width: 1024px) 720px, 100vw" className="object-cover" />
-            </div>
-          </ImageReveal>
-          {p.gallery && (
-            <div className="mt-4 grid grid-cols-3 gap-4">
-              {p.gallery.map((g, i) => (
-                <Reveal key={g} delay={i * 120} from="zoom">
-                  <div className="group relative aspect-square overflow-hidden">
-                    <Image src={photos[g]} alt={g} fill placeholder="blur" sizes="(min-width: 1024px) 230px, 33vw" className="object-cover transition duration-[1400ms] group-hover:scale-110" />
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div className="lg:col-span-5">
-          <div className="lg:sticky lg:top-32">
+      <section className="py-20 md:py-28">
+        <div className={`${wrap} grid gap-12 lg:grid-cols-12 lg:gap-16`}>
+          <div className="lg:col-span-7">
             <Reveal>
-              <p className="eyebrow text-golddeep">Overview</p>
-              <p className="serif mt-5 text-3xl leading-snug md:text-4xl">{p.about}</p>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+                <Image src={photos[p.image]} alt={p.name} fill placeholder="blur" sizes="(min-width: 1024px) 700px, 100vw" className="object-cover" />
+                <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-lg bg-white px-3.5 py-2 text-sm font-semibold text-ink">
+                  <span className="h-1.5 w-1.5 rounded-full bg-gold" /> {p.name}
+                </span>
+              </div>
             </Reveal>
-            {p.items.length > 0 && (
-              <Reveal className="mt-10">
-                <p className="eyebrow text-golddeep">What we supply</p>
-                <ul className="mt-5">
-                  {p.items.map((it, i) => (
-                    <li key={it} className="flex items-baseline gap-5 border-t border-line py-3.5 text-ink">
-                      <span className="serif text-lg italic text-golddeep">{String(i + 1).padStart(2, "0")}</span>
-                      {it}
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
+            {p.gallery && (
+              <div className="mt-4 grid grid-cols-3 gap-4">
+                {p.gallery.map((g, i) => (
+                  <Reveal key={g} delay={i * 100} from="zoom">
+                    <div className="group relative aspect-square overflow-hidden rounded-2xl">
+                      <Image src={photos[g]} alt={g} fill placeholder="blur" sizes="(min-width: 1024px) 220px, 33vw" className="object-cover transition duration-700 group-hover:scale-110" />
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
             )}
-            <Reveal className="mt-10 border-l border-gold pl-6 text-sm leading-relaxed text-muted">{p.note}</Reveal>
-            <Reveal className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <Link href="/contact" className="btn btn-ink">Request a quotation <span className="arrow">→</span></Link>
-              <Link href="/products" className="tlink self-center text-ink">All products</Link>
-            </Reveal>
+          </div>
+
+          <div className="lg:col-span-5">
+            <div className="lg:sticky lg:top-28">
+              <Reveal>
+                <p className="eyebrow">Overview</p>
+                <p className="mt-4 text-xl font-medium leading-relaxed tracking-tight md:text-2xl">{p.about}</p>
+              </Reveal>
+              {p.items.length > 0 && (
+                <Reveal className="mt-8">
+                  <p className="eyebrow">What we supply</p>
+                  <ul className="mt-4 space-y-3 text-lg">
+                    {p.items.map((it) => <li key={it}><Check>{it}</Check></li>)}
+                  </ul>
+                </Reveal>
+              )}
+              <Reveal className="mt-8 rounded-2xl bg-cream p-5 text-[15px] leading-relaxed text-muted">
+                <strong className="block text-ink">Good to know</strong>
+                {p.note}
+              </Reveal>
+              <Reveal className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link href="/contact" className="btn btn-gold">Request a quotation <span className="arrow">→</span></Link>
+                <Link href="/products" className="btn btn-dark">All products</Link>
+              </Reveal>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="mt-28 bg-ink py-24 text-ivory md:mt-40 md:py-32">
+      <section className="bg-mint py-20 md:py-28">
         <div className={wrap}>
-          <SectionHead dark eyebrow="What we arrange" title={`When you order ${p.name.toLowerCase()} through FIDO`} />
-          <ul className="mt-14 grid gap-x-12 md:grid-cols-2">
+          <SectionHead eyebrow="What we arrange" title={`When you order ${p.name.toLowerCase()} through FIDO.`} />
+          <ul className="mt-10 grid gap-4 md:grid-cols-2">
             {arrangeList.map((a, i) => (
               <li key={a}>
-                <Reveal delay={i * 80}>
-                  <p className="flex gap-6 border-t border-ivory/20 py-6 text-ivory/85">
-                    <span className="serif text-2xl italic text-gold">{String(i + 1).padStart(2, "0")}</span>{a}
-                  </p>
+                <Reveal delay={i * 80} className="h-full">
+                  <div className="h-full rounded-2xl border border-line bg-white p-6 text-lg"><Check>{a}</Check></div>
                 </Reveal>
               </li>
             ))}
           </ul>
-          <div className="mt-24"><Steps dark /></div>
         </div>
       </section>
 
-      <section className={`${wrap} pt-28 md:pt-40`}>
-        <SectionHead eyebrow="Continue exploring" title="You may also need" />
-        <div className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-          {others.map((o, i) => (
-            <Reveal key={o.slug} delay={i * 120}>
-              <ProductCard p={o} n={products.findIndex((x) => x.slug === o.slug) + 1} />
-            </Reveal>
-          ))}
+      <section className="py-20 md:py-28">
+        <div className={wrap}>
+          <SectionHead eyebrow="How it works" title="A clear six-step process." />
+          <div className="mt-12"><Steps /></div>
+        </div>
+      </section>
+
+      <section className="bg-cream py-20 md:py-28">
+        <div className={wrap}>
+          <SectionHead eyebrow="More products" title="You may also need." />
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {others.map((o, i) => (
+              <Reveal key={o.slug} delay={i * 90} className="h-full"><ProductCard p={o} /></Reveal>
+            ))}
+          </div>
         </div>
       </section>
     </>

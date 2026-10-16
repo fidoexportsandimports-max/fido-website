@@ -1,25 +1,26 @@
 import type { Metadata } from "next";
 import { ViewTransition } from "react";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NavProgress from "@/components/NavProgress";
 import Preloader from "@/components/Preloader";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { OG_IMAGE, SITE_URL } from "@/lib/meta";
 import { site } from "@/lib/site";
 
-const inter = Inter({
-  variable: "--font-inter",
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+const mono = JetBrains_Mono({
+  variable: "--font-mono-num",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -87,7 +88,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${jakarta.variable} ${mono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <script
@@ -96,7 +97,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
         <noscript>
-          <style>{`.preloader{display:none!important}.reveal,.rise{opacity:1!important;transform:none!important}.mask>span{transform:none!important}.img-reveal-inner{clip-path:none!important}`}</style>
+          <style>{`.preloader{display:none!important}.reveal,.rise{opacity:1!important;transform:none!important}`}</style>
         </noscript>
         <script
           type="application/ld+json"
@@ -109,6 +110,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <ViewTransition default="page-fade">{children}</ViewTransition>
         </main>
         <Footer />
+        <WhatsAppButton />
       </body>
     </html>
   );
