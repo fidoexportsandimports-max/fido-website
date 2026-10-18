@@ -34,3 +34,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## CRM (leads and site activity)
+
+A small private dashboard lives at `/crm/<CRM_KEY>`. There is no login screen: access is the secret link, so
+keep it private. It is excluded from search engines and returns 404 for any other key.
+
+- **Leads**: everything submitted through the contact / quotation form, with status tracking
+  (new, contacted, quoted, won, lost), search, per-lead detail and a CSV export.
+- **Website activity**: anonymous page views, sources, devices, countries (when the host supplies it),
+  product interest and taps on phone, email and WhatsApp. No cookies, no IP addresses stored; Do Not Track
+  and bots are ignored.
+- **Setup**: copy `.env.example`. In development open `/crm/local`. In production set `CRM_KEY` and connect
+  a Redis store (Vercel Storage, Upstash) so `KV_REST_API_URL` and `KV_REST_API_TOKEN` exist. Without Redis,
+  data is written to `.data/crm.json`, which does not persist on serverless hosts such as Vercel.

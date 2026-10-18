@@ -37,6 +37,9 @@ export default function EnquiryForm() {
           <input name="country" defaultValue={country} placeholder="e.g. UAE" className={input} />
         </label>
       </div>
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label>Website <input name="website" tabIndex={-1} autoComplete="off" /></label>
+      </div>
       <label className={label}>Name *
         <input name="name" required autoComplete="name" className={input} />
       </label>
@@ -60,6 +63,7 @@ export default function EnquiryForm() {
       <button disabled={pending} className="btn btn-brand w-full disabled:opacity-60 sm:w-auto">
         {pending ? "Sending…" : "Send enquiry"} <span className="arrow">→</span>
       </button>
+      <p className="text-xs text-muted">We store the details you submit so we can respond to your enquiry.</p>
       {state.message && <p role="status" className={state.ok ? "font-semibold text-inksoft" : "font-semibold text-red-700"}>{state.message}</p>}
     </form>
   );

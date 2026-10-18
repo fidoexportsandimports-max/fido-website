@@ -1,6 +1,7 @@
 "use client";
 
 import { enquiry, useEnquiry } from "@/lib/enquiry-store";
+import { track } from "@/lib/track";
 
 export default function AddToEnquiry({ slug, className = "" }: { slug: string; className?: string }) {
   const { items } = useEnquiry();
@@ -8,7 +9,10 @@ export default function AddToEnquiry({ slug, className = "" }: { slug: string; c
   return (
     <button
       type="button"
-      onClick={() => enquiry.toggle(slug)}
+      onClick={() => {
+        if (!added) track("add_to_enquiry", slug);
+        enquiry.toggle(slug);
+      }}
       aria-pressed={added}
       className={`btn !h-11 !px-4 !text-sm ${added ? "btn-dark" : "border-line bg-white text-ink hover:border-ink"} ${className}`}
     >

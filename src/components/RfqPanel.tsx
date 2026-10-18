@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { enquiry } from "@/lib/enquiry-store";
+import { track } from "@/lib/track";
 import { products } from "@/lib/site";
 
 const field =
@@ -14,6 +15,7 @@ export default function RfqPanel() {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     const slug = String(f.get("product") || "");
+    track("rfq_start", slug || undefined);
     if (slug) enquiry.add(slug);
     enquiry.setDetails(String(f.get("qty") || "").trim(), String(f.get("country") || "").trim());
     router.push("/contact");

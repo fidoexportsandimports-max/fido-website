@@ -1,13 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { ViewTransition } from "react";
 import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import EnquiryTray from "@/components/EnquiryTray";
-import Footer from "@/components/Footer";
-import NavProgress from "@/components/NavProgress";
-import Preloader from "@/components/Preloader";
-import WhatsAppButton from "@/components/WhatsAppButton";
 import { OG_IMAGE, SITE_URL } from "@/lib/meta";
 import { site } from "@/lib/site";
 
@@ -110,15 +103,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
         />
-        <Preloader />
-        <NavProgress />
-        <Header />
-        <main className="flex-1">
-          <ViewTransition default="page-fade">{children}</ViewTransition>
-        </main>
-        <Footer />
-        <WhatsAppButton />
-        <EnquiryTray />
+        {children}
       </body>
     </html>
   );
