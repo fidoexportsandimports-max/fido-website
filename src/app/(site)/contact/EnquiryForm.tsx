@@ -34,7 +34,7 @@ export default function EnquiryForm() {
 
   if (state.ok) {
     return (
-      <div role="status" className="rounded-2xl bg-tint p-8 text-center md:p-12">
+      <div role="status" className="rounded-xl bg-tint p-8 text-center md:p-12">
         <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-brand text-2xl text-white">✓</span>
         <p className="mt-5 text-2xl font-bold tracking-tight">Thank you. We have your requirement.</p>
         <p className="mx-auto mt-2 max-w-md text-muted">Our team will review it and reply with the next steps. You can also reach us on WhatsApp or by phone at any time.</p>

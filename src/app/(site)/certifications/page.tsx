@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { Glyph, Icon } from "@/components/icons";
+import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import SectionHead from "@/components/SectionHead";
 import { pageMeta } from "@/lib/meta";
+import { certLogos, type CertKey } from "@/lib/cert-logos";
 import { certifications, verifySteps } from "@/lib/site";
 
 export const metadata = pageMeta({
@@ -21,7 +22,7 @@ export default function Certifications() {
       <PageHero eyebrow="Membership & certifications" title="Registered, recognised, verifiable." subtitle="The government registrations and trade memberships behind every FIDO shipment, and how you can check them yourself." image="colombo" />
 
       <section className={`${wrap} pt-16 md:pt-24`}>
-        <div className="grid gap-6 rounded-2xl border border-line bg-white p-7 md:grid-cols-12 md:p-10">
+        <div className="grid gap-6 rounded-xl border border-line bg-white p-7 md:grid-cols-12 md:p-10">
           <p className="text-2xl font-bold leading-snug tracking-tight md:col-span-8 md:text-3xl">
             Trade is built on trust, and trust is easier when it can be checked. These are the registrations and memberships that support our work.
           </p>
@@ -33,17 +34,19 @@ export default function Certifications() {
       </section>
 
       <section className={`${wrap} pt-16 md:pt-20`}>
-        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {certifications.map((c, i) => (
-            <Reveal key={c.name} delay={(i % 4) * 80} className="h-full">
-              <article className="flex h-full flex-col rounded-2xl border border-line bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-brand/60 hover:shadow-[0_22px_44px_-22px_rgba(10,29,55,0.4)]">
-                <div className="flex items-center justify-between gap-3">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-tint text-brand"><Glyph d={Icon.shield} className="!h-6 !w-6" /></span>
-                  <span className="rounded-full bg-mint px-3 py-1 text-xs font-bold text-inksoft">{c.group}</span>
+            <Reveal key={c.key} delay={(i % 3) * 80} className="h-full">
+              <article className="flex h-full flex-col overflow-hidden rounded-xl border border-line bg-white transition duration-300 hover:border-brand/50 hover:shadow-md">
+                <div className="flex h-44 items-center justify-center border-b border-line bg-white p-6">
+                  <Image src={certLogos[c.key as CertKey]} alt={`${c.name} logo`} className="h-full w-auto max-w-full object-contain" sizes="260px" />
                 </div>
-                <h3 className="mt-5 text-2xl tracking-tight">{c.name}</h3>
-                <p className="mt-1 text-sm font-semibold text-muted">{c.full}</p>
-                <p className="mt-4 text-[15px] leading-relaxed text-ink/80">{c.what}</p>
+                <div className="flex flex-1 flex-col p-6">
+                  <p className="text-[13px] font-semibold text-brand">{c.group}</p>
+                  <h3 className="mt-1 text-2xl tracking-tight">{c.name}</h3>
+                  <p className="mt-1 text-sm font-semibold text-muted">{c.full}</p>
+                  <p className="mt-4 text-[15px] leading-relaxed text-ink/80">{c.what}</p>
+                </div>
               </article>
             </Reveal>
           ))}
@@ -57,7 +60,7 @@ export default function Certifications() {
             {verifySteps.map(([t, x], i) => (
               <li key={t}>
                 <Reveal delay={i * 90} className="h-full">
-                  <div className="h-full rounded-2xl border border-line bg-white p-7">
+                  <div className="h-full rounded-xl border border-line bg-white p-7">
                     <span className="num flex h-10 w-10 items-center justify-center rounded-[10px] bg-brand text-white">{i + 1}</span>
                     <h3 className="mt-5 text-xl tracking-tight">{t}</h3>
                     <p className="mt-2 leading-relaxed text-muted">{x}</p>
@@ -70,7 +73,7 @@ export default function Certifications() {
       </section>
 
       <section className={`${wrap} pt-16 md:pt-24`}>
-        <Reveal className="grid items-center gap-6 rounded-2xl bg-brand p-8 text-white md:grid-cols-12 md:p-12">
+        <Reveal className="grid items-center gap-6 rounded-xl bg-brand p-8 text-white md:grid-cols-12 md:p-12">
           <div className="md:col-span-8">
             <h2 className="text-3xl md:text-4xl">Need copies of our certificates?</h2>
             <p className="mt-3 text-lg text-white/90">Tell us which documents you need for your records or your bank, and we will share them with you.</p>

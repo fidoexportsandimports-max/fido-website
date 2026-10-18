@@ -43,10 +43,10 @@ h1, h2, h3 {
 
 /* Eyebrow: brand dot + bold brand label */
 .eyebrow {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 13px; font-weight: 700; color: #3f8a34;
+  display: inline-block; font-size: 13px; font-weight: 700; color: #3f8a34;
+  letter-spacing: 0.08em; text-transform: uppercase;
 }
-.eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 9999px; background: currentColor; }
+
 
 /* Buttons */
 .btn {

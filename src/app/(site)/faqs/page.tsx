@@ -18,7 +18,7 @@ export default function FAQs() {
         <div className="space-y-3">
           {faqs.map((f, i) => (
             <Reveal key={f.q} delay={(i % 4) * 40}>
-              <details className="group rounded-2xl border border-line bg-white open:border-brand/50 open:bg-tint/50">
+              <details className="group rounded-xl border border-line bg-white open:border-brand/50 open:bg-tint/50">
                 <summary className="flex min-h-16 cursor-pointer list-none items-center gap-4 px-6 py-4">
                   <span className="num hidden text-[13px] text-muted sm:block">{String(i + 1).padStart(2, "0")}</span>
                   <span className="flex-1 text-lg font-bold leading-snug tracking-tight">{f.q}</span>

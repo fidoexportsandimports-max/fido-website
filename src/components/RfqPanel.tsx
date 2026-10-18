@@ -20,15 +20,15 @@ export default function RfqPanel() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="relative z-20 rounded-2xl bg-white p-6 text-ink shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)] md:p-7">
+    <form onSubmit={onSubmit} className="relative z-20 rounded-xl bg-white p-5 text-ink shadow-[0_24px_60px_-30px_rgba(10,29,55,0.45)] md:p-6">
       <p className="text-xl font-extrabold tracking-tight">Request a quotation</p>
       <p className="mt-1 text-sm text-muted">Tell us what you need. We reply with the next steps.</p>
-      <div className="mt-5 space-y-4">
+      <div className="mt-4 space-y-3.5">
         <ProductSelect />
         <IconInput name="qty" labelText="Quantity" placeholder="e.g. 20 tonnes, 1 container" icon={Icon.hash} />
         <CountryInput />
       </div>
-      <button className="btn btn-brand mt-6 w-full">Continue <span className="arrow">→</span></button>
+      <button className="btn btn-brand mt-5 w-full">Continue <span className="arrow">→</span></button>
       <p className="mt-3 text-center text-xs text-muted">No payment needed. Prices are quoted per enquiry.</p>
     </form>
   );

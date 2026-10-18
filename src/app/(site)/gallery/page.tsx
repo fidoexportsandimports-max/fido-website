@@ -38,7 +38,7 @@ export default function Gallery() {
         <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
           {shots.map((s, i) => (
             <Reveal key={s.key} delay={(i % 3) * 90} from="zoom" className="break-inside-avoid">
-              <figure className="group relative overflow-hidden rounded-2xl">
+              <figure className="group relative overflow-hidden rounded-xl">
                 <Image src={photos[s.key]} alt={s.caption} placeholder="blur" sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" className="h-auto w-full transition duration-700 group-hover:scale-105" />
                 <figcaption className="absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-lg bg-white px-3 py-1.5 text-sm font-semibold text-ink">
                   <span className="h-1.5 w-1.5 rounded-full bg-brand" /> {s.caption}

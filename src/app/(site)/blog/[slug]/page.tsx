@@ -58,7 +58,7 @@ export default async function PostPage({ params }: { params: Params }) {
 
       <article className="mx-auto max-w-3xl px-5 py-16 md:px-6 md:py-24">
         <Reveal>
-          <div className="relative mb-12 aspect-[16/9] overflow-hidden rounded-2xl">
+          <div className="relative mb-12 aspect-[16/9] overflow-hidden rounded-xl">
             <Image src={photos[post.image]} alt="" fill priority placeholder="blur" sizes="(min-width: 768px) 720px, 100vw" className="object-cover" />
           </div>
         </Reveal>
@@ -81,7 +81,7 @@ export default async function PostPage({ params }: { params: Params }) {
           )}
         </div>
 
-        <div className="mt-14 rounded-2xl bg-tint p-7 md:p-9">
+        <div className="mt-14 rounded-xl bg-tint p-7 md:p-9">
           <p className="text-2xl font-extrabold tracking-tight">Need a quotation?</p>
           <p className="mt-2 text-muted">Tell us the product, quantity and destination and we will reply with the next steps.</p>
           <div className="mt-5 flex flex-col gap-3 sm:flex-row">

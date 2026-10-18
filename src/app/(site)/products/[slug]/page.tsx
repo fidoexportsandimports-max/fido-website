@@ -1,17 +1,24 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AddToEnquiry from "@/components/AddToEnquiry";
+import BlogCard from "@/components/BlogCard";
+import Breadcrumb from "@/components/Breadcrumb";
+import Carousel from "@/components/Carousel";
 import Check from "@/components/Check";
-import PageHero from "@/components/PageHero";
+import FaqList from "@/components/FaqList";
+import PhotoGallery from "@/components/PhotoGallery";
 import ProductCard from "@/components/ProductCard";
 import Reveal from "@/components/Reveal";
+import Reviews from "@/components/Reviews";
 import SectionHead from "@/components/SectionHead";
 import Steps from "@/components/Steps";
-import { pageMeta } from "@/lib/meta";
+import SubCard from "@/components/SubCard";
+import { postBySlug } from "@/lib/blog";
+import { catalog, defaultQa } from "@/lib/catalog";
+import { SITE_URL, pageMeta } from "@/lib/meta";
 import { photos } from "@/lib/photos";
-import { arrangeList, products, tradeSpecs } from "@/lib/site";
+import { products } from "@/lib/site";
 
 type Params = Promise<{ slug: string }>;
 
@@ -39,110 +46,140 @@ export default async function ProductPage({ params }: { params: Params }) {
   const idx = products.findIndex((x) => x.slug === slug);
   if (idx < 0) notFound();
   const p = products[idx];
-  const others = [1, 2, 3].map((k) => products[(idx + k) % products.length]);
+  const x = catalog[slug];
+  const others = products.filter((o) => o.slug !== slug);
+  const articles = x.articles.map(postBySlug).filter((a): a is NonNullable<typeof a> => !!a);
+  const qa = [...x.qa, ...defaultQa.filter(([q]) => !x.qa.some(([q2]) => q2 === q))];
+
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Products", item: `${SITE_URL}/products` },
+      { "@type": "ListItem", position: 2, name: p.name, item: `${SITE_URL}/products/${p.slug}` },
+    ],
+  };
 
   return (
     <>
-      <PageHero eyebrow={`Product ${String(idx + 1).padStart(2, "0")}`} title={p.name} subtitle={p.short} image={p.image} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, "\\u003c") }} />
 
-      <section className="py-20 md:py-28">
-        <div className={`${wrap} grid gap-12 lg:grid-cols-12 lg:gap-16`}>
-          <div className="lg:col-span-7">
-            <Reveal>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-                <Image src={photos[p.image]} alt={p.name} fill placeholder="blur" sizes="(min-width: 1024px) 700px, 100vw" className="object-cover" />
-                <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-lg bg-white px-3.5 py-2 text-sm font-semibold text-ink">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand" /> {p.name}
-                </span>
-              </div>
-            </Reveal>
-            {p.gallery && (
-              <div className="mt-4 grid grid-cols-3 gap-4">
-                {p.gallery.map((g, i) => (
-                  <Reveal key={g} delay={i * 100} from="zoom">
-                    <div className="group relative aspect-square overflow-hidden rounded-2xl">
-                      <Image src={photos[g]} alt={g} fill placeholder="blur" sizes="(min-width: 1024px) 220px, 33vw" className="object-cover transition duration-700 group-hover:scale-110" />
-                    </div>
-                  </Reveal>
+      <section className="border-b border-line bg-mint pb-14 pt-36 md:pb-20 md:pt-48">
+        <div className={wrap}>
+          <Breadcrumb trail={[{ href: "/products", label: "Products" }, { label: p.name }]} />
+          <div className="mt-8 grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
+            <div className="lg:col-span-6">
+              <p className="eyebrow">{p.category}</p>
+              <h1 className="mt-3 text-4xl text-ink sm:text-5xl md:text-6xl">{p.name}</h1>
+              <p className="mt-5 text-lg leading-relaxed text-muted md:text-xl">{p.about}</p>
+              <dl className="mt-8 grid grid-cols-2 gap-x-8 gap-y-5 border-t border-ink/15 pt-6">
+                {x.facts.map(([k, v]) => (
+                  <div key={k}><dt className="text-sm font-semibold text-muted">{k}</dt><dd className="mt-0.5 font-bold">{v}</dd></div>
                 ))}
-              </div>
-            )}
-          </div>
-
-          <div className="lg:col-span-5">
-            <div className="lg:sticky lg:top-28">
-              <Reveal>
-                <p className="eyebrow">Overview</p>
-                <p className="mt-4 text-xl font-medium leading-relaxed tracking-tight md:text-2xl">{p.about}</p>
-              </Reveal>
-              {p.items.length > 0 && (
-                <Reveal className="mt-8">
-                  <p className="eyebrow">What we supply</p>
-                  <ul className="mt-4 space-y-3 text-lg">
-                    {p.items.map((it) => <li key={it}><Check>{it}</Check></li>)}
-                  </ul>
-                </Reveal>
-              )}
-              <Reveal className="mt-8 rounded-2xl bg-tint p-5 text-[15px] leading-relaxed text-muted">
-                <strong className="block text-ink">Good to know</strong>
-                {p.note}
-              </Reveal>
-              <Reveal className="mt-8 flex flex-col gap-3 sm:flex-row">
+              </dl>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link href="/contact" className="btn btn-brand">Request a quotation <span className="arrow">→</span></Link>
                 <AddToEnquiry slug={p.slug} className="!h-[52px] !px-6 !text-[15px]" />
-              </Reveal>
+              </div>
+            </div>
+            <div className="lg:col-span-6">
+              <PhotoGallery images={x.gallery.map((k) => photos[k])} alt={p.name} priority />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-white pb-20 md:pb-28">
+      {x.subs.length > 0 && (
+        <section className="py-20 md:py-28">
+          <div className={wrap}>
+            <SectionHead eyebrow={x.subLabel} title={`${p.name}: ${x.subs.length} ${x.subs.length === 1 ? "type" : "types"}, each with its own page.`} intro="Open any type for its specification checklist, packing options and photographs." />
+            <div className="mt-12">
+              <Carousel label={`${p.name} types`} interval={4000}>
+                {x.subs.map((s) => <SubCard key={s.slug} product={p.slug} productName={p.name} sub={s} />)}
+              </Carousel>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className={`${x.subs.length ? "bg-mint" : ""} py-20 md:py-28`}>
         <div className={wrap}>
-          <SectionHead eyebrow="Trade details" title="Product specifications at a glance." />
-          <Reveal className="mt-10 overflow-hidden rounded-2xl border border-line">
-            <dl className="divide-y divide-line">
-              {tradeSpecs(p).map(([k, v], i) => (
-                <div key={k} className={`grid gap-1 px-5 py-4 sm:grid-cols-3 sm:gap-6 md:px-7 ${i % 2 ? "bg-mint/60" : "bg-white"}`}>
-                  <dt className="font-semibold text-muted">{k}</dt>
-                  <dd className="font-semibold sm:col-span-2">{v}</dd>
+          <SectionHead eyebrow="How to choose" title={`Ordering ${p.name}: three things to settle first.`} />
+          <div className="mt-12 grid gap-x-12 gap-y-10 md:grid-cols-3">
+            {x.guide.map((g, i) => (
+              <Reveal key={g.title} delay={i * 90}>
+                <div className="border-t-2 border-ink pt-5">
+                  <h3 className="text-xl tracking-tight">{g.title}</h3>
+                  <p className="mt-2 leading-relaxed text-muted">{g.text}</p>
                 </div>
-              ))}
-            </dl>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal className="mt-12 border-l-4 border-brand bg-white p-6 text-[17px] leading-relaxed text-ink/85">
+            <strong className="mb-1 block">Good to know</strong>{p.note}
           </Reveal>
+        </div>
+      </section>
+
+      <section className="py-20 md:py-28">
+        <div className={`${wrap} grid gap-12 md:grid-cols-2 lg:gap-20`}>
+          <div>
+            <SectionHead eyebrow="Packaging" title="How it is packed." />
+            <ul className="mt-8 space-y-4 text-lg">{x.packaging.map((t) => <li key={t}><Check>{t}</Check></li>)}</ul>
+          </div>
+          <div>
+            <SectionHead eyebrow="Quality" title="How it is checked." />
+            <ul className="mt-8 space-y-4 text-lg">{x.quality.map((t) => <li key={t}><Check>{t}</Check></li>)}</ul>
+          </div>
         </div>
       </section>
 
       <section className="bg-mint py-20 md:py-28">
         <div className={wrap}>
-          <SectionHead eyebrow="What we arrange" title={`When you order ${p.name.toLowerCase()} through FIDO.`} />
-          <ul className="mt-10 grid gap-4 md:grid-cols-2">
-            {arrangeList.map((a, i) => (
-              <li key={a}>
-                <Reveal delay={i * 80} className="h-full">
-                  <div className="h-full rounded-2xl border border-line bg-white p-6 text-lg"><Check>{a}</Check></div>
-                </Reveal>
-              </li>
-            ))}
-          </ul>
+          <SectionHead eyebrow="How it works" title="From enquiry to delivery." />
+          <div className="mt-14"><Steps /></div>
         </div>
       </section>
 
-      <section className="py-20 md:py-28">
-        <div className={wrap}>
-          <SectionHead eyebrow="How it works" title="A clear six-step process." />
-          <div className="mt-12"><Steps /></div>
+      <Reviews product={p.slug} />
+
+      <section className="bg-mint py-20 md:py-28">
+        <div className={`${wrap} grid gap-12 lg:grid-cols-12`}>
+          <div className="lg:col-span-4"><SectionHead eyebrow="Questions" title={`${p.name}: common questions.`} /></div>
+          <div className="lg:col-span-8"><FaqList items={qa} /></div>
         </div>
       </section>
 
-      <section className="bg-tint py-20 md:py-28">
+      {articles.length > 0 && (
+        <section className="py-20 md:py-28">
+          <div className={wrap}>
+            <SectionHead eyebrow="Read more" title={`Guides related to ${p.name}.`} />
+            <div className="mt-12 grid gap-6 md:grid-cols-2">
+              {articles.map((a) => <BlogCard key={a.slug} post={a} />)}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="bg-mint py-20 md:py-28">
         <div className={wrap}>
           <SectionHead eyebrow="More products" title="You may also need." />
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {others.map((o, i) => (
-              <Reveal key={o.slug} delay={i * 90} className="h-full"><ProductCard p={o} /></Reveal>
-            ))}
+          <div className="mt-12">
+            <Carousel label="More products" interval={4200}>
+              {others.map((o) => <ProductCard key={o.slug} p={o} />)}
+            </Carousel>
           </div>
         </div>
+      </section>
+
+      <section className="bg-brand text-white">
+        <Reveal className={`${wrap} grid items-center gap-8 py-16 md:grid-cols-12 md:py-20`}>
+          <div className="md:col-span-8">
+            <h2 className="text-3xl md:text-5xl">Ready to order {p.name}?</h2>
+            <p className="mt-3 text-lg text-white/90">Send your specification, quantity and destination. We will reply with the next steps.</p>
+          </div>
+          <div className="md:col-span-4 md:text-right"><Link href="/contact" className="btn btn-white">Request a quotation <span className="arrow">→</span></Link></div>
+        </Reveal>
       </section>
     </>
   );

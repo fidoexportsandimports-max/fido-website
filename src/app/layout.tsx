@@ -66,6 +66,7 @@ const jsonLd = {
   description,
   email: site.email,
   telephone: `+91${site.phone}`,
+  ...(site.gstin ? { taxID: site.gstin } : {}),
   address: {
     "@type": "PostalAddress",
     streetAddress: "D.NO.11-9-6, Gopi Delux Apartment, Sheshayymetta",

@@ -7,6 +7,8 @@ export const site = {
   description:
     "India-based merchant exporter and B2B international trading company connecting Indian suppliers with global buyers.",
   phone: "7382076614",
+  /** GST registration number. Shown in the footer and on the contact page once filled in. */
+  gstin: "",
   email: "info@fidoexim.com",
   address:
     "D.NO.11-9-6, Gopi Delux Apartment, Sheshayymetta, Opp. Lahospin Hotel, Rajamahendravaram, East\u00a0Godavari, Andhra\u00a0Pradesh, 533101",
@@ -38,6 +40,15 @@ export const steps = [
   "Quality Inspection & Packaging",
   "Shipment & Documentation",
   "Delivery & After-Sales",
+];
+
+export const stepDetails: { title: string; text: string; output: string; icon: "chat" | "box" | "file" | "shield" | "truck" | "checkCircle" }[] = [
+  { title: "Inquiry & Product Selection", text: "Tell us the product, quantity, destination and packaging. We match your requirement with suitable suppliers and confirm what is possible.", output: "Requirement confirmed", icon: "chat" },
+  { title: "Sample Dispatch & Approval", text: "Where samples are possible, cost, shipping and any testing are agreed first. You approve the sample against your written specification.", output: "Sample approved", icon: "box" },
+  { title: "Price Negotiation & PI", text: "We settle price, quantity, delivery terms and payment terms, then issue a proforma invoice that records everything agreed.", output: "Proforma invoice", icon: "file" },
+  { title: "Quality Inspection & Packaging", text: "Goods are checked against the agreed specification. Independent inspection or laboratory testing can be arranged. Packing follows what you approved.", output: "Packed, checked goods", icon: "shield" },
+  { title: "Shipment & Documentation", text: "Freight is booked with our logistics partners and export documents are prepared and checked before the goods leave.", output: "Shipping documents", icon: "truck" },
+  { title: "Delivery & After-Sales", text: "We follow the shipment to delivery and stay available if there is any concern about the product, the packaging or the delivery.", output: "Delivery confirmed", icon: "checkCircle" },
 ];
 
 export const audience = [
@@ -225,52 +236,67 @@ export const strengths = [
   { title: "Compliance", text: "We follow rigorous quality control processes and batch-wise checks to ensure products meet the highest global standards." },
 ];
 
-export type Certification = { name: string; full: string; group: string; what: string };
+export type Certification = { key: string; name: string; full: string; group: string; what: string };
 
 export const certifications: Certification[] = [
   {
+    key: "dgft",
     name: "DGFT",
     full: "Directorate General of Foreign Trade",
     group: "Export and trade authorities",
     what: "The Government of India body that administers foreign trade policy. Indian exporters operate under an Importer-Exporter Code issued through DGFT.",
   },
   {
+    key: "icegate",
     name: "ICEGATE",
     full: "Indian Customs National Trade Portal",
     group: "Export and trade authorities",
     what: "The customs portal used to file export and import documents electronically, which keeps shipments traceable and clearances on record.",
   },
   {
+    key: "ecgc",
     name: "ECGC",
     full: "Export Credit Guarantee Corporation of India",
     group: "Export and trade authorities",
     what: "A government-owned export credit insurer. Membership helps exporters manage the risk of non-payment on export sales.",
   },
   {
+    key: "apeda",
     name: "APEDA",
     full: "Agricultural & Processed Food Products Export Development Authority",
     group: "Product export bodies",
     what: "Under the Ministry of Commerce & Industry, APEDA promotes the export of agricultural and processed food products and registers exporters of scheduled products.",
   },
   {
+    key: "spices-board",
     name: "Spices Board India",
     full: "Ministry of Commerce & Industry, Government of India",
     group: "Product export bodies",
     what: "The statutory body for the development and export promotion of Indian spices, with which spice exporters register.",
   },
   {
+    key: "fssai",
     name: "FSSAI",
     full: "Food Safety and Standards Authority of India",
     group: "Food safety",
     what: "India's food safety regulator, under the Ministry of Health and Family Welfare. Food businesses hold an FSSAI licence or registration.",
   },
   {
+    key: "msme",
     name: "MSME",
-    full: "Ministry of Micro, Small & Medium Enterprises (Udyog Aadhaar / Udyam)",
+    full: "Ministry of Micro, Small & Medium Enterprises",
     group: "Business registrations",
-    what: "Government registration as a micro, small or medium enterprise, which also confirms the business as a recognised Indian entity.",
+    what: "The ministry that recognises and supports micro, small and medium enterprises across India.",
   },
   {
+    key: "udyog-aadhaar",
+    name: "Udyog Aadhaar",
+    full: "MSME registration: Micro, Small and Medium Enterprises",
+    group: "Business registrations",
+    what: "Registration as a micro, small or medium enterprise, which also confirms the business as a recognised Indian entity.",
+  },
+  {
+    key: "gst",
     name: "GST",
     full: "Goods and Services Tax Council",
     group: "Business registrations",
@@ -328,7 +354,7 @@ export function tradeSpecs(p: Product): [string, string][] {
 }
 
 export const trust = [
-  ["Verified suppliers", "Suppliers are checked before we recommend them."],
+  ["Supplier verification", "Suppliers are checked before we recommend them."],
   ["Batch-wise quality checks", "Products are checked against agreed specifications."],
   ["Export documentation", "Paperwork coordinated with brokers and forwarders."],
   ["Flexible payment terms", "Structured, negotiable terms for repeat trade."],

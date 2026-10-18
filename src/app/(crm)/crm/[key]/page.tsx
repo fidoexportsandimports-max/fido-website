@@ -41,7 +41,7 @@ function Bars({ rows, empty = "No data yet" }: { rows: [string, number][]; empty
 }
 
 const Card = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <section className="rounded-2xl border border-line bg-white p-5 md:p-6">
+  <section className="rounded-xl border border-line bg-white p-5 md:p-6">
     <h2 className="text-lg tracking-tight">{title}</h2>
     <div className="mt-4">{children}</div>
   </section>
@@ -105,7 +105,7 @@ async function Dashboard({ params }: { params: Promise<{ key: string }> }) {
 
       <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
         {kpis.map(([k, v, c]) => (
-          <div key={k} className="rounded-2xl border border-line bg-white p-4">
+          <div key={k} className="rounded-xl border border-line bg-white p-4">
             <p className={`text-3xl font-extrabold tracking-tight ${c ?? ""}`}>{v}</p>
             <p className="mt-1 text-[13px] leading-snug text-muted">{k}</p>
           </div>
@@ -171,7 +171,7 @@ async function Dashboard({ params }: { params: Promise<{ key: string }> }) {
 
 export default function CrmPage({ params }: { params: Promise<{ key: string }> }) {
   return (
-    <Suspense fallback={<div className="mx-auto max-w-[1200px] p-10"><div className="skeleton h-10 w-64 rounded-lg" /><div className="skeleton mt-6 h-96 rounded-2xl" /></div>}>
+    <Suspense fallback={<div className="mx-auto max-w-[1200px] p-10"><div className="skeleton h-10 w-64 rounded-lg" /><div className="skeleton mt-6 h-96 rounded-xl" /></div>}>
       <Dashboard params={params} />
     </Suspense>
   );

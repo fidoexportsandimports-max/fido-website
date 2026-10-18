@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="md:col-span-4">
           <Link href="/" className="flex items-center gap-3">
             <Image src="/images/logo.jpg" alt="" width={88} height={88} className="h-[72px] w-[72px] rounded-full bg-white object-contain p-0.5" />
-            <span className="text-xl font-extrabold tracking-tight">FIDO Exim</span>
+            <span className="text-xl font-extrabold leading-tight tracking-tight">FIDO Exports &amp; Imports</span>
           </Link>
           <p className="mt-6 max-w-xs text-lg font-bold leading-snug">Trust in every shipment, from India to the world.</p>
           <Link href="/contact" className="btn btn-brand mt-6">Request a quote</Link>
@@ -34,6 +34,7 @@ export default function Footer() {
         <div className="text-[15px] md:col-span-3">
           <p className="text-sm font-bold text-brandlight">Get in touch</p>
           <AddressBlock withName className="mt-5 leading-relaxed text-white/70" />
+          {site.gstin && <p className="mt-4 text-white/85"><span className="text-white/55">GSTIN </span><span className="font-semibold tracking-wide">{site.gstin}</span></p>}
           <p className="mt-4 font-semibold"><a href={`tel:+91${site.phone}`}>+91 {site.phone}</a></p>
           <p className="mt-2 break-all text-white/70"><a href={`mailto:${site.email}`} className="hover:text-white">{site.email}</a></p>
         </div>

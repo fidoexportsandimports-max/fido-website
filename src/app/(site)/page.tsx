@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Carousel from "@/components/Carousel";
+import HeroPhotos from "@/components/HeroPhotos";
 import Link from "next/link";
 import Check from "@/components/Check";
 import ProductCard from "@/components/ProductCard";
@@ -26,24 +28,36 @@ export default function Home() {
       {/* Hero */}
       <section className="relative isolate z-10 border-b border-line bg-mint">
         <div className="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-[52%] [mask-image:linear-gradient(to_right,transparent,black_40%)] lg:block">
-          <Image src={photos["hero-port"]} alt="Container ship alongside a terminal, seen from above" fill priority placeholder="blur" sizes="52vw" className="object-cover" />
+          <HeroPhotos
+            images={[photos["ship-sunset"], photos.paddy, photos["spice-market"], photos["ship-deck"]]}
+            alts={["Container ship at sunset", "Paddy fields in India", "A spice market stall in India", "View from a cargo ship at sunrise"]}
+          />
         </div>
-        <div className={`${wrap} pb-16 pt-40 md:pb-24 md:pt-52`}>
-          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
-            <div className="lg:col-span-7">
-              <p className="eyebrow rise" style={d(0)}>Verified merchant exporter · India</p>
-              <h1 className="rise mt-5 text-[2.8rem] text-ink sm:text-6xl md:text-[4.6rem]" style={d(100)}>
+        <div className={`${wrap} pb-12 pt-24 md:pb-16 md:pt-44`}>
+          {/* Mobile photo banner */}
+          <div className="relative mb-4 h-24 overflow-hidden rounded-xl sm:h-32 lg:hidden">
+            <HeroPhotos
+              images={[photos["ship-sunset"], photos.paddy, photos["spice-market"], photos["ship-deck"]]}
+              alts={["Container ship at sunset", "Paddy fields in India", "A spice market stall in India", "View from a cargo ship at sunrise"]}
+            />
+          </div>
+          <div className="grid items-start gap-x-14 gap-y-5 lg:grid-cols-12 lg:grid-rows-[auto_1fr]">
+            <div className="lg:col-span-6 lg:row-start-1 lg:self-end">
+              <p className="eyebrow rise" style={d(0)}>Merchant exporter · India</p>
+              <h1 className="rise mt-3 text-[1.95rem] text-ink sm:text-5xl lg:text-[3.3rem]" style={d(100)}>
                 Source from India. <span className="text-brand">Trade with trust.</span>
               </h1>
-              <p className="rise mt-6 max-w-xl text-lg leading-relaxed text-muted md:text-xl" style={d(220)}>
+            </div>
+            <div className="rise order-2 lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:row-start-1" style={d(200)}><RfqPanel /></div>
+            <div className="order-3 lg:order-none lg:col-span-6 lg:row-start-2 lg:self-start">
+              <p className="rise max-w-md text-base leading-relaxed text-muted md:text-lg" style={d(260)}>
                 Rice, spices, eggs, fruits, polymers and electrical panels from Indian suppliers, with sourcing, paperwork and shipping handled for you.
               </p>
-              <div className="rise mt-8 flex flex-col gap-3 sm:flex-row" style={d(340)}>
+              <div className="rise mt-6 flex flex-col gap-3 sm:flex-row" style={d(340)}>
                 <Link href="/products" className="btn btn-brand">Browse the catalogue <span className="arrow">→</span></Link>
                 <Link href="/about" className="btn border-ink/20 bg-white text-ink hover:border-ink">About FIDO</Link>
               </div>
             </div>
-            <div className="rise lg:col-span-5" style={d(300)}><RfqPanel /></div>
           </div>
         </div>
       </section>
@@ -66,7 +80,7 @@ export default function Home() {
               const list = products.filter((p) => p.category === c.name);
               return (
                 <Reveal key={c.id} delay={i * 100} className="h-full">
-                  <Link href={`/products?category=${c.id}`} className="group relative isolate flex h-full min-h-[320px] flex-col justify-end overflow-hidden rounded-2xl p-7 text-white">
+                  <Link href={`/products?category=${c.id}`} className="group relative isolate flex h-full min-h-[320px] flex-col justify-end overflow-hidden rounded-xl p-7 text-white">
                     <Image src={photos[list[0].image]} alt="" fill placeholder="blur" sizes="(min-width: 768px) 560px, 100vw" className="-z-10 object-cover transition duration-700 group-hover:scale-105" />
                     <div className="absolute inset-0 -z-10 bg-gradient-to-t from-deep via-deep/60 to-deep/10" />
                     <p className="text-sm font-semibold text-brandlight">{list.length} products</p>
@@ -85,13 +99,13 @@ export default function Home() {
       <section className="bg-white py-20 md:py-28">
         <div className={wrap}>
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <SectionHead eyebrow="Featured products" title="Popular with importers." intro="Add products to your enquiry list and request one combined quotation." />
-            <Reveal><Link href="/products" className="tlink">Browse all {products.length} products <span className="arrow">→</span></Link></Reveal>
+            <SectionHead eyebrow="Our products" title="Nine product lines, one dependable partner." intro="Agricultural commodities, food products, polymers and electrical panels." />
+            <Reveal><Link href="/products" className="tlink">Open the full catalogue <span className="arrow">→</span></Link></Reveal>
           </div>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {[products[0], products[1], products[7], products[8]].map((p, i) => (
-              <Reveal key={p.slug} delay={i * 90} className="h-full"><ProductCard p={p} /></Reveal>
-            ))}
+          <div className="mt-12">
+            <Carousel label="Our products" interval={4200}>
+              {products.map((p) => <ProductCard key={p.slug} p={p} />)}
+            </Carousel>
           </div>
         </div>
       </section>
@@ -100,7 +114,7 @@ export default function Home() {
       <section className="pb-20 md:pb-28">
         <div className={`${wrap} grid items-center gap-12 lg:grid-cols-2 lg:gap-20`}>
           <Reveal from="left">
-            <div className="relative aspect-[5/4] overflow-hidden rounded-2xl">
+            <div className="relative aspect-[5/4] overflow-hidden rounded-xl">
               <Image src={photos["hero-ship"]} alt="Container ship loaded and lit at dusk" fill placeholder="blur" sizes="(min-width: 1024px) 560px, 100vw" className="object-cover" />
               <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-lg bg-white px-3.5 py-2 text-sm font-semibold text-ink">
                 <span className="h-1.5 w-1.5 rounded-full bg-brand" /> Merchant exporter · Pan-India sourcing
@@ -135,14 +149,14 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-            <Reveal className="mt-8 flex items-center gap-4 rounded-2xl border border-line bg-white p-5">
+            <Reveal className="mt-8 flex items-center gap-4 rounded-xl border border-line bg-white p-5">
               <span className="text-4xl font-extrabold tracking-tight text-brand md:text-5xl">9</span>
               <span className="text-sm leading-snug text-muted">product categories already in our catalogue, with more added as buyers ask.</span>
             </Reveal>
             <Reveal className="mt-6"><Link href="/contact" className="btn btn-brand">Partner with us <span className="arrow">→</span></Link></Reveal>
           </div>
           <Reveal from="right">
-            <div className="relative aspect-[5/4] overflow-hidden rounded-2xl">
+            <div className="relative aspect-[5/4] overflow-hidden rounded-xl">
               <Image src={photos["spice-market"]} alt="A spice market stall in India" fill placeholder="blur" sizes="(min-width: 1024px) 560px, 100vw" className="object-cover" />
               <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-lg bg-white px-3.5 py-2 text-sm font-semibold text-ink">
                 <span className="h-1.5 w-1.5 rounded-full bg-brand" /> Sourced from Indian suppliers
@@ -195,7 +209,7 @@ export default function Home() {
       <section className="bg-mint py-20 md:py-28">
         <div className={wrap}>
           <SectionHead center eyebrow="From the Director" title="Trust is how we do business." />
-          <Reveal className="mx-auto mt-12 max-w-3xl rounded-2xl border border-line bg-white p-8 md:p-12">
+          <Reveal className="mx-auto mt-12 max-w-3xl rounded-xl border border-line bg-white p-8 md:p-12">
             <p className="text-xl font-medium leading-relaxed tracking-tight md:text-2xl">
               &ldquo;We believe that trust is the foundation of every successful business relationship. Our name, FIDO, reflects the values that guide us: trust, transparency, commitment and long-term partnership.&rdquo;
             </p>

@@ -40,7 +40,7 @@ export default function Contact() {
               <a
                 href={q.href}
                 {...(q.external ? { target: "_blank", rel: "noreferrer" } : {})}
-                className="group flex h-full items-center gap-4 rounded-2xl border border-line bg-white p-5 transition duration-300 hover:-translate-y-1 hover:border-brand/60 hover:shadow-[0_22px_44px_-22px_rgba(10,29,55,0.4)]"
+                className="group flex h-full items-center gap-4 rounded-xl border border-line bg-white p-5 transition duration-300 hover:border-brand/60 hover:shadow-md"
               >
                 <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-tint text-brand transition group-hover:bg-brand group-hover:text-white">
                   <Glyph d={q.icon} className="!h-6 !w-6" />
@@ -58,7 +58,7 @@ export default function Contact() {
 
       <section className="mx-auto grid max-w-[1200px] gap-10 px-5 py-14 md:px-6 md:py-20 lg:grid-cols-12 lg:gap-12">
         <Reveal className="lg:col-span-7">
-          <div className="rounded-2xl border border-line bg-white p-6 shadow-[0_30px_70px_-40px_rgba(10,29,55,0.35)] md:p-10">
+          <div className="rounded-xl border border-line bg-white p-6 shadow-[0_30px_70px_-40px_rgba(10,29,55,0.35)] md:p-10">
             <h2 className="text-3xl md:text-4xl">Send us your requirement</h2>
             <p className="mb-10 mt-3 text-lg text-muted">Fields marked * are needed. Everything else helps us quote faster.</p>
             <EnquiryForm />
@@ -67,11 +67,14 @@ export default function Contact() {
 
         <aside className="space-y-6 lg:col-span-5">
           <Reveal delay={100}>
-            <div className="rounded-2xl border border-line bg-white p-6 md:p-7">
+            <div className="rounded-xl border border-line bg-white p-6 md:p-7">
               <p className="eyebrow">Our office</p>
               <div className="mt-4 flex gap-4">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-tint text-brand"><Glyph d={Icon.pin} className="!h-5 !w-5" /></span>
-                <AddressBlock withName className="text-[17px] leading-relaxed text-ink/85" />
+                <div>
+                  <AddressBlock withName className="text-[17px] leading-relaxed text-ink/85" />
+                  {site.gstin && <p className="mt-3 text-[17px]"><span className="text-muted">GSTIN </span><span className="font-bold tracking-wide">{site.gstin}</span></p>}
+                </div>
               </div>
               <div className="mt-5 flex items-center gap-4 rounded-xl bg-mint p-4">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand text-white"><Glyph d={Icon.pin} className="!h-6 !w-6" /></span>
@@ -82,7 +85,7 @@ export default function Contact() {
           </Reveal>
 
           <Reveal delay={160}>
-            <div className="rounded-2xl bg-tint p-6 md:p-7">
+            <div className="rounded-xl bg-tint p-6 md:p-7">
               <p className="eyebrow">What happens next</p>
               <ol className="mt-5 space-y-5">
                 {next.map(([t, x], i) => (

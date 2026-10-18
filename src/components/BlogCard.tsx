@@ -7,7 +7,7 @@ export default function BlogCard({ post, large = false }: { post: Post; large?: 
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className={`group flex h-full overflow-hidden rounded-2xl border border-line bg-white transition duration-300 hover:-translate-y-1 hover:border-brand/60 hover:shadow-[0_22px_44px_-22px_rgba(10,29,55,0.4)] ${large ? "flex-col lg:flex-row" : "flex-col"}`}
+      className={`group flex h-full overflow-hidden rounded-xl border border-line bg-white transition duration-300 hover:border-brand/60 hover:shadow-md ${large ? "flex-col lg:flex-row" : "flex-col"}`}
     >
       <div className={`relative overflow-hidden bg-mint ${large ? "aspect-[16/10] lg:aspect-auto lg:w-1/2" : "aspect-[16/10]"}`}>
         <Image

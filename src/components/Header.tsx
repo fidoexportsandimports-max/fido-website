@@ -36,7 +36,7 @@ export default function Header() {
       >
         <div className="hidden bg-deep text-[13px] text-white/75 md:block">
           <div className="mx-auto flex h-9 max-w-[1200px] items-center justify-between px-6">
-            <span>Verified merchant exporter · Rajamahendravaram, India</span>
+            <span>Merchant exporter · Rajamahendravaram, India</span>
             <span className="flex items-center gap-6">
               <a href={`tel:+91${site.phone}`} className="hover:text-brandlight">+91 {site.phone}</a>
               <a href={`mailto:${site.email}`} className="hover:text-brandlight">{site.email}</a>
@@ -44,15 +44,15 @@ export default function Header() {
           </div>
         </div>
         <div className="mx-auto flex h-[76px] max-w-[1200px] items-center justify-between gap-6 px-5 md:h-[88px] md:px-6">
-          <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-3.5" aria-label={site.name}>
+          <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-3" aria-label={site.name}>
             <Image src="/images/logo.jpg" alt="FIDO Exports and Imports logo" width={80} height={80} priority className="h-14 w-14 object-contain md:h-[68px] md:w-[68px]" />
             <span className="leading-tight">
-              <span className="block text-xl font-extrabold tracking-tight text-ink md:text-2xl">FIDO Exim</span>
-              <span className="hidden text-[12px] font-semibold text-brand sm:block">Trust in Every Shipment</span>
+              <span className="block text-[19px] font-extrabold leading-tight tracking-tight text-ink md:text-[22px]">FIDO Exports &amp; Imports</span>
+              <span className="block text-[11px] font-semibold text-brand md:text-[12px]">Trust in Every Shipment</span>
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-6 text-[16px] font-semibold xl:flex">
+          <nav className="hidden items-center gap-5 text-[15px] font-semibold xl:flex">
             {nav.map((n) => (
               <Link
                 key={n.href}

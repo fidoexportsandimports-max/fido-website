@@ -58,7 +58,7 @@ export default function LeadsTable({ leads, crmKey }: { leads: Lead[]; crmKey: s
         </div>
       </div>
 
-      <div className={`mt-5 overflow-hidden rounded-2xl border border-line bg-white ${pending ? "opacity-70" : ""}`}>
+      <div className={`mt-5 overflow-hidden rounded-xl border border-line bg-white ${pending ? "opacity-70" : ""}`}>
         {list.length === 0 ? (
           <p className="p-8 text-center text-muted">{leads.length ? "No leads match this filter." : "No leads yet. Submissions from the contact form will appear here."}</p>
         ) : (

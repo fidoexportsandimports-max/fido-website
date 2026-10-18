@@ -14,7 +14,7 @@ export default function EnquiryTray() {
   return (
     <div className="fixed bottom-5 left-4 z-40 sm:left-6">
       {open && (
-        <div className="mb-3 w-[min(22rem,calc(100vw-2rem))] rounded-2xl border border-line bg-white p-5 shadow-[0_24px_60px_-20px_rgba(10,29,55,0.45)]">
+        <div className="mb-3 w-[min(22rem,calc(100vw-2rem))] rounded-xl border border-line bg-white p-5 shadow-[0_24px_60px_-20px_rgba(10,29,55,0.45)]">
           <div className="flex items-center justify-between">
             <p className="font-bold">Your enquiry list</p>
             <button onClick={() => enquiry.clear()} className="text-sm text-muted hover:text-ink">Clear</button>
