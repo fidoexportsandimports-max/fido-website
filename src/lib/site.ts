@@ -8,7 +8,7 @@ export const site = {
     "India-based merchant exporter and B2B international trading company connecting Indian suppliers with global buyers.",
   phone: "7382076614",
   /** GST registration number. Shown in the footer and on the contact page once filled in. */
-  gstin: "",
+  gstin: "37AALFF4954D1ZA",
   email: "info@fidoexim.com",
   address:
     "D.NO.11-9-6, Gopi Delux Apartment, Sheshayymetta, Opp. Lahospin Hotel, Rajamahendravaram, East\u00a0Godavari, Andhra\u00a0Pradesh, 533101",
