@@ -54,7 +54,7 @@ export default async function PostPage({ params }: { params: Params }) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <PageHero compact eyebrow={post.category} title={post.title} subtitle={`${formatDate(post.date)} · ${readMinutes(post)} min read · ${site.short} team`} image={post.image} />
+      <PageHero compact trail={[{ href: "/blog", label: "Blog" }, { label: post.title }]} eyebrow={post.category} title={post.title} subtitle={`${formatDate(post.date)} · ${readMinutes(post)} min read · ${site.short} team`} image={post.image} />
 
       <article className="mx-auto max-w-3xl px-5 py-16 md:px-6 md:py-24">
         <Reveal>

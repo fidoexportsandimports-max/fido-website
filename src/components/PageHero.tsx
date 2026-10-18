@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Breadcrumb from "@/components/Breadcrumb";
 import { photos, type PhotoKey } from "@/lib/photos";
 
 export default function PageHero({
@@ -7,12 +8,14 @@ export default function PageHero({
   eyebrow,
   image = "hero-port",
   compact = false,
+  trail,
 }: {
   title: string;
   subtitle?: string;
   eyebrow?: string;
   image?: PhotoKey;
   compact?: boolean;
+  trail?: { href?: string; label: string }[];
 }) {
   const d = (n: number) => ({ "--d": `${n}ms` }) as React.CSSProperties;
   return (
@@ -24,6 +27,7 @@ export default function PageHero({
         <div className="relative mb-6 aspect-[16/8] overflow-hidden rounded-xl md:hidden">
           <Image src={photos[image]} alt="" fill placeholder="blur" sizes="100vw" className="object-cover" />
         </div>
+        {trail && <div className="mb-5"><Breadcrumb trail={[{ href: "/", label: "Home" }, ...trail]} /></div>}
         {eyebrow && <p className="eyebrow rise" style={d(0)}>{eyebrow}</p>}
         <h1 className={`rise mt-4 max-w-3xl text-4xl text-ink sm:text-5xl ${compact ? "md:text-5xl" : "md:text-6xl"}`} style={d(100)}>{title}</h1>
         {subtitle && <p className="rise mt-5 max-w-2xl text-lg leading-relaxed text-muted md:text-xl" style={d(200)}>{subtitle}</p>}

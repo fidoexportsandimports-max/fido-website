@@ -66,7 +66,7 @@ export default async function ProductPage({ params }: { params: Params }) {
 
       <section className="border-b border-line bg-mint pb-14 pt-36 md:pb-20 md:pt-48">
         <div className={wrap}>
-          <Breadcrumb trail={[{ href: "/products", label: "Products" }, { label: p.name }]} />
+          <Breadcrumb trail={[{ href: "/", label: "Home" }, { href: "/products", label: "Products" }, { label: p.name }]} />
           <div className="mt-8 grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
             <div className="lg:col-span-6">
               <p className="eyebrow">{p.category}</p>

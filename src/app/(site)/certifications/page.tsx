@@ -19,7 +19,7 @@ const wrap = "mx-auto max-w-[1200px] px-5 md:px-6";
 export default function Certifications() {
   return (
     <>
-      <PageHero eyebrow="Membership & certifications" title="Registered, recognised, verifiable." subtitle="The government registrations and trade memberships behind every FIDO shipment, and how you can check them yourself." image="colombo" />
+      <PageHero trail={[{ label: "Certifications" }]} eyebrow="Membership & certifications" title="Registered, recognised, verifiable." subtitle="The government registrations and trade memberships behind every FIDO shipment, and how you can check them yourself." image="colombo" />
 
       <section className={`${wrap} pt-16 md:pt-24`}>
         <div className="grid gap-6 rounded-xl border border-line bg-white p-7 md:grid-cols-12 md:p-10">

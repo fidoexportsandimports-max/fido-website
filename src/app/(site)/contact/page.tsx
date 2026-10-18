@@ -31,7 +31,7 @@ const next = [
 export default function Contact() {
   return (
     <>
-      <PageHero eyebrow="Contact" title="Talk to our export team." subtitle="Send a buyer enquiry or ask for a quotation. We review every requirement personally." image="sunset" />
+      <PageHero trail={[{ label: "Contact" }]} eyebrow="Contact" title="Talk to our export team." subtitle="Send a buyer enquiry or ask for a quotation. We review every requirement personally." image="sunset" />
 
       <section className="mx-auto max-w-[1200px] px-5 pt-14 md:px-6 md:pt-20">
         <div className="grid gap-4 md:grid-cols-3">

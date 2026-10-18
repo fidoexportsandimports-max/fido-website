@@ -33,7 +33,7 @@ const shots: { key: PhotoKey; caption: string }[] = [
 export default function Gallery() {
   return (
     <>
-      <PageHero eyebrow="Company gallery" title="Our products, up close." subtitle="The products we export and the routes they travel." image="spice-bowls" />
+      <PageHero trail={[{ label: "Gallery" }]} eyebrow="Company gallery" title="Our products, up close." subtitle="The products we export and the routes they travel." image="spice-bowls" />
       <section className="mx-auto max-w-[1200px] px-5 py-20 md:px-6 md:py-28">
         <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
           {shots.map((s, i) => (

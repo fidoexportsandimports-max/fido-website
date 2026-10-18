@@ -28,7 +28,7 @@ const wrap = "mx-auto max-w-[1200px] px-5 md:px-6";
 export default function About() {
   return (
     <>
-      <PageHero eyebrow="About us" title="An Indian trading company built on trust." subtitle="Who we are, what we believe and how we work with buyers and suppliers." />
+      <PageHero trail={[{ label: "About us" }]} eyebrow="About us" title="An Indian trading company built on trust." subtitle="Who we are, what we believe and how we work with buyers and suppliers." />
 
       <section className="py-20 md:py-28">
         <div className={`${wrap} grid items-center gap-12 lg:grid-cols-2 lg:gap-20`}>

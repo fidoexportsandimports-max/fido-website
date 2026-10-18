@@ -32,7 +32,7 @@ export default function Products() {
 
   return (
     <>
-      <PageHero eyebrow="Products" title="Our product catalogue" subtitle="Agricultural commodities, food products, polymers and electrical panels from Indian suppliers. Every type has its own page." image="rice" />
+      <PageHero trail={[{ label: "Products" }]} eyebrow="Products" title="Our product catalogue" subtitle="Agricultural commodities, food products, polymers and electrical panels from Indian suppliers. Every type has its own page." image="rice" />
 
       <section className="border-b border-line bg-white">
         <dl className={`${wrap} grid grid-cols-3 divide-x divide-line py-8`}>

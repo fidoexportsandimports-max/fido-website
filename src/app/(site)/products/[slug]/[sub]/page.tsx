@@ -67,7 +67,7 @@ export default async function SubPage({ params }: { params: Params }) {
 
       <section className="border-b border-line bg-mint pb-14 pt-36 md:pb-20 md:pt-48">
         <div className={wrap}>
-          <Breadcrumb trail={[{ href: "/products", label: "Products" }, { href: `/products/${p.slug}`, label: p.name }, { label: s.name }]} />
+          <Breadcrumb trail={[{ href: "/", label: "Home" }, { href: "/products", label: "Products" }, { href: `/products/${p.slug}`, label: p.name }, { label: s.name }]} />
           <div className="mt-8 grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
             <div className="lg:col-span-6">
               <p className="eyebrow">{p.name}</p>

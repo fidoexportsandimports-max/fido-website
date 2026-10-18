@@ -12,7 +12,7 @@ export const metadata = pageMeta({
 export default function Blog() {
   return (
     <>
-      <PageHero eyebrow="Blog" title="Guides for buyers sourcing from India." subtitle="Plain-language articles on products, trade terms, paperwork and compliance." image="colombo" />
+      <PageHero trail={[{ label: "Blog" }]} eyebrow="Blog" title="Guides for buyers sourcing from India." subtitle="Plain-language articles on products, trade terms, paperwork and compliance." image="colombo" />
       <section className="mx-auto max-w-[1200px] px-5 py-20 md:px-6 md:py-28">
         <BlogList />
       </section>

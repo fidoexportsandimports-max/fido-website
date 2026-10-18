@@ -13,7 +13,7 @@ export const metadata = pageMeta({
 export default function FAQs() {
   return (
     <>
-      <PageHero eyebrow="FAQs" title="Questions, answered." subtitle="Quotations, samples, shipping and payment, in plain terms." image="polymers" />
+      <PageHero trail={[{ label: "FAQs" }]} eyebrow="FAQs" title="Questions, answered." subtitle="Quotations, samples, shipping and payment, in plain terms." image="polymers" />
       <section className="mx-auto max-w-3xl px-5 py-20 md:px-6 md:py-28">
         <div className="space-y-3">
           {faqs.map((f, i) => (
