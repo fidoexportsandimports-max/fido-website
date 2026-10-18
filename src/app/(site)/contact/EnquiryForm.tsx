@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useEffect } from "react";
+import { CountryInput } from "@/components/Fields";
 import { enquiry, useEnquiry } from "@/lib/enquiry-store";
 import { products } from "@/lib/site";
 import { sendEnquiry, type EnquiryState } from "./actions";
@@ -33,9 +34,7 @@ export default function EnquiryForm() {
         <label className={label}>Quantity needed
           <input name="quantity" defaultValue={qty} placeholder="e.g. 20 tonnes" className={input} />
         </label>
-        <label className={label}>Destination country
-          <input name="country" defaultValue={country} placeholder="e.g. UAE" className={input} />
-        </label>
+        <CountryInput defaultValue={country} />
       </div>
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
         <label>Website <input name="website" tabIndex={-1} autoComplete="off" /></label>

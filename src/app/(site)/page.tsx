@@ -24,9 +24,11 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative isolate overflow-hidden bg-ink text-white">
-        <Image src={photos["hero-port"]} alt="Container ship alongside a terminal, seen from above" fill priority placeholder="blur" sizes="100vw" className="kenburns -z-10 object-cover" />
-        <div className="absolute inset-0 -z-10 bg-ink/60" />
+      <section className="relative isolate z-10 bg-ink text-white">
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <Image src={photos["hero-port"]} alt="Container ship alongside a terminal, seen from above" fill priority placeholder="blur" sizes="100vw" className="kenburns object-cover" />
+          <div className="absolute inset-0 bg-ink/60" />
+        </div>
         <div className={`${wrap} pb-14 pt-40 md:pb-20 md:pt-48`}>
           <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
             <div className="lg:col-span-7">
