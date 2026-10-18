@@ -9,8 +9,16 @@ export const site = {
   phone: "7382076614",
   email: "info@fidoexim.com",
   address:
-    "D.NO.11-9-6, Gopi Delux Apartment, Sheshayymetta, Opp. Lahospin Hotel, Rajamahendravaram, East Godavari, Andhra Pradesh, 533101",
+    "D.NO.11-9-6, Gopi Delux Apartment, Sheshayymetta, Opp. Lahospin Hotel, Rajamahendravaram, East\u00a0Godavari, Andhra\u00a0Pradesh, 533101",
 };
+
+/** Address split into display lines. East Godavari and Andhra Pradesh never break across lines. */
+export const addressLines = [
+  "D.NO.11-9-6, Gopi Delux Apartment,",
+  "Sheshayymetta, Opp. Lahospin Hotel,",
+  "Rajamahendravaram,",
+  "East\u00a0Godavari, Andhra\u00a0Pradesh \u2013 533101",
+];
 
 export const nav = [
   { href: "/", label: "Home" },
@@ -217,16 +225,63 @@ export const strengths = [
   { title: "Compliance", text: "We follow rigorous quality control processes and batch-wise checks to ensure products meet the highest global standards." },
 ];
 
-export const certifications = [
-  { name: "ECGC", full: "Export Credit Guarantee Corporation of India" },
-  { name: "ICEGATE 2.0", full: "Indian Customs National Trade Portal" },
-  { name: "Udyog Aadhaar (MSME)", full: "Micro, Small and Medium Enterprises" },
-  { name: "FSSAI", full: "Food Safety and Standards Authority of India" },
-  { name: "Spices Board India", full: "Ministry of Commerce & Industry, Government of India" },
-  { name: "GSTN", full: "Goods and Services Tax Council" },
-  { name: "APEDA", full: "Agricultural & Processed Food Products Export Development Authority" },
-  { name: "MSME", full: "Ministry of Micro, Small & Medium Enterprises" },
-  { name: "DGFT", full: "Directorate General of Foreign Trade" },
+export type Certification = { name: string; full: string; group: string; what: string };
+
+export const certifications: Certification[] = [
+  {
+    name: "DGFT",
+    full: "Directorate General of Foreign Trade",
+    group: "Export and trade authorities",
+    what: "The Government of India body that administers foreign trade policy. Indian exporters operate under an Importer-Exporter Code issued through DGFT.",
+  },
+  {
+    name: "ICEGATE",
+    full: "Indian Customs National Trade Portal",
+    group: "Export and trade authorities",
+    what: "The customs portal used to file export and import documents electronically, which keeps shipments traceable and clearances on record.",
+  },
+  {
+    name: "ECGC",
+    full: "Export Credit Guarantee Corporation of India",
+    group: "Export and trade authorities",
+    what: "A government-owned export credit insurer. Membership helps exporters manage the risk of non-payment on export sales.",
+  },
+  {
+    name: "APEDA",
+    full: "Agricultural & Processed Food Products Export Development Authority",
+    group: "Product export bodies",
+    what: "Under the Ministry of Commerce & Industry, APEDA promotes the export of agricultural and processed food products and registers exporters of scheduled products.",
+  },
+  {
+    name: "Spices Board India",
+    full: "Ministry of Commerce & Industry, Government of India",
+    group: "Product export bodies",
+    what: "The statutory body for the development and export promotion of Indian spices, with which spice exporters register.",
+  },
+  {
+    name: "FSSAI",
+    full: "Food Safety and Standards Authority of India",
+    group: "Food safety",
+    what: "India's food safety regulator, under the Ministry of Health and Family Welfare. Food businesses hold an FSSAI licence or registration.",
+  },
+  {
+    name: "MSME",
+    full: "Ministry of Micro, Small & Medium Enterprises (Udyog Aadhaar / Udyam)",
+    group: "Business registrations",
+    what: "Government registration as a micro, small or medium enterprise, which also confirms the business as a recognised Indian entity.",
+  },
+  {
+    name: "GST",
+    full: "Goods and Services Tax Council",
+    group: "Business registrations",
+    what: "Registration under India's goods and services tax, needed to issue tax invoices and handle export documentation correctly.",
+  },
+];
+
+export const verifySteps: [string, string][] = [
+  ["GST registration", "Search the registered business on the official GST portal using its GSTIN."],
+  ["Importer-Exporter Code", "Check the IEC status on the DGFT website."],
+  ["FSSAI licence", "Verify a food licence or registration on the FSSAI portal."],
 ];
 
 export const faqs: { q: string; a: string }[] = [
@@ -254,7 +309,7 @@ export const faqs: { q: string; a: string }[] = [
   { q: "Does FIDO offer services for products beyond its current catalogue?", a: "Yes. We welcome enquiries for additional products sourced from India. Each request is assessed according to supplier availability, product specifications, regulatory requirements and commercial feasibility." },
   { q: "What is FIDO's business philosophy?", a: "FIDO stands for trust. We believe that transparent communication, responsible business practices and reliable relationships are essential to creating sustainable opportunities in international trade." },
   { q: "How can I discuss a long-term supply arrangement with FIDO?", a: "Importers and distributors interested in recurring orders can submit their product requirements, estimated monthly or annual volumes, specifications and target markets. We can then assess sourcing availability and the feasibility of a longer-term arrangement." },
-  { q: "Where is FIDO Exports and Imports LLP based?", a: "FIDO Exports and Imports LLP is an India-based merchant export and international trading company, located in Rajamahendravaram, East Godavari, Andhra Pradesh. Please refer to our Contact Us page for our registered office and official business contact details." },
+  { q: "Where is FIDO Exports and Imports LLP based?", a: "FIDO Exports and Imports LLP is an India-based merchant export and international trading company, located in Rajamahendravaram, East\u00a0Godavari, Andhra\u00a0Pradesh. Please refer to our Contact Us page for our registered office and official business contact details." },
 ];
 
 export function tradeSpecs(p: Product): [string, string][] {

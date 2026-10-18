@@ -1,20 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import { OG_IMAGE, SITE_URL } from "@/lib/meta";
 import { site } from "@/lib/site";
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+const source = Source_Sans_3({
+  variable: "--font-source",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
-  display: "swap",
-});
-
-const mono = JetBrains_Mono({
-  variable: "--font-mono-num",
-  subsets: ["latin"],
-  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -88,7 +81,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${jakarta.variable} ${mono.variable} h-full antialiased`}
+      className={`${source.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <script

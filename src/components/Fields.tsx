@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { photos } from "@/lib/photos";
+import { Glyph, Icon } from "@/components/icons";
 import { products } from "@/lib/site";
 
 const label = "block text-sm font-semibold text-ink";
@@ -10,26 +11,6 @@ const control =
   "relative mt-2 flex h-[52px] w-full items-center gap-3 rounded-xl border bg-white px-3.5 text-left text-[15px] text-ink transition focus-within:border-brand focus-within:ring-4 focus-within:ring-brand/15";
 const popover =
   "absolute left-0 right-0 top-full z-50 mt-2 max-h-72 overflow-y-auto rounded-xl border border-line bg-white p-1.5 shadow-[0_24px_60px_-20px_rgba(10,29,55,0.45)]";
-
-export const Icon = {
-  box: <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16zM3.27 6.96 12 12.01l8.73-5.05M12 22.08V12" />,
-  hash: <path d="M4 9h16M4 15h16M10 3 8 21M16 3l-2 18" />,
-  globe: (
-    <>
-      <circle cx="12" cy="12" r="10" />
-      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-    </>
-  ),
-  chevron: <path d="m6 9 6 6 6-6" />,
-};
-
-export function Glyph({ d, className = "" }: { d: React.ReactNode; className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={`h-[18px] w-[18px] shrink-0 ${className}`} aria-hidden="true">
-      {d}
-    </svg>
-  );
-}
 
 function useOutside(ref: React.RefObject<HTMLElement | null>, onOutside: () => void) {
   useEffect(() => {
@@ -47,7 +28,21 @@ function useOutside(ref: React.RefObject<HTMLElement | null>, onOutside: () => v
 
 /* ---------------- Product dropdown ---------------- */
 
-export function ProductSelect({ name = "product", defaultValue = "" }: { name?: string; defaultValue?: string }) {
+export function ProductSelect({
+  name = "product",
+  defaultValue = "",
+  label: labelText = "Product",
+  placeholder = "Select a product",
+  onPick,
+  clearAfterPick = false,
+}: {
+  name?: string;
+  defaultValue?: string;
+  label?: string;
+  placeholder?: string;
+  onPick?: (slug: string) => void;
+  clearAfterPick?: boolean;
+}) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(defaultValue);
   const [active, setActive] = useState(0);
@@ -62,8 +57,9 @@ export function ProductSelect({ name = "product", defaultValue = "" }: { name?: 
   }, [open, active]);
 
   function pick(slug: string) {
-    setValue(slug);
+    setValue(clearAfterPick ? "" : slug);
     setOpen(false);
+    onPick?.(slug);
   }
 
   function onKey(e: React.KeyboardEvent) {
@@ -85,7 +81,7 @@ export function ProductSelect({ name = "product", defaultValue = "" }: { name?: 
 
   return (
     <div ref={root} className="relative">
-      <span className={label} id={`${name}-label`}>Product</span>
+      <span className={label} id={`${name}-label`}>{labelText}</span>
       <input type="hidden" name={name} value={value} />
       <button
         type="button"
@@ -108,7 +104,7 @@ export function ProductSelect({ name = "product", defaultValue = "" }: { name?: 
         ) : (
           <>
             <Glyph d={Icon.box} className="text-muted" />
-            <span className="text-muted/80">Select a product</span>
+            <span className="text-muted/80">{placeholder}</span>
           </>
         )}
         <Glyph d={Icon.chevron} className={`absolute right-3.5 text-muted transition-transform ${open ? "rotate-180" : ""}`} />

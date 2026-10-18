@@ -14,7 +14,7 @@ export default function Header() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const onScroll = () => { el.dataset.solid = window.scrollY > 40 ? "true" : "false"; };
+    const onScroll = () => { el.dataset.solid = window.scrollY > 20 ? "true" : "false"; };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -32,11 +32,9 @@ export default function Header() {
       <header
         ref={ref}
         data-solid="false"
-        className={`fixed inset-x-0 top-0 z-50 text-white transition-[background-color,box-shadow] duration-300 ${
-          open ? "bg-ink" : "data-[solid=true]:bg-ink/95 data-[solid=true]:shadow-[0_1px_0_rgba(255,255,255,0.08)] data-[solid=true]:backdrop-blur-md"
-        }`}
+        className="fixed inset-x-0 top-0 z-50 border-b border-line bg-white transition-shadow duration-300 data-[solid=true]:shadow-[0_8px_30px_-18px_rgba(10,29,55,0.35)]"
       >
-        <div className="hidden border-b border-white/10 bg-deep/70 text-[13px] text-white/75 md:block">
+        <div className="hidden bg-deep text-[13px] text-white/75 md:block">
           <div className="mx-auto flex h-9 max-w-[1200px] items-center justify-between px-6">
             <span>Verified merchant exporter · Rajamahendravaram, India</span>
             <span className="flex items-center gap-6">
@@ -45,19 +43,22 @@ export default function Header() {
             </span>
           </div>
         </div>
-        <div className="mx-auto flex h-[72px] max-w-[1200px] items-center justify-between gap-6 px-5 md:px-6">
-          <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-3" aria-label={site.name}>
-            <Image src="/images/logo.jpg" alt="FIDO Exports and Imports logo" width={44} height={44} priority className="h-10 w-10 rounded-full bg-white object-contain p-0.5" />
-            <span className="text-lg font-extrabold tracking-tight">FIDO Exim</span>
+        <div className="mx-auto flex h-[76px] max-w-[1200px] items-center justify-between gap-6 px-5 md:h-[88px] md:px-6">
+          <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-3.5" aria-label={site.name}>
+            <Image src="/images/logo.jpg" alt="FIDO Exports and Imports logo" width={80} height={80} priority className="h-14 w-14 object-contain md:h-[68px] md:w-[68px]" />
+            <span className="leading-tight">
+              <span className="block text-xl font-extrabold tracking-tight text-ink md:text-2xl">FIDO Exim</span>
+              <span className="hidden text-[12px] font-semibold text-brand sm:block">Trust in Every Shipment</span>
+            </span>
           </Link>
 
-          <nav className="hidden items-center gap-7 text-[15px] font-medium xl:flex">
+          <nav className="hidden items-center gap-6 text-[16px] font-semibold xl:flex">
             {nav.map((n) => (
               <Link
                 key={n.href}
                 href={n.href}
                 aria-current={active(n.href) ? "page" : undefined}
-                className={`transition-colors hover:text-brandlight ${active(n.href) ? "text-brandlight" : "text-white/85"}`}
+                className={`border-b-2 py-1 transition-colors hover:text-brand ${active(n.href) ? "border-brand text-brand" : "border-transparent text-ink"}`}
               >
                 {n.label}
               </Link>
@@ -71,12 +72,12 @@ export default function Header() {
               onClick={() => setOpen((o) => !o)}
               aria-expanded={open}
               aria-label={open ? "Close menu" : "Open menu"}
-              className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/25 xl:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-lg border border-line xl:hidden"
             >
               <span className="relative block h-3.5 w-5">
-                <span className={`absolute left-0 h-0.5 w-5 rounded bg-white transition-all duration-300 ${open ? "top-1.5 rotate-45" : "top-0"}`} />
-                <span className={`absolute left-0 top-1.5 h-0.5 w-5 rounded bg-white transition-opacity duration-200 ${open ? "opacity-0" : ""}`} />
-                <span className={`absolute left-0 h-0.5 w-5 rounded bg-white transition-all duration-300 ${open ? "top-1.5 -rotate-45" : "top-3"}`} />
+                <span className={`absolute left-0 h-0.5 w-5 rounded bg-ink transition-all duration-300 ${open ? "top-1.5 rotate-45" : "top-0"}`} />
+                <span className={`absolute left-0 top-1.5 h-0.5 w-5 rounded bg-ink transition-opacity duration-200 ${open ? "opacity-0" : ""}`} />
+                <span className={`absolute left-0 h-0.5 w-5 rounded bg-ink transition-all duration-300 ${open ? "top-1.5 -rotate-45" : "top-3"}`} />
               </span>
             </button>
           </div>
@@ -84,7 +85,7 @@ export default function Header() {
       </header>
 
       <div
-        className={`fixed inset-0 z-40 overflow-y-auto bg-ink px-6 pb-10 pt-24 text-white transition-all duration-400 xl:hidden ${
+        className={`fixed inset-0 z-40 overflow-y-auto bg-white px-6 pb-10 pt-28 transition-all duration-300 xl:hidden ${
           open ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >
@@ -94,15 +95,15 @@ export default function Header() {
               key={n.href}
               href={n.href}
               onClick={() => setOpen(false)}
-              className={`border-b border-white/10 py-4 text-2xl font-bold transition-all duration-500 ${active(n.href) ? "text-brandlight" : ""}`}
+              className={`border-b border-line py-4 text-2xl font-bold transition-all duration-500 ${active(n.href) ? "text-brand" : "text-ink"}`}
               style={{ transitionDelay: open ? `${80 + i * 45}ms` : "0ms", opacity: open ? 1 : 0, transform: open ? "none" : "translateY(14px)" }}
             >
               {n.label}
             </Link>
           ))}
         </nav>
-        <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-brand mt-8">Request a quote <span className="arrow">→</span></Link>
-        <div className="mt-8 space-y-1 text-sm text-white/65">
+        <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-brand mt-8 w-full">Request a quote <span className="arrow">→</span></Link>
+        <div className="mt-8 space-y-1 text-muted">
           <a href={`tel:+91${site.phone}`} className="block py-1">+91 {site.phone}</a>
           <a href={`mailto:${site.email}`} className="block py-1">{site.email}</a>
         </div>

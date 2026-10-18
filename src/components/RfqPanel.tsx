@@ -1,7 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { CountryInput, Icon, IconInput, ProductSelect } from "@/components/Fields";
+import { CountryInput, IconInput, ProductSelect } from "@/components/Fields";
+import { Icon } from "@/components/icons";
 import { enquiry } from "@/lib/enquiry-store";
 import { track } from "@/lib/track";
 

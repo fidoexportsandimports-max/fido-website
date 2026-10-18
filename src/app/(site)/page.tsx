@@ -24,24 +24,23 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative isolate z-10 bg-ink text-white">
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          <Image src={photos["hero-port"]} alt="Container ship alongside a terminal, seen from above" fill priority placeholder="blur" sizes="100vw" className="kenburns object-cover" />
-          <div className="absolute inset-0 bg-ink/60" />
+      <section className="relative isolate z-10 border-b border-line bg-mint">
+        <div className="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-[52%] [mask-image:linear-gradient(to_right,transparent,black_40%)] lg:block">
+          <Image src={photos["hero-port"]} alt="Container ship alongside a terminal, seen from above" fill priority placeholder="blur" sizes="52vw" className="object-cover" />
         </div>
-        <div className={`${wrap} pb-14 pt-40 md:pb-20 md:pt-48`}>
+        <div className={`${wrap} pb-16 pt-40 md:pb-24 md:pt-52`}>
           <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
             <div className="lg:col-span-7">
-              <p className="eyebrow rise !text-brandlight" style={d(0)}>Verified merchant exporter · India</p>
-              <h1 className="rise mt-5 text-[2.9rem] sm:text-6xl md:text-[5rem]" style={d(100)}>
-                Source from India. <span className="text-brandlight">Trade with trust.</span>
+              <p className="eyebrow rise" style={d(0)}>Verified merchant exporter · India</p>
+              <h1 className="rise mt-5 text-[2.8rem] text-ink sm:text-6xl md:text-[4.6rem]" style={d(100)}>
+                Source from India. <span className="text-brand">Trade with trust.</span>
               </h1>
-              <p className="rise mt-6 max-w-xl text-lg leading-relaxed text-white/85 md:text-xl" style={d(220)}>
+              <p className="rise mt-6 max-w-xl text-lg leading-relaxed text-muted md:text-xl" style={d(220)}>
                 Rice, spices, eggs, fruits, polymers and electrical panels from Indian suppliers, with sourcing, paperwork and shipping handled for you.
               </p>
               <div className="rise mt-8 flex flex-col gap-3 sm:flex-row" style={d(340)}>
-                <Link href="/products" className="btn btn-white">Browse the catalogue <span className="arrow">→</span></Link>
-                <Link href="/about" className="btn btn-outline">About FIDO</Link>
+                <Link href="/products" className="btn btn-brand">Browse the catalogue <span className="arrow">→</span></Link>
+                <Link href="/about" className="btn border-ink/20 bg-white text-ink hover:border-ink">About FIDO</Link>
               </div>
             </div>
             <div className="rise lg:col-span-5" style={d(300)}><RfqPanel /></div>
