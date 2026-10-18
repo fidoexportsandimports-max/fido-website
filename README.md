@@ -45,6 +45,8 @@ keep it private. It is excluded from search engines and returns 404 for any othe
 - **Website activity**: anonymous page views, sources, devices, countries (when the host supplies it),
   product interest and taps on phone, email and WhatsApp. No cookies, no IP addresses stored; Do Not Track
   and bots are ignored.
-- **Setup**: copy `.env.example`. In development open `/crm/local`. In production set `CRM_KEY` and connect
-  a Redis store (Vercel Storage, Upstash) so `KV_REST_API_URL` and `KV_REST_API_TOKEN` exist. Without Redis,
-  data is written to `.data/crm.json`, which does not persist on serverless hosts such as Vercel.
+- **Storage**: one JSON file, `.data/crm.json` (change the folder with `CRM_DATA_DIR`). There is no
+  database. It needs a host with a writable, persistent disk (a VPS, your own server or a Docker volume).
+  Serverless hosts such as Vercel cannot keep the file, and the CRM shows a warning there.
+- **Setup**: copy `.env.example`. In development open `/crm/local`. In production set `CRM_KEY` to a long
+  random value and open `/crm/<CRM_KEY>`.

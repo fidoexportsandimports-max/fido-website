@@ -47,8 +47,8 @@ export default function EnquiryForm() {
         <input name="company" required autoComplete="organization" className={input} />
       </label>
       <div className="grid gap-5 sm:grid-cols-2">
-        <label className={label}>Email *
-          <input name="email" type="email" required autoComplete="email" className={input} />
+        <label className={label}>Email <span className="font-normal normal-case text-muted">(optional)</span>
+          <input name="email" type="email" autoComplete="email" className={input} />
         </label>
         <label className={label}>Contact number *
           <input name="phone" type="tel" required autoComplete="tel" className={input} />

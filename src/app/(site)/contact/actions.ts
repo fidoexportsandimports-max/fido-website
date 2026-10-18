@@ -21,10 +21,10 @@ export async function sendEnquiry(_prev: EnquiryState, formData: FormData): Prom
   ) as Record<(typeof fields)[number], string>;
   const more = Object.fromEntries(extras.map((f) => [f, clip(formData.get(f), 300).trim()])) as Record<(typeof extras)[number], string>;
 
-  if (fields.some((f) => !data[f])) {
+  if (fields.some((f) => f !== "email" && !data[f])) {
     return { ok: false, message: "Please fill in all required fields." };
   }
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) {
+  if (data.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) {
     return { ok: false, message: "Please enter a valid email address." };
   }
 
@@ -62,7 +62,7 @@ export async function sendEnquiry(_prev: EnquiryState, formData: FormData): Prom
     body: JSON.stringify({
       from: process.env.ENQUIRY_FROM ?? `FIDO Website <onboarding@resend.dev>`,
       to: [site.email],
-      reply_to: data.email,
+      ...(data.email ? { reply_to: data.email } : {}),
       subject: `New enquiry from ${data.company}`,
       text: [...fields.map((f) => `${f}: ${data[f]}`), ...extras.map((f) => `${f}: ${more[f] || "-"}`)].join("\n"),
     }),

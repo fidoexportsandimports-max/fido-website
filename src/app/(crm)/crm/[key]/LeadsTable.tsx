@@ -71,7 +71,7 @@ export default function LeadsTable({ leads, crmKey }: { leads: Lead[]; crmKey: s
                     <span className="block text-sm text-muted">{when(l.t)}{l.geo ? ` · ${l.geo}` : ""}{l.device ? ` · ${l.device}` : ""}</span>
                   </button>
                   <div className="text-sm md:col-span-4">
-                    <a href={`mailto:${l.email}`} className="block break-all text-brandink hover:underline">{l.email}</a>
+                    {l.email ? <a href={`mailto:${l.email}`} className="block break-all text-brandink hover:underline">{l.email}</a> : <span className="block text-muted">No email given</span>}
                     <a href={`tel:${l.phone}`} className="block text-muted hover:underline">{l.phone}</a>
                   </div>
                   <div className="flex items-center gap-2 md:col-span-3 md:justify-end">
@@ -100,7 +100,7 @@ export default function LeadsTable({ leads, crmKey }: { leads: Lead[]; crmKey: s
                       <p className="mt-1 whitespace-pre-wrap leading-relaxed">{l.message}</p>
                     </div>
                     <div className="flex flex-wrap gap-2 pt-1">
-                      <a className="btn btn-brand !h-10 !px-4 !text-sm" href={`mailto:${l.email}?subject=${encodeURIComponent("Your enquiry to FIDO Exports and Imports")}`}>Reply by email</a>
+                      {l.email && <a className="btn btn-brand !h-10 !px-4 !text-sm" href={`mailto:${l.email}?subject=${encodeURIComponent("Your enquiry to FIDO Exports and Imports")}`}>Reply by email</a>}
                       <a className="btn btn-dark !h-10 !px-4 !text-sm" href={`https://wa.me/${l.phone.replace(/\D/g, "")}`} target="_blank" rel="noreferrer">WhatsApp</a>
                     </div>
                   </div>

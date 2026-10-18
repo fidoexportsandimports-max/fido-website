@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { Suspense } from "react";
 import { isAuthorized } from "@/lib/crm/auth";
-import { listEvents, listLeads, storageIsEphemeral, storageMode } from "@/lib/crm/store";
+import { dataFile, listEvents, listLeads, storageIsEphemeral } from "@/lib/crm/store";
 import { products } from "@/lib/site";
 import LeadsTable from "./LeadsTable";
 
@@ -98,10 +98,10 @@ async function Dashboard({ params }: { params: Promise<{ key: string }> }) {
 
       {storageIsEphemeral && (
         <p role="alert" className="mt-6 rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-red-900">
-          <strong>Data is not being kept.</strong> This host has no persistent disk, so leads and activity vanish between requests. Connect a Redis store (Vercel Storage → Upstash/KV) so <code>KV_REST_API_URL</code> and <code>KV_REST_API_TOKEN</code> are set, then redeploy.
+          <strong>This host cannot keep the JSON file.</strong> Serverless hosts like Vercel have no persistent disk, so leads and activity are lost between requests. Run the site on a server or Docker volume with a writable disk, or set <code>CRM_DATA_DIR</code> to a persistent folder.
         </p>
       )}
-      <p className="mt-4 text-xs text-muted">Storage: {storageMode === "redis" ? "Redis (persistent)" : "local file .data/crm.json (development / self-hosted)"} · Anyone with this link can see the data, so do not share it.</p>
+      <p className="mt-4 text-xs text-muted">Stored in a JSON file: <code>{dataFile}</code> · Anyone with this link can see the data, so do not share it.</p>
 
       <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
         {kpis.map(([k, v, c]) => (
