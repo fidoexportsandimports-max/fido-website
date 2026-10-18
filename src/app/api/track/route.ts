@@ -20,6 +20,7 @@ export async function POST(request: Request) {
     return new Response(null, { status: 400 });
   }
 
+  // Analytics must never break the page: swallow storage errors.
   await addEvent({
     t: Date.now(),
     type,
@@ -29,6 +30,6 @@ export async function POST(request: Request) {
     device: deviceFrom(ua),
     geo: geoFrom(request.headers),
     data: clip(body.data, 120) || undefined,
-  });
+  }).catch((err) => console.error("[track] could not store event", err));
   return new Response(null, { status: 204 });
 }

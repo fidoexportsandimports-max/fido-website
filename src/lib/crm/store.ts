@@ -1,5 +1,6 @@
 import "server-only";
 import { promises as fs } from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { LEAD_STATUSES, type Lead, type LeadStatus, type TrackEvent } from "@/lib/crm/types";
 
@@ -12,7 +13,9 @@ import { LEAD_STATUSES, type Lead, type LeadStatus, type TrackEvent } from "@/li
 const MAX_EVENTS = 5000;
 const MAX_LEADS = 5000;
 
-export const dataFile = path.join(process.env.CRM_DATA_DIR || path.join(process.cwd(), ".data"), "crm.json");
+// On serverless hosts only the temp folder is writable (and it does not persist), so use it to avoid errors.
+const baseDir = process.env.CRM_DATA_DIR || (process.env.VERCEL ? os.tmpdir() : path.join(process.cwd(), ".data"));
+export const dataFile = path.join(baseDir, "crm.json");
 export const storageIsEphemeral = !!process.env.VERCEL && !process.env.CRM_DATA_DIR;
 
 type Db = { leads: Lead[]; events: TrackEvent[] };

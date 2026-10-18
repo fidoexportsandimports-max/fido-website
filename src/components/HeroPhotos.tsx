@@ -14,7 +14,7 @@ export default function HeroPhotos({ images, alts }: { images: StaticImageData[]
   return (
     <>
       {images.map((img, n) => (
-        <Image key={n} src={img} alt={n === i ? alts[n] : ""} fill priority={n === 0} placeholder="blur" sizes="52vw" className={`object-cover transition-opacity duration-[1400ms] ${n === i ? "opacity-100" : "opacity-0"}`} />
+        <Image key={n} src={img} alt={n === i ? alts[n] : ""} fill placeholder="blur" sizes="52vw" className={`object-cover transition-opacity duration-[1400ms] ${n === i ? "opacity-100" : "opacity-0"}`} />
       ))}
     </>
   );
