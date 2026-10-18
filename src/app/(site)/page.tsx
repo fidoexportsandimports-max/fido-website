@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Carousel from "@/components/Carousel";
-import HeroPhotos from "@/components/HeroPhotos";
+import HeroBackdrop from "@/components/HeroBackdrop";
 import Link from "next/link";
 import Check from "@/components/Check";
 import ProductCard from "@/components/ProductCard";
@@ -26,38 +26,31 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative isolate z-10 border-b border-line bg-mint">
-        <div className="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-[52%] [mask-image:linear-gradient(to_right,transparent,black_40%)] lg:block">
-          <HeroPhotos
-            images={[photos["ship-sunset"], photos.paddy, photos["spice-market"], photos["ship-deck"]]}
-            alts={["Container ship at sunset", "Paddy fields in India", "A spice market stall in India", "View from a cargo ship at sunrise"]}
-          />
-        </div>
-        <div className={`${wrap} pb-12 pt-24 md:pb-16 md:pt-44`}>
-          {/* Mobile photo banner */}
-          <div className="relative mb-4 h-24 overflow-hidden rounded-xl sm:h-32 lg:hidden">
-            <HeroPhotos
-              images={[photos["ship-sunset"], photos.paddy, photos["spice-market"], photos["ship-deck"]]}
-              alts={["Container ship at sunset", "Paddy fields in India", "A spice market stall in India", "View from a cargo ship at sunrise"]}
-            />
-          </div>
-          <div className="grid items-start gap-x-14 gap-y-5 lg:grid-cols-12 lg:grid-rows-[auto_1fr]">
-            <div className="lg:col-span-6 lg:row-start-1 lg:self-end">
-              <p className="eyebrow rise" style={d(0)}>Merchant exporter · India</p>
-              <h1 className="rise mt-3 text-[1.95rem] text-ink sm:text-5xl lg:text-[3.3rem]" style={d(100)}>
-                Source from India. <span className="text-brand">Trade with trust.</span>
+      <section className="relative isolate z-10 bg-deep text-white">
+        <HeroBackdrop
+          slides={[
+            { src: photos["ship-sunset"], alt: "Container ship at sunset", caption: "Shipping from India to the world" },
+            { src: photos.paddy, alt: "Paddy fields in India", caption: "Sourced at the farm: rice and grains" },
+            { src: photos["spice-market"], alt: "A spice market stall in India", caption: "Spices from trusted Indian suppliers" },
+            { src: photos["ship-deck"], alt: "View from a cargo ship at sunrise", caption: "Freight and documents, handled" },
+          ]}
+        />
+        <div className={`${wrap} pb-20 pt-28 md:pb-24 md:pt-44`}>
+          <div className="grid items-start gap-x-14 gap-y-6 lg:grid-cols-12">
+            <div className="lg:col-span-6 lg:pt-6">
+              <p className="eyebrow rise !text-brandlight" style={d(0)}>Merchant exporter · India</p>
+              <h1 className="rise mt-3 text-[2.1rem] sm:text-5xl lg:text-[3.6rem]" style={d(100)}>
+                Source from India. <span className="text-brandlight">Trade with trust.</span>
               </h1>
-            </div>
-            <div className="rise order-2 lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:row-start-1" style={d(200)}><RfqPanel /></div>
-            <div className="order-3 lg:order-none lg:col-span-6 lg:row-start-2 lg:self-start">
-              <p className="rise max-w-md text-base leading-relaxed text-muted md:text-lg" style={d(260)}>
+              <p className="rise mt-5 max-w-md text-base leading-relaxed text-white/85 md:text-lg" style={d(220)}>
                 Rice, spices, eggs, fruits, polymers and electrical panels from Indian suppliers, with sourcing, paperwork and shipping handled for you.
               </p>
-              <div className="rise mt-6 flex flex-col gap-3 sm:flex-row" style={d(340)}>
+              <div className="rise mt-7 flex flex-col gap-3 sm:flex-row" style={d(320)}>
                 <Link href="/products" className="btn btn-brand">Browse the catalogue <span className="arrow">→</span></Link>
-                <Link href="/about" className="btn border-ink/20 bg-white text-ink hover:border-ink">About FIDO</Link>
+                <Link href="/about" className="btn btn-outline">About FIDO</Link>
               </div>
             </div>
+            <div className="rise lg:col-span-5 lg:col-start-8" style={d(200)}><RfqPanel /></div>
           </div>
         </div>
       </section>
