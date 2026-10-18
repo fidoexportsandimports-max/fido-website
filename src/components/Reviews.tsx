@@ -21,7 +21,7 @@ export default function Reviews({ product, bg = "bg-white" }: { product?: string
         {list.length ? (
           <div className="mt-10">
             <p className="mb-6 flex items-center gap-3 text-lg"><Stars n={Math.round(avg)} /><span className="font-bold">{avg.toFixed(1)}</span><span className="text-muted">from {list.length} verified {list.length === 1 ? "review" : "reviews"}</span></p>
-            <Carousel label="Buyer reviews" slide="w-[88%] md:w-[46%] lg:w-[31.5%]" interval={6000}>
+            <Carousel label="Buyer reviews" slide="w-[88%] md:w-[46%] lg:w-[31.5%]">
               {list.map((r) => (
                 <figure key={r.name + r.company} className="flex h-full flex-col rounded-xl border border-line bg-white p-6">
                   <Stars n={r.rating} />

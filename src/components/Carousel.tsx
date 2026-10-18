@@ -1,124 +1,114 @@
 "use client";
 
-import { Children, useCallback, useEffect, useRef, useState } from "react";
+import { Children, useEffect, useRef, useState } from "react";
 
 type Props = {
   children: React.ReactNode;
   label: string;
-  interval?: number;
-  /** Tailwind width classes for one slide. */
+  /** Pixels per second of automatic drift. */
+  speed?: number;
+  /** Tailwind width classes for one card. */
   slide?: string;
   autoplay?: boolean;
+  /** Kept for older call sites; ignored. */
+  interval?: number;
 };
 
-/** Scroll-snap carousel that slides on its own, pauses on hover/touch/focus, and has a pause button. */
-export default function Carousel({
-  children,
-  label,
-  interval = 4500,
-  slide = "w-[84%] sm:w-[46%] lg:w-[31.5%]",
-  autoplay = true,
-}: Props) {
+/**
+ * Continuous auto-sliding strip. It drifts on its own, pauses on hover / touch / focus,
+ * can be swiped or scrolled by hand, and has arrow and pause controls. Loops seamlessly.
+ */
+export default function Carousel({ children, label, speed = 38, slide = "w-[78%] sm:w-[44%] lg:w-[30%]", autoplay = true }: Props) {
   const track = useRef<HTMLDivElement>(null);
-  const hovering = useRef(false);
-  const lastTouch = useRef(0);
+  const pos = useRef(0);
+  const hold = useRef(false);
+  const resumeAt = useRef(0);
   const [playing, setPlaying] = useState(autoplay);
-  const [pages, setPages] = useState(1);
-  const [active, setActive] = useState(0);
   const items = Children.toArray(children);
+  const loop = items.length > 2;
 
-  const step = useCallback(() => {
-    const t = track.current;
-    const a = t?.children[0] as HTMLElement | undefined;
-    const b = t?.children[1] as HTMLElement | undefined;
-    return a && b ? b.offsetLeft - a.offsetLeft : a?.offsetWidth ?? 1;
-  }, []);
-
-  const go = useCallback(
-    (dir: 1 | -1) => {
-      const t = track.current;
-      if (!t) return;
-      const max = t.scrollWidth - t.clientWidth;
-      if (dir === 1 && t.scrollLeft >= max - 4) t.scrollTo({ left: 0, behavior: "smooth" });
-      else if (dir === -1 && t.scrollLeft <= 4) t.scrollTo({ left: max, behavior: "smooth" });
-      else t.scrollBy({ left: dir * step(), behavior: "smooth" });
-    },
-    [step],
-  );
-
-  // Measure how many "pages" there are, whenever the size changes.
   useEffect(() => {
-    const t = track.current;
-    if (!t) return;
-    const measure = () => setPages(Math.max(1, Math.round((t.scrollWidth - t.clientWidth) / step()) + 1));
-    const ro = new ResizeObserver(measure);
-    ro.observe(t);
-    return () => ro.disconnect();
-  }, [step, items.length]);
+    const el = track.current;
+    if (!el || !playing || !loop || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0;
+    let last = performance.now();
+    let wasHeld = true;
+    const frame = (now: number) => {
+      const dt = Math.min(now - last, 64);
+      last = now;
+      const held = hold.current || document.hidden || now < resumeAt.current;
+      if (held) {
+        wasHeld = true;
+      } else {
+        if (wasHeld) { pos.current = el.scrollLeft; wasHeld = false; }
+        pos.current += (speed * dt) / 1000;
+        const half = el.scrollWidth / 2;
+        if (pos.current >= half) pos.current -= half;
+        el.scrollLeft = pos.current;
+      }
+      raf = requestAnimationFrame(frame);
+    };
+    raf = requestAnimationFrame(frame);
+    return () => cancelAnimationFrame(raf);
+  }, [playing, loop, speed]);
 
-  // Autoplay.
-  useEffect(() => {
-    if (!playing || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(() => {
-      if (hovering.current || document.hidden || Date.now() - lastTouch.current < 6000) return;
-      go(1);
-    }, interval);
-    return () => clearInterval(id);
-  }, [playing, interval, go]);
-
+  // Manual scrolling past either end wraps around too.
   const onScroll = () => {
-    const t = track.current;
-    if (t) setActive(Math.min(pages - 1, Math.round(t.scrollLeft / step())));
+    const el = track.current;
+    if (!el || !loop) return;
+    const half = el.scrollWidth / 2;
+    if (el.scrollLeft >= half) { el.scrollLeft -= half; pos.current = el.scrollLeft; }
+    else if (el.scrollLeft <= 0) { el.scrollLeft += half; pos.current = el.scrollLeft; }
   };
-  const touched = () => { lastTouch.current = Date.now(); };
+
+  const nudge = (dir: 1 | -1) => {
+    const el = track.current;
+    if (!el) return;
+    resumeAt.current = performance.now() + 2500;
+    const card = (el.children[0] as HTMLElement | undefined)?.offsetWidth ?? 300;
+    el.scrollBy({ left: dir * (card + 20), behavior: "smooth" });
+  };
+
+  const holdOn = () => { hold.current = true; };
+  const holdOff = () => { hold.current = false; resumeAt.current = performance.now() + 800; };
+  const touched = () => { resumeAt.current = performance.now() + 4000; };
+
+  const list = loop ? [...items, ...items] : items;
 
   return (
     <div
       role="region"
       aria-roledescription="carousel"
       aria-label={label}
-      onPointerEnter={() => { hovering.current = true; }}
-      onPointerLeave={() => { hovering.current = false; }}
-      onFocus={() => { hovering.current = true; }}
-      onBlur={() => { hovering.current = false; }}
+      onPointerEnter={(e) => { if (e.pointerType === "mouse") holdOn(); }}
+      onPointerLeave={(e) => { if (e.pointerType === "mouse") holdOff(); }}
+      onFocus={holdOn}
+      onBlur={holdOff}
     >
       <div
         ref={track}
         onScroll={onScroll}
         onTouchStart={touched}
+        onTouchMove={touched}
         onWheel={touched}
-        onKeyDown={touched}
         tabIndex={0}
-        aria-live={playing ? "off" : "polite"}
-        className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2 outline-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-5 overflow-x-auto pb-2 outline-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {items.map((it, i) => (
-          <div key={i} role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${items.length}`} className={`${slide} shrink-0 snap-start`}>
+        {list.map((it, i) => (
+          <div key={i} aria-hidden={i >= items.length ? true : undefined} className={`${slide} shrink-0`}>
             {it}
           </div>
         ))}
       </div>
 
-      <div className="mt-6 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-1.5" aria-hidden="true">
-          {Array.from({ length: pages }, (_, i) => (
-            <button
-              key={i}
-              tabIndex={-1}
-              onClick={() => { touched(); track.current?.scrollTo({ left: i * step(), behavior: "smooth" }); }}
-              className={`h-2 rounded-full transition-all duration-300 ${i === active ? "w-7 bg-brand" : "w-2 bg-ink/20 hover:bg-ink/40"}`}
-            />
-          ))}
-        </div>
-        <div className="flex items-center gap-2">
-          {autoplay && (
-            <button onClick={() => setPlaying((p) => !p)} aria-label={playing ? "Pause automatic sliding" : "Start automatic sliding"} className="flex h-10 items-center rounded-full border border-line bg-white px-4 text-[13px] font-semibold hover:border-ink">
-              {playing ? "Pause" : "Play"}
-            </button>
-          )}
-          <button onClick={() => { touched(); go(-1); }} aria-label="Previous slide" className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-lg hover:border-ink">←</button>
-          <button onClick={() => { touched(); go(1); }} aria-label="Next slide" className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-lg hover:border-ink">→</button>
-        </div>
+      <div className="mt-5 flex items-center justify-end gap-2">
+        {autoplay && loop && (
+          <button onClick={() => setPlaying((p) => !p)} aria-label={playing ? "Pause automatic sliding" : "Start automatic sliding"} className="flex h-10 items-center rounded-full border border-line bg-white px-4 text-[13px] font-semibold hover:border-ink">
+            {playing ? "Pause" : "Play"}
+          </button>
+        )}
+        <button onClick={() => nudge(-1)} aria-label="Previous" className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-lg hover:border-ink">←</button>
+        <button onClick={() => nudge(1)} aria-label="Next" className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-lg hover:border-ink">→</button>
       </div>
     </div>
   );

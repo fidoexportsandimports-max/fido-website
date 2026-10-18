@@ -128,7 +128,7 @@ export default async function SubPage({ params }: { params: Params }) {
           <div className={wrap}>
             <SectionHead eyebrow={`More ${p.name}`} title={`Other types in the ${p.name} range.`} />
             <div className="mt-12">
-              <Carousel label={`Other ${p.name} types`} interval={3800}>
+              <Carousel label={`Other ${p.name} types`}>
                 {siblings.map((o) => <SubCard key={o.slug} product={p.slug} productName={p.name} sub={o} />)}
               </Carousel>
             </div>

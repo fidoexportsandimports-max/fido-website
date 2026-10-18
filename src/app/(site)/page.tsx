@@ -96,7 +96,7 @@ export default function Home() {
             <Reveal><Link href="/products" className="tlink">Open the full catalogue <span className="arrow">→</span></Link></Reveal>
           </div>
           <div className="mt-12">
-            <Carousel label="Our products" interval={4200}>
+            <Carousel label="Our products">
               {products.map((p) => <ProductCard key={p.slug} p={p} />)}
             </Carousel>
           </div>

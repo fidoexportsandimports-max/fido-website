@@ -3,7 +3,7 @@ import Link from "next/link";
 import BlogCard from "@/components/BlogCard";
 import Carousel from "@/components/Carousel";
 import FaqList from "@/components/FaqList";
-import HeroSlider, { type Slide } from "@/components/HeroSlider";
+import PageHero from "@/components/PageHero";
 import ProductCard from "@/components/ProductCard";
 import Reviews from "@/components/Reviews";
 import Reveal from "@/components/Reveal";
@@ -24,15 +24,6 @@ export const metadata = pageMeta({
 });
 
 const wrap = "mx-auto max-w-[1200px] px-5 md:px-6";
-const slides: Slide[] = products.map((p) => ({
-  eyebrow: p.category,
-  title: p.name,
-  text: p.short,
-  chips: catalog[p.slug].subs.length ? catalog[p.slug].subs.slice(0, 4).map((s) => s.name) : p.tags,
-  href: `/products/${p.slug}`,
-  image: photos[p.image],
-}));
-
 export default function Products() {
   const subs = allSubs();
   const agri = products.filter((p) => p.category === "Agriculture & Food");
@@ -41,11 +32,7 @@ export default function Products() {
 
   return (
     <>
-      <section className="border-b border-line bg-mint pb-14 pt-36 md:pb-20 md:pt-48">
-        <div className={wrap}>
-          <HeroSlider slides={slides} />
-        </div>
-      </section>
+      <PageHero eyebrow="Products" title="Our product catalogue" subtitle="Agricultural commodities, food products, polymers and electrical panels from Indian suppliers. Every type has its own page." image="rice" />
 
       <section className="border-b border-line bg-white">
         <dl className={`${wrap} grid grid-cols-3 divide-x divide-line py-8`}>
@@ -62,7 +49,7 @@ export default function Products() {
         <div className={wrap}>
           <SectionHead eyebrow={categories[0].name} title="From the field and the farm." intro={categories[0].blurb + "."} />
           <div className="mt-12">
-            <Carousel label="Agriculture and food products" interval={4000}>
+            <Carousel label="Agriculture and food products">
               {agri.map((p) => <ProductCard key={p.slug} p={p} />)}
             </Carousel>
           </div>
@@ -93,7 +80,7 @@ export default function Products() {
         <div className={wrap}>
           <SectionHead eyebrow="Types and varieties" title="Every variety has its own page." intro="Specifications, packing options and photographs for each type, so you can ask for exactly what you need." />
           <div className="mt-12">
-            <Carousel label="Product types and varieties" interval={3500} slide="w-[84%] sm:w-[46%] lg:w-[23.5%]">
+            <Carousel label="Product types and varieties" slide="w-[84%] sm:w-[46%] lg:w-[23.5%]">
               {subs.map(({ product, sub }) => (
                 <SubCard key={sub.slug} product={product} productName={products.find((p) => p.slug === product)!.name} sub={sub} />
               ))}
@@ -133,7 +120,7 @@ export default function Products() {
         <div className={wrap}>
           <SectionHead eyebrow="From the blog" title="Guides for buyers sourcing from India." />
           <div className="mt-12">
-            <Carousel label="Articles" interval={5000}>
+            <Carousel label="Articles">
               {sortedPosts.map((p) => <BlogCard key={p.slug} post={p} />)}
             </Carousel>
           </div>

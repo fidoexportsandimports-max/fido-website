@@ -94,7 +94,7 @@ export default async function ProductPage({ params }: { params: Params }) {
           <div className={wrap}>
             <SectionHead eyebrow={x.subLabel} title={`${p.name}: ${x.subs.length} ${x.subs.length === 1 ? "type" : "types"}, each with its own page.`} intro="Open any type for its specification checklist, packing options and photographs." />
             <div className="mt-12">
-              <Carousel label={`${p.name} types`} interval={4000}>
+              <Carousel label={`${p.name} types`}>
                 {x.subs.map((s) => <SubCard key={s.slug} product={p.slug} productName={p.name} sub={s} />)}
               </Carousel>
             </div>
@@ -165,7 +165,7 @@ export default async function ProductPage({ params }: { params: Params }) {
         <div className={wrap}>
           <SectionHead eyebrow="More products" title="You may also need." />
           <div className="mt-12">
-            <Carousel label="More products" interval={4200}>
+            <Carousel label="More products">
               {others.map((o) => <ProductCard key={o.slug} p={o} />)}
             </Carousel>
           </div>
